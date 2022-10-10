@@ -1,0 +1,19 @@
+.wrapper {
+    height: 200px;
+    // background-color: #673c3c;
+    margin-top: 220px;
+    text-align: center;
+    font-size: 3rem;
+}
+
+.chat-bot {
+    position: fixed;
+    top: 80%;
+    right: 2%;
+    width: 90px;
+    height: 90px;
+    background-image: url('../../assets/img/icon-zalo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}

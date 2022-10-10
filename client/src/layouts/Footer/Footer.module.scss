@@ -1,0 +1,118 @@
+.wrapper {
+    width: 100%;
+    height: 350px;
+    border-top: 2px solid var(--primary-color);
+    padding: 20px var(--padding-layout);
+    background-color: var(--white-color);
+    color: var(--black-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.detail {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item {
+    margin-right: 20px;
+}
+
+.detail .item:first-child {
+    width: 30%;
+}
+
+.detail .item:nth-child(2) {
+    width: 40%;
+    text-align: center;
+    margin: 0 80px;
+
+    & .map {
+        width: 100%;
+        height: 70%;
+        border: 0;
+    }
+}
+
+.detail .item:last-child {
+    width: 30%;
+    margin-right: 0;
+    padding-bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    & .logo {
+        width: 150px;
+        height: 150px;
+    }
+
+    & .logo a {
+        display: block;
+        text-align: center;
+    }
+
+    & .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    & .social-network {
+        width: 100%;
+        margin-top: -20px;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    & .social-network .social-item {
+        width: 30px;
+        height: 30px;
+    }
+
+    & .social-network .social-item:nth-child(1) {
+        background-image: url('../../assets/img/facebook.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    & .social-network .social-item:nth-child(2) {
+        background-image: url('../../assets/img/zalo-logo-inkythuatso.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    & .social-network .social-item:nth-child(3) {
+        background-image: url('../../assets/img/instagram.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    & .social-network .social-item:nth-child(4) {
+        background-image: url('../../assets/img/gmail.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
+
+.heading {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.4rem;
+
+    & span {
+        margin-bottom: 20px;
+    }
+}
+
+.liscence {
+    text-align: center;
+    font-size: 1.4rem;
+}

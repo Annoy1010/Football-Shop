@@ -1,0 +1,73 @@
+.wrapper {
+    height: 50px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--padding-layout);
+}
+
+.title {
+    font-size: 1.7rem;
+}
+
+.account {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+
+    &:hover .list {
+        display: block;
+    }
+}
+
+.account-down-icon {
+    font-size: 1.2rem;
+    margin-left: 4px;
+}
+
+.list {
+    position: absolute;
+    top: 130%;
+    right: -10px;
+    width: 200px;
+    background-color: #fff;
+    z-index: 10;
+    border-radius: 4px;
+    box-shadow: -4px 6px 16px 0px #cdcdcd;
+    display: none;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -10%;
+        right: 0;
+        width: 100%;
+        height: 8px;
+        background-color: transparent;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: -22px;
+        right: 8px;
+        border-width: 14px;
+        border-style: solid;
+        border-color: transparent transparent var(--white-color) transparent;
+    }
+}
+
+.action-item {
+    display: block;
+    margin: 4px 0;
+    padding: 10px;
+    font-size: 1.6rem;
+    color: var(--black-color);
+
+    &:hover {
+        color: var(--primary-color);
+    }
+}
