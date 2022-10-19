@@ -55,7 +55,7 @@ function Footer() {
                             {' '}
                         </a>
                         <a className={cx('social-item')} href="/" title="Instagram">
-                            {' '} 
+                            {' '}
                         </a>
                         <a className={cx('social-item')} href="/" title="Gmail">
                             {' '}

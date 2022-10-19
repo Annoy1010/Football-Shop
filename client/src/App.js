@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';
+import React from 'react';
 
 function App() {
     return (
@@ -14,11 +15,11 @@ function App() {
                             key={index}
                             path={route.path}
                             element={
-                                <div>
+                                <React.Fragment>
                                     <Header />
                                     <Layout />
                                     <Footer />
-                                </div>
+                                </React.Fragment>
                             }
                         />
                     );

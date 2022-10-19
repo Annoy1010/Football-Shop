@@ -1,6 +1,69 @@
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
 .wrapper {
-    height: 200px;
-    margin-top: 220px;
-    text-align: center;
-    font-size: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 280px;
+    margin-bottom: 60px;
+
+    & .form {
+        margin-bottom: 20px;
+        padding: 0 var(--padding-layout);
+
+        @include make-row();
+        margin-right: 0;
+
+        & .input-item {
+            @include make-col-ready();
+            @include make-col(12);
+            --bs-gutter-x: 5rem;
+            @include media-breakpoint-up(sm) {
+                @include make-col(12);
+            }
+            @include media-breakpoint-up(md) {
+                @include make-col(6);
+            }
+            @include media-breakpoint-up(lg) {
+                @include make-col(4);
+            }
+        }
+    }
+}
+
+.input-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-item {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+}
+
+.input-area {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgb(159, 159, 159);
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+
+    &:focus {
+        border-bottom: 1px solid var(--primary-color);
+    }
+}
+
+.submit-btn {
+    padding: 8px 60px;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    background-color: var(--white-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--primary-color);
+        color: var(--white-color);
+    }
 }
