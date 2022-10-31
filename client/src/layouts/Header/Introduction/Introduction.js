@@ -10,8 +10,8 @@ import userLogin from '../../../user';
 const cx = classNames.bind(styles);
 
 const actions = [
-    { title: 'Đăng ký', path: publicRoutes[6].path },
-    { title: 'Đăng nhập', path: publicRoutes[7].path },
+    { title: 'Đăng ký', path: publicRoutes[8].path },
+    { title: 'Đăng nhập', path: publicRoutes[9].path },
 ];
 const user = userLogin;
 

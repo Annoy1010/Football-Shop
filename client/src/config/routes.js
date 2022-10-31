@@ -9,7 +9,8 @@ const routes = {
     about: '/about',
     sale: '/sale',
     profile: '/user/profile/id/:slugs',
-    order: '/order',
+    order: '/user/id/:slugs/order',
+    cart: '/user/id/:slugs/cart',
     password: '/password',
     forgetPassword: '/password/forget',
 };

@@ -5,18 +5,19 @@ import styles from './AddressItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function AddressItem({ defaultItem }) {
+function AddressItem({ defaultItem, user }) {
+    console.log(user);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('personal-info')}>
-                <span className={cx('personal-name')}>Lê Thế Phúc</span>
-                <span className={cx('personal-phone')}>0368341595</span>
+                <span className={cx('personal-name')}>{user.name}</span>
+                <span className={cx('personal-phone')}>{user.phone}</span>
             </div>
             <div className={cx('address-detail')}>
-                <span>Bưu điện Linh Trung, Đường số 4</span>
+                <span>{`${user.address.street}, ${user.address.ward}`}</span>
             </div>
             <div className={cx('address-detail')}>
-                <span>Phường Linh Trung, Thành Phố Thủ Đức, TP. Hồ Chí Minh</span>
+                <span>{`${user.address.district}, ${user.address.province}`}</span>
             </div>
             {defaultItem === true ? <span className={cx('address-default')}>Mặc định</span> : <></>}
         </div>
@@ -24,7 +25,8 @@ function AddressItem({ defaultItem }) {
 }
 
 AddressItem.prototype = {
-    defaultItem: PropTypes.bool,
+    defaultItem: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired,
 };
 
 export default AddressItem;

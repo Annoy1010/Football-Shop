@@ -1,11 +1,12 @@
 import config from '../config';
-import Content from '../layouts/Content';
 import Home from '../layouts/Home';
 import Products from '../layouts/Products';
 import Size from '../layouts/Size';
 import Contact from '../layouts/Contact';
 import About from '../layouts/About';
 import Sale from '../layouts/Sale';
+import Cart from '../layouts/Cart';
+import Order from '../layouts/Order';
 import SignUp from '../layouts/SignUp';
 import SignIn from '../layouts/SignIn';
 import ForgetPassword from '../layouts/ForgetPassword';
@@ -38,6 +39,14 @@ const publicRoutes = [
         component: Sale,
     },
     {
+        path: config.routes.cart,
+        component: Cart,
+    },
+    {
+        path: config.routes.order,
+        component: Order,
+    },
+    {
         path: config.routes.signup,
         component: SignUp,
     },
@@ -59,15 +68,6 @@ const publicRoutes = [
     },
 ];
 
-const privateRoutes = [
-    {
-        path: config.routes.order,
-        component: Content,
-    },
-    {
-        path: config.routes.password,
-        component: Content,
-    },
-];
+const privateRoutes = [];
 
 export { publicRoutes, privateRoutes };

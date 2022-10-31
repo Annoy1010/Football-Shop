@@ -1,0 +1,67 @@
+.wrapper {
+    margin-top: 220px;
+    margin-bottom: 150px;
+    padding: 0 var(--padding-layout);
+}
+
+.heading {
+    margin-bottom: 20px;
+    padding: 10px 0;
+    padding-left: 4px;
+    font-size: 2.2rem;
+    background-color: var(--heading-background-color);
+    border-radius: 4px;
+}
+
+.order {
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    margin-bottom: 30px;
+    padding: 10px 4px;
+}
+
+.order-id,
+.address-id {
+    font-size: 1.8rem;
+}
+
+.product-list {
+    border-right: 1px solid var(--light-color);
+}
+
+.order-user {
+    padding-left: 80px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.6rem;
+}
+
+.user-address {
+    text-align: justify;
+}
+
+.price {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.6rem;
+}
+
+.order-price,
+.ship-price,
+.total-price {
+    display: flex;
+    & label {
+        width: 26%;
+    }
+
+    & span {
+        display: block;
+        width: 20%;
+        text-align: center;
+        font-weight: bold;
+    }
+}

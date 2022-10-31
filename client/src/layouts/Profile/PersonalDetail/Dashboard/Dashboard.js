@@ -4,10 +4,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import styles from './Dashboard.module.scss';
+import user from '../../../../user';
+import data from '../../../../hardData';
 
 const cx = classNames.bind(styles);
 
 function Dashboard() {
+    const currentUser = data.user.filter((userItem) => userItem.id === user)[0];
+
     return (
         <div className={cx('wrapper')}>
             <h3 className={cx('heading')}>Hồ sơ</h3>
@@ -24,19 +28,19 @@ function Dashboard() {
                     <Col sm={12} lg={9} xl={8} className={cx('personal-detail')}>
                         <div className={cx('personal-detail-item')}>
                             <label htmlFor="username">Tên đăng nhập</label>
-                            <input id="username" className={cx('item-value')} value={'annoy'} readOnly />
+                            <input id="username" className={cx('item-value')} value={currentUser.username} readOnly />
                         </div>
                         <div className={cx('personal-detail-item')}>
                             <label htmlFor="fullname">Họ và tên</label>
-                            <input id="fullname" className={cx('item-value')} value={'Lê Thế Phúc'} readOnly />
+                            <input id="fullname" className={cx('item-value')} value={currentUser.name} readOnly />
                         </div>
                         <div className={cx('personal-detail-item')}>
                             <label htmlFor="email">Email</label>
-                            <input id="email" className={cx('item-value')} value={'lethephuc2002@gmail.com'} readOnly />
+                            <input id="email" className={cx('item-value')} value={currentUser.mail} readOnly />
                         </div>
                         <div className={cx('personal-detail-item')}>
                             <label htmlFor="phone">Số điện thoại</label>
-                            <input id="phone" className={cx('item-value')} value={'0368341595'} readOnly />
+                            <input id="phone" className={cx('item-value')} value={currentUser.phone} readOnly />
                         </div>
                         <button className={cx('save-btn')}>Lưu</button>
                     </Col>

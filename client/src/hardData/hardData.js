@@ -1,3 +1,32 @@
+const user = [
+    {
+        id: '000001',
+        username: 'annoy',
+        name: 'Lê Thế Phúc',
+        phone: '0368341595',
+        mail: 'lethephuc2002@gmail.com',
+        address: {
+            street: 'Bưu điện Linh Trung, Đường số 4',
+            ward: 'Phường Linh Trung',
+            district: 'Thành phố Thủ Đức',
+            province: 'TP. Hồ Chí Minh',
+        },
+    },
+    {
+        id: '000002',
+        username: 'sanpot',
+        name: 'Lê Thế Phúc',
+        phone: '0368341595',
+        mail: 'lephuc8a1@gmail.com',
+        address: {
+            street: 'Bưu điện Linh Trung, Đường số 4',
+            ward: 'Phường Linh Trung',
+            district: 'Thành phố Thủ Đức',
+            province: 'TP. Hồ Chí Minh',
+        },
+    },
+];
+
 const products = [
     {
         id: '000001',
@@ -382,7 +411,88 @@ const comment = [
     },
 ];
 
+const cart = [
+    {
+        userId: '000001',
+        products: [
+            {
+                productId: '000001',
+                size: 40,
+                quantity: 1,
+            },
+            {
+                productId: '000002',
+                size: 42,
+                quantity: 3,
+            },
+            {
+                productId: '000003',
+                size: 40,
+                quantity: 3,
+            },
+        ],
+    },
+];
+
+const order = [
+    {
+        userId: '000001',
+        orderId: '111111',
+        products: [
+            {
+                productId: '000001',
+                size: 40,
+                quantity: 1,
+            },
+            {
+                productId: '000003',
+                size: 40,
+                quantity: 3,
+            },
+        ],
+        receivedStatus: false,
+        ship: 0,
+    },
+    {
+        userId: '000001',
+        orderId: '111112',
+        products: [
+            {
+                productId: '000002',
+                size: 40,
+                quantity: 2,
+            },
+            {
+                productId: '000004',
+                size: 40,
+                quantity: 2,
+            },
+        ],
+        receivedStatus: false,
+        ship: 0,
+    },
+    {
+        userId: '000002',
+        orderId: '111113',
+        products: [
+            {
+                productId: '000002',
+                size: 40,
+                quantity: 1,
+            },
+            {
+                productId: '000003',
+                size: 40,
+                quantity: 3,
+            },
+        ],
+        receivedStatus: false,
+        ship: 0,
+    },
+];
+
 const data = {
+    user,
     products,
     storeRules,
     contacts,
@@ -393,6 +503,8 @@ const data = {
     position,
     allProductChoicesMenu,
     comment,
+    cart,
+    order,
 };
 
 export default data;

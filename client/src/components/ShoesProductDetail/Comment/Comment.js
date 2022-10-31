@@ -29,7 +29,7 @@ function Comment({ productId }) {
 }
 
 Comment.prototype = {
-    productId: PropTypes.number.isRequired,
+    productId: PropTypes.string.isRequired,
 };
 
 export default Comment;
