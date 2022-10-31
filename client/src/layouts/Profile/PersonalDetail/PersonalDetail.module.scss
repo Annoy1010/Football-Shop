@@ -1,0 +1,62 @@
+// .wrapper {
+// }
+
+.heading {
+    margin-bottom: 20px;
+    padding: 4px 0;
+    padding-left: 4px;
+    font-size: 2.6rem;
+    background-color: var(--light-color);
+    border-radius: 4px;
+}
+
+.personal-avatar {
+    display: flex;
+    flex-direction: column;
+
+    & img {
+        margin: 0 auto;
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+    }
+}
+
+.avatar-change-btn {
+    margin: 0 auto;
+    width: 70%;
+    padding: 4px 0;
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    background-color: var(--white-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    user-select: none;
+}
+
+.personal-detail {
+    padding-top: 30px;
+    padding-left: 100px;
+    font-size: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.personal-detail-item {
+    display: flex;
+    justify-content: space-between;
+
+    & label {
+        width: 30%;
+        font-weight: bold;
+    }
+
+    & span,
+    & input {
+        flex: 1;
+        margin-left: 10px;
+        padding-left: 10px;
+        outline: none;
+    }
+}

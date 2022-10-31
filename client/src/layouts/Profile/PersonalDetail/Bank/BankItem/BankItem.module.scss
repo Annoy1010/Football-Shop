@@ -1,0 +1,39 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--light-color);
+}
+
+.bank-img {
+    width: 8%;
+
+    & img {
+        width: 100%;
+    }
+}
+
+.bank-info {
+    flex: 1;
+    margin-left: 30px;
+    font-size: 1.6rem;
+}
+
+.bank-area-name {
+    margin-right: 30px;
+}
+
+.bank-default {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 10px;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    background-color: var(--width-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    user-select: none;
+}

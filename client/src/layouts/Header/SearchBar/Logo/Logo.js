@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 function Logo() {
     return (
         <div className={cx('wrapper')}>
-            <a href="/">
+            <a href="/" className={cx('logo-link')}>
                 <img
                     className={cx('logo')}
                     src="https://images.vexels.com/media/users/3/132241/isolated/lists/0d413432a55194038d3266f8045868dd-soccer-player-silhouette-1.png"

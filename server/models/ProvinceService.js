@@ -13,4 +13,5 @@ function getProvinceList(req, res) {
 const service = {
     getProvinceList,
 };
+
 export default service;

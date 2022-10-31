@@ -1,0 +1,43 @@
+.wrapper {
+    position: relative;
+    margin-top: 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--light-color);
+}
+
+.personal-info,
+.address-detail {
+    margin: 4px 0;
+}
+
+.personal-name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    padding-right: 10px;
+    border-right: 1px solid var(--light-color);
+}
+
+.personal-phone {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--extra-color);
+    padding-left: 10px;
+}
+
+.address-detail {
+    font-size: 1.6rem;
+    color: var(--extra-color);
+}
+
+.address-default {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 10px;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    background-color: var(--width-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    user-select: none;
+}

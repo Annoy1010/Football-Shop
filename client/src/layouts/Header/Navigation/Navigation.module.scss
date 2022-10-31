@@ -3,7 +3,7 @@
     background-color: var(--white-color);
     display: flex;
     justify-content: space-between;
-    z-index: 100;
+    z-index: 10000;
 }
 
 .link-item {
@@ -162,5 +162,17 @@
 
     &:hover {
         margin-left: 10px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .wrapper {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        display: none;
     }
 }

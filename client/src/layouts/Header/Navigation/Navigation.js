@@ -6,6 +6,7 @@ import classNames from 'classnames/bind';
 
 import styles from './Navigation.module.scss';
 import { publicRoutes } from '../../../routes';
+import data from '../../../hardData';
 
 const cx = classNames.bind(styles);
 
@@ -16,123 +17,6 @@ const MENU = [
     { title: 'Liên hệ', link: publicRoutes[3].path },
     { title: 'Về chúng tôi', link: publicRoutes[4].path },
     { title: 'Giảm giá', link: publicRoutes[5].path },
-];
-
-const PRODUCT_OPTIONS = [
-    {
-        title: 'Mặt sân thi đấu',
-        children: [
-            {
-                name: 'Sân cỏ nhân tạo (TF)',
-            },
-            {
-                name: 'Sân cỏ tự nhiên (FG)',
-            },
-            {
-                name: 'Sân Futsal (IC)',
-            },
-        ],
-    },
-    {
-        title: 'Loại giày',
-        children: [
-            {
-                name: 'Nike',
-                list: [
-                    {
-                        type: 'Nike Mercurial',
-                    },
-                    {
-                        type: 'Nike Phantom',
-                    },
-                    {
-                        type: 'Nike Tiempo',
-                    },
-                    {
-                        type: 'Nike Magista',
-                    },
-                    {
-                        type: 'Nike Hypervenom',
-                    },
-                ],
-            },
-            {
-                name: 'Adidas',
-                list: [
-                    {
-                        type: 'Adidas X',
-                    },
-                    {
-                        type: 'Adidas Copa',
-                    },
-                    {
-                        type: 'Adidas Predator',
-                    },
-                    {
-                        type: 'Adidas Nemeziz',
-                    },
-                ],
-            },
-            {
-                name: 'Puma',
-                list: [
-                    {
-                        type: 'Puma Future',
-                    },
-                    {
-                        type: 'Puma Ultra',
-                    },
-                ],
-            },
-            {
-                name: 'Mizuno',
-                list: [
-                    {
-                        type: 'Mizuno Morelia NEO',
-                    },
-                    {
-                        type: 'Mizuno Morelia Japan',
-                    },
-                ],
-            },
-            {
-                name: 'Kamito',
-                list: [
-                    {
-                        type: 'Kamito TA11',
-                    },
-                ],
-            },
-            {
-                name: 'Wika',
-                list: [
-                    {
-                        type: 'Wika QH19',
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        title: 'Vị trí thi đấu',
-        children: [
-            {
-                name: 'Thủ môn',
-            },
-            {
-                name: 'Hậu vệ',
-            },
-            {
-                name: 'Tiền vệ',
-            },
-            {
-                name: 'Tiền đạo',
-            },
-        ],
-    },
-    {
-        title: 'Phụ kiện',
-    },
 ];
 
 function Navigation() {
@@ -165,7 +49,7 @@ function Navigation() {
                     onMouseOver={() => setShowProducts(true)}
                     onMouseOut={() => setShowProducts(false)}
                 >
-                    {PRODUCT_OPTIONS.map((option, index) => (
+                    {data.productOptionsList.map((option, index) => (
                         <div key={index} className={cx('product-option-item')}>
                             <h4 className={cx('product-option-heading')}>{option.title}</h4>
                             {option.children && (

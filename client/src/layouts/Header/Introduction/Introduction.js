@@ -9,12 +9,11 @@ import userLogin from '../../../user';
 
 const cx = classNames.bind(styles);
 
-const user = userLogin;
-
 const actions = [
     { title: 'Đăng ký', path: publicRoutes[6].path },
     { title: 'Đăng nhập', path: publicRoutes[7].path },
 ];
+const user = userLogin;
 
 function Introduction() {
     return (

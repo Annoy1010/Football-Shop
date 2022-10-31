@@ -2,6 +2,7 @@
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
 }
 
 .user-icon,
@@ -66,11 +67,16 @@
 }
 
 .cart-icon {
+    position: relative;
     margin-left: 20px;
+    color: var(--primary-color);
+
+    &:hover {
+        color: var(--primary-color);
+    }
 }
 
 .cart-icon {
-    position: relative;
 }
 
 .order-quantity {
@@ -87,4 +93,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        display: none;
+    }
 }

@@ -1,0 +1,56 @@
+.wrapper {
+    margin: 0 calc(-1 * var(--padding-layout));
+    height: var(--slide-show-height);
+}
+
+.first-item,
+.second-item,
+.third-item {
+    width: 100%;
+    height: var(--slide-show-height);
+}
+
+.first-item {
+    background-image: url('https://www.soccerbible.com/media/119421/stealth-1-min.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.second-item {
+    background-image: url('https://file.hstatic.net/1000061481/file/mercurial_vapor_banner_01_4cc07d80a9c14b029a786b813d6a50a2.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.third-item {
+    background-image: url('https://thumblr.uniid.it/blog_component/106561/1e07c940e3f1.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .wrapper {
+        height: var(--slide-show-height-mobile-tablet);
+    }
+
+    .first-item,
+    .second-item,
+    .third-item {
+        height: var(--slide-show-height-mobile-tablet);
+    }
+}
+
+@media only screen and (max-width: 736px) {
+    .wrapper {
+        height: var(--slide-show-height-mobile-tablet);
+    }
+
+    .first-item,
+    .second-item,
+    .third-item {
+        height: var(--slide-show-height-mobile-tablet);
+    }
+}

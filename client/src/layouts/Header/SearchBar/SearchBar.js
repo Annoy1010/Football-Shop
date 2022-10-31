@@ -1,9 +1,9 @@
-import Search from './Search';
-import Action from './Action';
-import Logo from './Logo';
 import classNames from 'classnames/bind';
 
 import styles from './SearchBar.module.scss';
+import Search from './Search';
+import Action from './Action';
+import Logo from './Logo';
 
 const cx = classNames.bind(styles);
 

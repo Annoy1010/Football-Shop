@@ -9,11 +9,17 @@
 :root {
     --primary-color: #268190;
     --secondary-color: #c13729;
+    --light-color: #e2e2e2;
     --extra-color: #868686;
+    --heading-background-color: #f0f0f0;
     --white-color: #ffffff;
     --black-color: #000000;
+    --red-color: #c00000;
     --main-background: #f1f1f1;
+    --margin-top-layout: 60px;
     --padding-layout: 6vw;
+    --slide-show-height: 540px;
+    --slide-show-height-mobile-tablet: 400px;
 }
 
 html {
@@ -43,4 +49,16 @@ a {
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--primary-color);
+}
+
+.chat-bot {
+    position: fixed;
+    top: 80%;
+    right: 2%;
+    width: 90px;
+    height: 90px;
+    background-image: url('../../assets/img/icon-zalo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
 }

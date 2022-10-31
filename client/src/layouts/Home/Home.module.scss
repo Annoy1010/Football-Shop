@@ -1,5 +1,19 @@
 .wrapper {
-    margin-top: 220px;
-    text-align: center;
-    font-size: 3rem;
+    margin-top: 221px;
+    padding: 0 var(--padding-layout);
+    z-index: -1;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .wrapper {
+        margin-top: 130px;
+        padding: 0 10px;
+    }
+}
+
+@media only screen and (max-width: 736px) {
+    .wrapper {
+        margin-top: 130px;
+        padding: 0 10px;
+    }
 }

@@ -1,0 +1,36 @@
+.wrapper {
+    display: flex;
+    margin-bottom: 30px;
+    padding-left: 20px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+.comment-info {
+    span {
+        display: block;
+    }
+}
+
+.username,
+.comment-date {
+    font-size: 1.4rem;
+    color: var(--extra-color);
+}
+
+.comment-content {
+    margin-top: 4px;
+    font-size: 1.6rem;
+    font-weight: 500;
+}

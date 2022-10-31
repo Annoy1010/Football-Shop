@@ -8,6 +8,9 @@ import About from '../layouts/About';
 import Sale from '../layouts/Sale';
 import SignUp from '../layouts/SignUp';
 import SignIn from '../layouts/SignIn';
+import ForgetPassword from '../layouts/ForgetPassword';
+import Profile from '../layouts/Profile/Profile';
+import ShoesProductDetail from '../components/ShoesProductDetail/ShoesProductDetail';
 
 const publicRoutes = [
     {
@@ -42,13 +45,21 @@ const publicRoutes = [
         path: config.routes.signin,
         component: SignIn,
     },
+    {
+        path: config.routes.forgetPassword,
+        component: ForgetPassword,
+    },
+    {
+        path: config.routes.profile,
+        component: Profile,
+    },
+    {
+        path: config.routes.shoesProductDetail,
+        component: ShoesProductDetail,
+    },
 ];
 
 const privateRoutes = [
-    {
-        path: config.routes.profile,
-        component: Content,
-    },
     {
         path: config.routes.order,
         component: Content,

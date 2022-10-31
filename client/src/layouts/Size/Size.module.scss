@@ -1,6 +1,42 @@
 .wrapper {
-    height: 200px;
-    margin-top: 220px;
-    text-align: center;
+    margin-top: 240px;
+    margin-bottom: 60px;
+    padding: 0 var(--padding-layout);
+    z-index: -1;
+}
+
+.heading {
+    font-weight: bold;
     font-size: 3rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.img-desc {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.step-title {
+    font-size: 1.8rem;
+}
+
+.step-content {
+    padding-left: 10px;
+    font-size: 1.6rem;
+}
+
+@media only screen and (max-width: 767px) {
+    .img-desc {
+        width: 100%;
+        height: 40vh;
+        margin-bottom: 0;
+        padding: 0 var(--padding-layout);
+
+        & img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
 }

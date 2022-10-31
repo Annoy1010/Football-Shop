@@ -1,6 +1,43 @@
 .wrapper {
-    height: 200px;
-    margin-top: 220px;
+    margin-top: 240px;
+    margin-bottom: 30px;
+    padding: 0 var(--padding-layout);
+    z-index: -1;
+}
+
+.heading {
     text-align: center;
+    font-weight: bold;
     font-size: 3rem;
+    margin-bottom: 30px;
+}
+
+.store-intro {
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    font-style: italic;
+    margin-bottom: 40px;
+}
+
+.store-rule {
+    margin-bottom: 40px;
+}
+
+.rule-item {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+}
+
+.store-info {
+    text-align: center;
+    margin-bottom: 20px;
+
+    & .heading-info {
+        font-weight: bold;
+        font-size: 2.4rem;
+    }
+}
+
+.hotline {
+    color: red;
 }

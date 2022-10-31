@@ -1,0 +1,25 @@
+.wrapper {
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-color);
+}
+
+.heading {
+    font-weight: bold;
+    font-size: 2.6rem;
+    margin-bottom: 20px;
+}
+
+.product-item {
+    display: flex;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.product-item-name {
+    width: 14%;
+}
+
+.product-item-desc {
+    flex: 1;
+}
