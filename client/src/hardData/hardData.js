@@ -30,9 +30,9 @@ const user = [
 const products = [
     {
         id: '000001',
-        name: 'Nike Mercurial',
+        name: 'Nike Mercurial Superfly 9 Elite',
         src: 'https://static.nike.com/a/images/t_default/340736d0-54f8-4164-96c0-7a934b97f65b/zoom-mercurial-superfly-9-elite-fg-firm-ground-soccer-cleats-zvNH5C.png',
-        price: 1000,
+        price: 8929000,
         size: [38, 39, 40, 41, 42, 43, 44],
         availableSize: [40, 41, 42],
         sale: null,
@@ -42,9 +42,9 @@ const products = [
     },
     {
         id: '000002',
-        name: 'Nike Mercurial',
+        name: 'Nike Mercurial Vapor 15 Elite',
         src: 'https://static.nike.com/a/images/t_default/5a1696b9-8f1d-4f6c-9027-0043ff8e60e3/zoom-mercurial-vapor-15-elite-fg-firm-ground-soccer-cleats-0D1QW8.png',
-        price: 2000,
+        price: 5790000,
         size: [38, 39, 40, 41, 42, 43, 44],
         availableSize: [38, 40, 41, 42],
         sale: 30,
@@ -54,9 +54,9 @@ const products = [
     },
     {
         id: '000003',
-        name: 'Nike Mercurial',
+        name: 'Nike Mercurial Superfly 9 Elite',
         src: 'https://static.nike.com/a/images/t_default/f12655e6-ee47-4f7e-a6a1-95bfcb115221/zoom-mercurial-superfly-9-elite-km-fg-firm-ground-soccer-cleats-sb8gJK.png',
-        price: 1000,
+        price: 8349000,
         size: [38, 39, 40, 41, 42, 43, 44],
         availableSize: [40, 41, 42, 43],
         sale: 30,
@@ -66,9 +66,9 @@ const products = [
     },
     {
         id: '000004',
-        name: 'Nike Mercurial',
+        name: 'Nike Phantom GT Elite',
         src: 'https://images.jdmagicbox.com/quickquotes/images_main/nike-kids-footwear-23-07-2021-227-239598261-0anne.png',
-        price: 1500,
+        price: 6500000,
         size: [38, 39, 40, 41, 42, 43, 44],
         availableSize: [39, 42],
         sale: 30,
@@ -78,9 +78,9 @@ const products = [
     },
     {
         id: '000005',
-        name: 'Nike Mercurial',
+        name: 'Nike Mercurial Superfly 8 Academy',
         src: 'https://cdn.vietnambiz.vn/171464876016439296/2021/6/17/custom-nike-mercurial-superfly-8-academy-by-you-1623902919942359771744.png',
-        price: 1000,
+        price: 2270000,
         size: [38, 39, 40, 41, 42, 43, 44],
         availableSize: [40, 42],
         sale: 30,
@@ -90,9 +90,9 @@ const products = [
     },
     {
         id: '000006',
-        name: 'Nike Mercurial',
+        name: 'Nike Mercurial Zoom Vapor 14 Pro',
         src: 'https://cdn.shopify.com/s/files/1/2704/4738/products/image_58c97127-945d-4d31-bc6a-53154f4a6825_480x480.png?v=1628715490',
-        price: 1000,
+        price: 2650000,
         size: [38, 39, 40, 41, 42, 43, 44],
         availableSize: [38, 41, 42, 44],
         sale: 30,
@@ -431,6 +431,7 @@ const cart = [
                 quantity: 3,
             },
         ],
+        ship: 0,
     },
 ];
 

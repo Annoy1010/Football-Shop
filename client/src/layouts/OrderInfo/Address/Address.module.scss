@@ -1,0 +1,25 @@
+.wrapper {
+    margin-bottom: 20px;
+}
+
+.order-info {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 1px solid var(--black-color);
+    border-radius: 4px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    & label {
+        font-size: 1.4rem;
+        color: var(--extra-color);
+    }
+
+    & span {
+        font-size: 1.6rem;
+    }
+}

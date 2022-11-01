@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -38,7 +39,9 @@ function CartItem({ product, key, checked }) {
                         />
                         <div className={cx('product-info')}>
                             <div className={cx('product-img')}>
-                                <img src={productInCart.src} alt="" />
+                                <Link to={`/products/shoes/id/${product.productId}`}>
+                                    <img src={productInCart.src} alt="" />
+                                </Link>
                             </div>
                             <div className={cx('product-desc')}>
                                 <span className={cx('product-name')}>{productInCart.name}</span>

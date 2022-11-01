@@ -7,6 +7,7 @@ import About from '../layouts/About';
 import Sale from '../layouts/Sale';
 import Cart from '../layouts/Cart';
 import Order from '../layouts/Order';
+import OrderInfo from '../layouts/OrderInfo';
 import SignUp from '../layouts/SignUp';
 import SignIn from '../layouts/SignIn';
 import ForgetPassword from '../layouts/ForgetPassword';
@@ -53,6 +54,10 @@ const publicRoutes = [
     {
         path: config.routes.signin,
         component: SignIn,
+    },
+    {
+        path: config.routes.orderInfo,
+        component: OrderInfo,
     },
     {
         path: config.routes.forgetPassword,

@@ -1,4 +1,6 @@
 import classNames from 'classnames/bind';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -6,7 +8,6 @@ import Col from 'react-bootstrap/Col';
 import styles from './Cart.module.scss';
 import data from '../../hardData';
 import CartItem from './CartItem';
-import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -65,7 +66,9 @@ function Cart() {
                         <b>Tổng tiền:</b>
                         <span> {totalPrice}đ</span>
                     </div>
-                    <button className={cx('order-btn')}>Đặt hàng</button>
+                    <Link className={cx('order-btn')} to={`/user/id/${userId}/order/info`}>
+                        Mua hàng
+                    </Link>
                 </>
             )}
         </div>

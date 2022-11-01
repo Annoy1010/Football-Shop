@@ -1,17 +1,17 @@
 import { NavLink } from 'react-router-dom';
-import { publicRoutes } from '../../../routes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/fontawesome-free-solid';
 import classNames from 'classnames/bind';
 
 import styles from './Introduction.module.scss';
+import configs from '../../../config';
 import userLogin from '../../../user';
 
 const cx = classNames.bind(styles);
 
 const actions = [
-    { title: 'Đăng ký', path: publicRoutes[8].path },
-    { title: 'Đăng nhập', path: publicRoutes[9].path },
+    { title: 'Đăng ký', path: configs.routes.signup },
+    { title: 'Đăng nhập', path: configs.routes.signin },
 ];
 const user = userLogin;
 
