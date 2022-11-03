@@ -1,20 +1,37 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import configs from '../../config';
+import { useState, useEffect } from 'react';
+import Axios from 'axios';
 
 import styles from './SignIn.module.scss';
+import configs from '../../config';
 
 const cx = classNames.bind(styles);
 
-function SignIn() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+function SignIn({ username, setUsername, password, setPassword, user, setUser }) {
+    const [customerList, setCustomerList] = useState([]);
+    useEffect(() => {
+        Axios.get('/user/login')
+            .then((res) => setCustomerList(res.data))
+            .catch((err) => console.error(err));
+    }, []);
 
-    const handleOnSignin = () => {
-        if (username === 'annoy' && password === 'l3th3Phuc') {
-            alert('Đăng nhập thành công');
-            window.location.reload(true);
+    localStorage.setItem('user', JSON.stringify(user));
+
+    const handleOnSignIn = (e) => {
+        const customerInfo = customerList.filter((customer) => {
+            return customer.userName === username && customer.pass === password;
+        });
+
+        if (customerInfo.length === 0) {
+            e.preventDefault();
+            alert('Kiểm tra lại tên đăng nhập hoặc mật khẩu');
+        } else {
+            localStorage.setItem('user', JSON.stringify(customerInfo[0]));
+            setUser(customerInfo[0]);
+            setUsername('');
+            setPassword('');
+            // window.location.reload();
         }
     };
 
@@ -58,9 +75,9 @@ function SignIn() {
                             Tạo tài khoản mới
                         </Link>
                     </div>
-                    <button className={cx('submit-btn')} onClick={handleOnSignin}>
+                    <Link className={cx('submit-btn')} onClick={(e) => handleOnSignIn(e)} to={configs.routes.home}>
                         Đăng nhập
-                    </button>
+                    </Link>
                 </div>
                 <div className={cx('signin-type')}>
                     <button className={cx('social-btn', 'google')}>Đăng nhập bằng Google</button>

@@ -64,6 +64,8 @@
 }
 
 .product-price-origin {
+    color: var(--red-color);
+
     &.saled {
         text-decoration: line-through;
         color: var(--extra-color);

@@ -1,11 +1,13 @@
+import classNames from 'classnames/bind';
 import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import Axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/fontawesome-free-solid';
-import classNames from 'classnames/bind';
 
 import styles from './Introduction.module.scss';
 import configs from '../../../config';
-import userLogin from '../../../user';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -13,16 +15,25 @@ const actions = [
     { title: 'Đăng ký', path: configs.routes.signup },
     { title: 'Đăng nhập', path: configs.routes.signin },
 ];
-const user = userLogin;
 
+const user = JSON.parse(localStorage.getItem('user'));
+const userIsNotExisted = user && Object.keys(user).length === 0 && Object.getPrototypeOf(user) === Object.prototype;
+console.log(userIsNotExisted);
 function Introduction() {
+    const [store, setStore] = useState({});
+    useEffect(() => {
+        Axios.get('/store')
+            .then((res) => setStore(res.data[0]))
+            .catch((err) => console.log(err));
+    }, []);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('website-name', 'title')}>
-                <a href="/">Abc.com</a>
+                <a href="/">{store && store.storeName}</a>
             </div>
             <div className={cx('account')}>
-                {user ? (
+                {!userIsNotExisted ? (
                     <span className={cx('account-name', 'title')}>Người dùng</span>
                 ) : (
                     <>

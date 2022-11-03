@@ -28,6 +28,20 @@
     color: var(--red-color);
 }
 
+.product-price-origin {
+    color: var(--red-color);
+
+    &.saled {
+        text-decoration: line-through;
+        color: var(--extra-color);
+    }
+}
+
+.product-price-sale {
+    margin-left: 40px;
+    color: var(--red-color);
+}
+
 .product-sale {
     position: absolute;
     top: -1px;

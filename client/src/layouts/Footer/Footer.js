@@ -1,9 +1,18 @@
 import classNames from 'classnames/bind';
+import { useEffect, useState } from 'react';
+import Axios from 'axios';
+
 import styles from './Footer.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Footer() {
+    const [store, setStore] = useState({});
+    useEffect(() => {
+        Axios.get('/store')
+            .then((res) => setStore(res.data[0]))
+            .catch((err) => console.log(err));
+    }, []);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('detail')}>
@@ -17,7 +26,7 @@ function Footer() {
                         </span>
                         <span>
                             <strong>Hotline: </strong>
-                            <span>0368341595</span>
+                            <span>{store.phone}</span>
                         </span>
                     </div>
                 </div>
@@ -48,16 +57,40 @@ function Footer() {
                         </a>
                     </div>
                     <div className={cx('social-network')}>
-                        <a className={cx('social-item')} href="/" title="Facebook">
+                        <a
+                            className={cx('social-item')}
+                            target="_blank"
+                            rel="noreferrer"
+                            href={store.facebookLink}
+                            title="Facebook"
+                        >
                             {' '}
                         </a>
-                        <a className={cx('social-item')} href="/" title="Gmail">
+                        <a
+                            className={cx('social-item')}
+                            target="_blank"
+                            rel="noreferrer"
+                            href={store.gmailLink}
+                            title="Gmail"
+                        >
                             {' '}
                         </a>
-                        <a className={cx('social-item')} href="/" title="Instagram">
+                        <a
+                            className={cx('social-item')}
+                            target="_blank"
+                            rel="noreferrer"
+                            href={store.instagramLink}
+                            title="Instagram"
+                        >
                             {' '}
                         </a>
-                        <a className={cx('social-item')} href="/" title="Gmail">
+                        <a
+                            className={cx('social-item')}
+                            target="_blank"
+                            rel="noreferrer"
+                            href={store.zaloLink}
+                            title="Zalo"
+                        >
                             {' '}
                         </a>
                     </div>

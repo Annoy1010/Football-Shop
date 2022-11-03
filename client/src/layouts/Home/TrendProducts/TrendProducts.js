@@ -1,6 +1,7 @@
-import Carousel from 'react-bootstrap/Carousel';
 import classNames from 'classnames/bind';
+import Carousel from 'react-bootstrap/Carousel';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -51,13 +52,15 @@ function TrendProducts() {
                                         </span>
                                         {product.sale ? (
                                             <span className={cx('product-price-sale')}>
-                                                {product.price * (1 - product.sale / 100)}đ
+                                                {(product.price * (1 - product.sale / 100)).toFixed(0)}đ
                                             </span>
                                         ) : (
                                             <></>
                                         )}
                                     </div>
-                                    <button className={cx('buy-btn')}>Mua ngay</button>
+                                    <Link key={index} className={cx('buy-btn')} to={`/products/shoes/id/${product.id}`}>
+                                        Mua ngay
+                                    </Link>
                                 </Col>
                             </Row>
                         </Carousel.Item>

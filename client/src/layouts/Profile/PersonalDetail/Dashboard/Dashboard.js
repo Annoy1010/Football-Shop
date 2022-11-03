@@ -4,13 +4,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import styles from './Dashboard.module.scss';
-import user from '../../../../user';
-import data from '../../../../hardData';
 
 const cx = classNames.bind(styles);
 
 function Dashboard() {
-    const currentUser = data.user.filter((userItem) => userItem.id === user)[0];
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+
+    console.log('current user: ', currentUser);
 
     return (
         <div className={cx('wrapper')}>
@@ -28,15 +28,15 @@ function Dashboard() {
                     <Col sm={12} lg={9} xl={8} className={cx('personal-detail')}>
                         <div className={cx('personal-detail-item')}>
                             <label htmlFor="username">Tên đăng nhập</label>
-                            <input id="username" className={cx('item-value')} value={currentUser.username} readOnly />
+                            <input id="username" className={cx('item-value')} value={currentUser.userName} readOnly />
                         </div>
                         <div className={cx('personal-detail-item')}>
                             <label htmlFor="fullname">Họ và tên</label>
-                            <input id="fullname" className={cx('item-value')} value={currentUser.name} readOnly />
+                            <input id="fullname" className={cx('item-value')} value={currentUser.fullName} readOnly />
                         </div>
                         <div className={cx('personal-detail-item')}>
                             <label htmlFor="email">Email</label>
-                            <input id="email" className={cx('item-value')} value={currentUser.mail} readOnly />
+                            <input id="email" className={cx('item-value')} value={currentUser.email} readOnly />
                         </div>
                         <div className={cx('personal-detail-item')}>
                             <label htmlFor="phone">Số điện thoại</label>
