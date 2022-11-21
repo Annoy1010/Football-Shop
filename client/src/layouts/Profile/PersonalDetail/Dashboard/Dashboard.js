@@ -9,8 +9,7 @@ const cx = classNames.bind(styles);
 
 function Dashboard() {
     const currentUser = JSON.parse(localStorage.getItem('user'));
-
-    console.log('current user: ', currentUser);
+    console.log(currentUser);
 
     return (
         <div className={cx('wrapper')}>
@@ -28,7 +27,7 @@ function Dashboard() {
                     <Col sm={12} lg={9} xl={8} className={cx('personal-detail')}>
                         <div className={cx('personal-detail-item')}>
                             <label htmlFor="username">Tên đăng nhập</label>
-                            <input id="username" className={cx('item-value')} value={currentUser.userName} readOnly />
+                            <input id="username" className={cx('item-value')} value={currentUser.username} readOnly />
                         </div>
                         <div className={cx('personal-detail-item')}>
                             <label htmlFor="fullname">Họ và tên</label>

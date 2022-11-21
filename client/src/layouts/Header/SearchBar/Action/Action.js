@@ -18,11 +18,9 @@ const USER_OPTIONS = [
 
 function Action() {
     const handleSignOut = (option, e) => {
-        if (option !== 'Đăng xuất') {
-            e.preventDefault();
-        } else {
+        if (option === 'Đăng xuất') {
             localStorage.setItem('user', JSON.stringify({}));
-            window.location.reload();
+            window.location.href(window.location.href);
         }
     };
 

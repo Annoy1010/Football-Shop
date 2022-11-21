@@ -18,7 +18,7 @@ const actions = [
 
 const user = JSON.parse(localStorage.getItem('user'));
 const userIsNotExisted = user && Object.keys(user).length === 0 && Object.getPrototypeOf(user) === Object.prototype;
-console.log(userIsNotExisted);
+
 function Introduction() {
     const [store, setStore] = useState({});
     useEffect(() => {

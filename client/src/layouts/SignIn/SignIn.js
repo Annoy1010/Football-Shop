@@ -8,19 +8,19 @@ import configs from '../../config';
 
 const cx = classNames.bind(styles);
 
-function SignIn({ username, setUsername, password, setPassword, user, setUser }) {
-    const [customerList, setCustomerList] = useState([]);
+function SignIn({ username, setUsername, password, setPassword, setUser }) {
+    // localStorage.setItem('user', JSON.stringify(user));
+    const [userList, setUserList] = useState([]);
+
     useEffect(() => {
         Axios.get('/user/login')
-            .then((res) => setCustomerList(res.data))
+            .then((res) => setUserList(res.data))
             .catch((err) => console.error(err));
     }, []);
 
-    localStorage.setItem('user', JSON.stringify(user));
-
     const handleOnSignIn = (e) => {
-        const customerInfo = customerList.filter((customer) => {
-            return customer.userName === username && customer.pass === password;
+        const customerInfo = userList.filter((userInfo) => {
+            return userInfo.userName === username && userInfo.pass === password;
         });
 
         if (customerInfo.length === 0) {
@@ -28,10 +28,10 @@ function SignIn({ username, setUsername, password, setPassword, user, setUser })
             alert('Kiểm tra lại tên đăng nhập hoặc mật khẩu');
         } else {
             localStorage.setItem('user', JSON.stringify(customerInfo[0]));
-            setUser(customerInfo[0]);
             setUsername('');
             setPassword('');
-            // window.location.reload();
+            setUser({ username: customerInfo[0].userName, password: customerInfo[0].pass });
+            window.location.href(window.location.href);
         }
     };
 
