@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Axios from 'axios';
 
 import styles from './SignIn.module.scss';
@@ -9,30 +9,42 @@ import configs from '../../config';
 const cx = classNames.bind(styles);
 
 function SignIn({ username, setUsername, password, setPassword, setUser }) {
-    // localStorage.setItem('user', JSON.stringify(user));
-    const [userList, setUserList] = useState([]);
+    const [successSignIn, setSuccessSignIn] = useState(false);
+    const [submitClicked, setSubmitClicked] = useState(false);
 
-    useEffect(() => {
-        Axios.get('/user/login')
-            .then((res) => setUserList(res.data))
-            .catch((err) => console.error(err));
-    }, []);
+    if (successSignIn) {
+        window.open(window.location.origin, '_self');
+    }
+
+    const handleOnChangeUserName = (e) => {
+        setUsername(e.target.value);
+        setSubmitClicked(false);
+    };
+
+    const handleOnChangePassword = (e) => {
+        setPassword(e.target.value);
+        setSubmitClicked(false);
+    };
 
     const handleOnSignIn = (e) => {
-        const customerInfo = userList.filter((userInfo) => {
-            return userInfo.userName === username && userInfo.pass === password;
-        });
-
-        if (customerInfo.length === 0) {
-            e.preventDefault();
-            alert('Kiểm tra lại tên đăng nhập hoặc mật khẩu');
-        } else {
-            localStorage.setItem('user', JSON.stringify(customerInfo[0]));
-            setUsername('');
-            setPassword('');
-            setUser({ username: customerInfo[0].userName, password: customerInfo[0].pass });
-            window.location.href(window.location.href);
-        }
+        Axios.post('/user/login', {
+            username,
+            password,
+        })
+            .then((res) => {
+                if (res.data.length === 0) {
+                    e.preventDefault();
+                    setSubmitClicked(true);
+                    // Kiem tra ben Emplyee ....
+                } else {
+                    localStorage.setItem('user', JSON.stringify(res.data[0]));
+                    setUsername('');
+                    setPassword('');
+                    setUser({ username: res.data[0].userName, password: res.data[0].pass });
+                    setSuccessSignIn(true);
+                }
+            })
+            .catch((err) => console.log(err));
     };
 
     return (
@@ -49,7 +61,7 @@ function SignIn({ username, setUsername, password, setPassword, setUser }) {
                                 id="username"
                                 className={cx('input-area')}
                                 value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                onChange={(e) => handleOnChangeUserName(e)}
                                 required
                             />
                         </div>
@@ -62,11 +74,15 @@ function SignIn({ username, setUsername, password, setPassword, setUser }) {
                                 id="password"
                                 className={cx('input-area')}
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => handleOnChangePassword(e)}
                                 required
                             />
                         </div>
+                        {submitClicked && !successSignIn && (
+                            <label className={cx('error-message')}>Tài khoản không chính xác</label>
+                        )}
                     </form>
+
                     <div className={cx('account-option')}>
                         <Link to={configs.routes.forgetPassword} className={cx('reset-account-link')}>
                             Quên mật khẩu?
@@ -75,9 +91,9 @@ function SignIn({ username, setUsername, password, setPassword, setUser }) {
                             Tạo tài khoản mới
                         </Link>
                     </div>
-                    <Link className={cx('submit-btn')} onClick={(e) => handleOnSignIn(e)} to={configs.routes.home}>
+                    <button className={cx('submit-btn')} onClick={(e) => handleOnSignIn(e)}>
                         Đăng nhập
-                    </Link>
+                    </button>
                 </div>
                 <div className={cx('signin-type')}>
                     <button className={cx('social-btn', 'google')}>Đăng nhập bằng Google</button>

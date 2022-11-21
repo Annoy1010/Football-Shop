@@ -8,13 +8,15 @@ import CreateNewPassword from './CreateNewPassword';
 const cx = classNames.bind(styles);
 
 function ForgetPassword() {
-    const [isValidVerifiedEmail, setIsValidVerifiedEmail] = useState(false);
+    const [isExactResetCode, setIsExactResetCode] = useState(false);
+    const [resetEmail, setResetEmail] = useState('');
+
     return (
         <div className={cx('wrapper')}>
-            {isValidVerifiedEmail ? (
-                <CreateNewPassword />
+            {isExactResetCode === true ? (
+                <CreateNewPassword resetEmail={resetEmail} />
             ) : (
-                <VerifyEmail setIsValidVerifiedEmail={setIsValidVerifiedEmail} />
+                <VerifyEmail setIsExactResetCode={setIsExactResetCode} setResetEmail={setResetEmail} />
             )}
         </div>
     );

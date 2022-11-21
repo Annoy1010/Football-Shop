@@ -7,8 +7,26 @@ import styles from './VerifyEmail.module.scss';
 
 const cx = classNames.bind(styles);
 
-function VerifyEmail({ setIsValidVerifiedEmail }) {
+function VerifyEmail({ setIsExactResetCode, setResetEmail }) {
     const [email, setEmail] = useState('');
+    const [resetCodeInput, setResetCodeInput] = useState('');
+    const [randomCode, setRandomCode] = useState(null);
+    const [invalidEmail, setInvalidEmail] = useState(false);
+    const [invalidVerified, setInvalidVerified] = useState(false);
+
+    function randomResetCode() {
+        return Math.floor(Math.random() * 99999) + 10000;
+    }
+
+    const handleOnChangeEmail = (e) => {
+        setEmail(e.target.value);
+        setInvalidEmail(false);
+    };
+
+    const handleOnChangeCode = (e) => {
+        setResetCodeInput(e.target.value);
+        setInvalidVerified(false);
+    };
 
     const handleSendCode = (e) => {
         axios
@@ -16,13 +34,34 @@ function VerifyEmail({ setIsValidVerifiedEmail }) {
             .then((res) => {
                 const result = res.data;
                 if (result.length > 0) {
-                    console.log(Math.floor(Math.random() * 99999) + 10000);
+                    const verifiedCode = randomResetCode();
+                    axios
+                        .post('/sendemail', {
+                            email: email,
+                            resetCode: verifiedCode.toString(),
+                        })
+                        .then((res) =>
+                            console.log(res.data && 'Đã gửi mã thành công' && console.log(res.data.resetCode)),
+                        )
+                        .catch((err) => console.log(err));
+                    setRandomCode(verifiedCode);
+                    setResetEmail(email);
                 } else {
-                    alert('email không chính xác');
+                    setInvalidEmail(true);
                     e.preventDefault();
                 }
             })
             .catch((err) => console.log(err));
+    };
+
+    const handleVerifyCode = () => {
+        if (resetCodeInput === randomCode.toString()) {
+            setEmail('');
+            setResetCodeInput('');
+            setIsExactResetCode(true);
+        } else {
+            setInvalidVerified(true);
+        }
     };
 
     return (
@@ -38,22 +77,45 @@ function VerifyEmail({ setIsValidVerifiedEmail }) {
                         value={email}
                         className={cx('input-area')}
                         placeholder="abc@gmail.com"
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => handleOnChangeEmail(e)}
                         required
                     />
+                    {invalidEmail === true ? (
+                        <label className={cx('error-message')}>Email không chính xác</label>
+                    ) : (
+                        <></>
+                    )}
                 </div>
                 <div className={cx('input-item')}>
                     <label htmlFor="verify" className={cx('label-item')}>
                         Mã xác thực
                     </label>
-                    <input type="text" id="verify" className={cx('input-area')} />
-                    <label className={cx('notice')}></label>
+                    <input
+                        type="text"
+                        id="verify"
+                        value={resetCodeInput}
+                        className={cx('input-area')}
+                        onChange={(e) => handleOnChangeCode(e)}
+                    />
+                    {invalidVerified === true ? (
+                        <label className={cx('error-message')}>Mã xác thực không chính xác</label>
+                    ) : (
+                        <></>
+                    )}
                 </div>
                 <div className={cx('options-btn')}>
-                    <button className={cx('submit-btn', 'send-btn')} onClick={(e) => handleSendCode(e)}>
-                        Gửi mã xác nhận
-                    </button>
-                    <button className={cx('submit-btn', 'verify-btn')}>Xác nhận</button>
+                    <input
+                        type="button"
+                        className={cx('submit-btn', 'send-btn')}
+                        onClick={(e) => handleSendCode(e)}
+                        value="Gửi mã xác nhận"
+                    />
+                    <input
+                        type="button"
+                        className={cx('submit-btn', 'verify-btn')}
+                        onClick={handleVerifyCode}
+                        value="Xác nhận"
+                    />
                 </div>
             </form>
             <div className={cx('notice')}>
@@ -67,7 +129,8 @@ function VerifyEmail({ setIsValidVerifiedEmail }) {
 }
 
 VerifyEmail.propTypes = {
-    setValidVerifiedEmail: PropTypes.func,
+    setIsExactResetCode: PropTypes.func,
+    setResetEmail: PropTypes.func,
 };
 
 export default VerifyEmail;

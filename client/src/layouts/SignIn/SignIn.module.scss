@@ -81,6 +81,12 @@
     }
 }
 
+.error-message {
+    font-size: 1.4rem;
+    color: var(--red-color);
+    margin-bottom: 20px;
+}
+
 .account-option {
     display: flex;
     justify-content: space-between;
