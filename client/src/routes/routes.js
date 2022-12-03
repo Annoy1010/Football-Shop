@@ -13,6 +13,11 @@ import SignIn from '../layouts/SignIn';
 import ForgetPassword from '../layouts/ForgetPassword';
 import Profile from '../layouts/Profile/Profile';
 import ShoesProductDetail from '../components/ShoesProductDetail/ShoesProductDetail';
+import ManageOrder from '../layouts/ManageOrder';
+import ManageProduct from '../layouts/ManageProduct';
+import ManageEmployee from '../layouts/ManageEmployee';
+import Report from '../layouts/Report';
+import Attend from '../layouts/Attend';
 
 const publicRoutes = [
     {
@@ -46,6 +51,26 @@ const publicRoutes = [
     {
         path: config.routes.order,
         component: Order,
+    },
+    {
+        path: config.routes.manageOrders,
+        component: ManageOrder,
+    },
+    {
+        path: config.routes.manageProducts,
+        component: ManageProduct,
+    },
+    {
+        path: config.routes.manageEmployees,
+        component: ManageEmployee,
+    },
+    {
+        path: config.routes.report,
+        component: Report,
+    },
+    {
+        path: config.routes.attend,
+        component: Attend,
     },
     {
         path: config.routes.signup,

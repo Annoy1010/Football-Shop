@@ -1,21 +1,17 @@
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useEffect, useState } from 'react';
 
 import styles from './CartItem.module.scss';
-import data from '../../../hardData';
 
 const cx = classNames.bind(styles);
 
-function CartItem({ product, key, checked }) {
-    const allProducts = data.products;
-    const productInCart = allProducts.filter((productItem) => productItem.id === product.productId)[0];
-
-    const [currentQuantity, setCurrentQuantity] = useState(product.quantity);
+function CartItem({ quantity, product, key, checked }) {
+    const [currentQuantity, setCurrentQuantity] = useState(quantity);
     const [selectedProduct, setSelectedProduct] = useState(false);
 
     useEffect(() => {
@@ -39,18 +35,18 @@ function CartItem({ product, key, checked }) {
                         />
                         <div className={cx('product-info')}>
                             <div className={cx('product-img')}>
-                                <Link to={`/products/shoes/id/${product.productId}`}>
-                                    <img src={productInCart.src} alt="" />
+                                <Link to={`/products/shoes/id/${product.shoesId}`}>
+                                    <img src={product.mainImage} alt="" />
                                 </Link>
                             </div>
                             <div className={cx('product-desc')}>
-                                <span className={cx('product-name')}>{productInCart.name}</span>
-                                <span className={cx('product-size')}>{product.size}</span>
+                                <span className={cx('product-name')}>{product.shoesName}</span>
+                                {/* <span className={cx('product-size')}>{product.size}</span> */}
                             </div>
                         </div>
                     </Col>
                     <Col className={cx('product-info-item')} xl={2}>
-                        <span className={cx('product-price')}>{productInCart.price}đ</span>
+                        <span className={cx('product-price')}>{product.price}đ</span>
                     </Col>
                     <Col className={cx('product-info-item')} xl={2}>
                         <div
@@ -68,7 +64,7 @@ function CartItem({ product, key, checked }) {
                         </div>
                     </Col>
                     <Col className={cx('product-info-item')} xl={2}>
-                        <span className={cx('product-price-total')}>{productInCart.price * currentQuantity}đ</span>
+                        <span className={cx('product-price-total')}>{product.price * currentQuantity}đ</span>
                     </Col>
                     <Col className={cx('product-info-item')} xl={2}>
                         <span className={cx('remove-btn')}>Xóa</span>

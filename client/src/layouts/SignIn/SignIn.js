@@ -35,7 +35,6 @@ function SignIn({ username, setUsername, password, setPassword, setUser }) {
                 if (res.data.length === 0) {
                     e.preventDefault();
                     setSubmitClicked(true);
-                    // Kiem tra ben Emplyee ....
                 } else {
                     localStorage.setItem('user', JSON.stringify(res.data[0]));
                     setUsername('');

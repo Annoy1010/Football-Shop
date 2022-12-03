@@ -13,25 +13,25 @@ function ProductDescription({ product }) {
                     <span className={cx('product-item-name')}>
                         <b>Tên giày</b>
                     </span>
-                    <span className={cx('product-item-desc')}>{product.name}</span>
+                    <span className={cx('product-item-desc')}>{product.shoesName}</span>
                 </div>
                 <div className={cx('product-item')}>
                     <span className={cx('product-item-name')}>
                         <b>Loại sân thi đấu</b>
                     </span>
-                    <span className={cx('product-item-desc')}>{product.field}</span>
+                    <span className={cx('product-item-desc')}>{product.grassId}</span>
                 </div>
                 <div className={cx('product-item')}>
                     <span className={cx('product-item-name')}>
                         <b>Nhãn hiệu</b>
                     </span>
-                    <span className={cx('product-item-desc')}>{product.trademark}</span>
+                    <span className={cx('product-item-desc')}>{product.trademarkId}</span>
                 </div>
                 <div className={cx('product-item')}>
                     <span className={cx('product-item-name')}>
                         <b>Xuất sứ</b>
                     </span>
-                    <span className={cx('product-item-desc')}>{product.originNational}</span>
+                    <span className={cx('product-item-desc')}>{product.originNationalId}</span>
                 </div>
                 <div className={cx('product-item')}>
                     <span className={cx('product-item-name')}>

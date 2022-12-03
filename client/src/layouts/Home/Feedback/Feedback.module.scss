@@ -34,6 +34,10 @@
     }
 }
 
+input:invalid {
+    border-bottom: 1px solid var(--red-color);
+}
+
 .submit-area {
     text-align: center;
 }
@@ -52,6 +56,11 @@
         color: var(--black-color);
         border-color: var(--black-color);
     }
+}
+
+.error-message {
+    color: var(--red-color);
+    margin: -18px 0 20px 0;
 }
 
 @media only screen and (max-width: 700px) {

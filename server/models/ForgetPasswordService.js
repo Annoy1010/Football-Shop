@@ -7,7 +7,17 @@ function getEmailList(req, res) {
         if (err) {
             throw err;
         } else {
-            res.send(result);
+            if (result.length === 0) {
+                db.query(`SELECT * FROM EMPLOYEE WHERE email = '${email}'`, (err, result) => {
+                    if (err) {
+                        throw err;
+                    } else {
+                        res.send(result);
+                    }
+                });
+            } else {
+                res.send(result);
+            }
         }
     });
 }
@@ -21,11 +31,28 @@ function setNewPassword(req, res) {
     const data = req.body;
     const email = req.body.resetEmail;
     const pass = data.rePassInput;
-    db.query(`UPDATE CUSTOMER SET pass='${hash(pass)}' WHERE email = '${email}'`, (err, result) => {
+
+    db.query(`SELECT * FROM CUSTOMER WHERE email = '${email}'`, (err, result) => {
         if (err) {
             throw err;
         } else {
-            res.send(result);
+            if (result.length === 0) {
+                db.query(`UPDATE EMPLOYEE SET pass='${hash(pass)}' WHERE email = '${email}'`, (err, result) => {
+                    if (err) {
+                        throw err;
+                    } else {
+                        res.send(result);
+                    }
+                });
+            } else {
+                db.query(`UPDATE CUSTOMER SET pass='${hash(pass)}' WHERE email = '${email}'`, (err, result) => {
+                    if (err) {
+                        throw err;
+                    } else {
+                        res.send(result);
+                    }
+                });
+            }
         }
     });
 }

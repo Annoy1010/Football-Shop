@@ -17,7 +17,6 @@ const actions = [
 ];
 
 const user = JSON.parse(localStorage.getItem('user'));
-const userIsNotExisted = user && Object.keys(user).length === 0 && Object.getPrototypeOf(user) === Object.prototype;
 
 function Introduction() {
     const [store, setStore] = useState({});
@@ -33,8 +32,10 @@ function Introduction() {
                 <a href="/">{store && store.storeName}</a>
             </div>
             <div className={cx('account')}>
-                {!userIsNotExisted ? (
-                    <span className={cx('account-name', 'title')}>Người dùng</span>
+                {!(user && Object.keys(user).length === 0) ? (
+                    <span className={cx('account-name', 'title')}>
+                        {user.roleAccess.data[0] === 0 ? 'Người dùng' : 'Nhân viên'}
+                    </span>
                 ) : (
                     <>
                         <span className={cx('account-name', 'title')}>Tài khoản</span>

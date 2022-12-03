@@ -1,5 +1,6 @@
 .wrapper {
     margin-top: 220px;
+    margin-bottom: 220px;
     padding: 0 var(--padding-layout);
 }
 
@@ -23,6 +24,10 @@
 
 .option-item {
     font-style: italic;
+}
+
+.loading {
+    text-align: center;
 }
 
 .product-item {

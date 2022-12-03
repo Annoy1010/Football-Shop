@@ -1,5 +1,10 @@
 .wrapper {
     height: 100%;
+    margin: 0 10px 200px 10px;
+}
+
+.loading {
+    text-align: center;
 }
 
 .heading {
@@ -24,10 +29,14 @@
     font-style: italic;
 }
 
+.product-list {
+    margin-top: 50px;
+}
+
 .product-item {
     display: block;
     padding-bottom: 10px;
-    margin-bottom: 14px;
+    margin-bottom: 20px;
     border: 1px solid var(--light-color);
     border-radius: 4px;
     cursor: pointer;

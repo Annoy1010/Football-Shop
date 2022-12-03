@@ -10,6 +10,8 @@ function SignUp() {
     const [provinceList, setProvinceList] = useState([]);
     const [districtList, setDistrictList] = useState([]);
     const [wardList, setWardList] = useState([]);
+
+    const [wardId, setWardId] = useState('');
     useEffect(() => {
         axios
             .get('/province')
@@ -122,12 +124,12 @@ function SignUp() {
                     <label htmlFor="ward" className={cx('label-item')}>
                         Xã
                     </label>
-                    <select id="ward" className={cx('input-area')} required>
+                    <select id="ward" className={cx('input-area')} required onChange={(e) => setWardId(e.target.value)}>
                         <option className={cx('option-value')} selected>
                             Chọn Phường/Xã
                         </option>
                         {wardList.map((ward) => (
-                            <option key={ward.districtId} className={cx('option-value')}>
+                            <option key={ward.wardId} value={ward.wardId} className={cx('option-value')}>
                                 {ward.wardName}
                             </option>
                         ))}

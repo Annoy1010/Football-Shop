@@ -5,19 +5,33 @@ import { faChevronDown } from '@fortawesome/fontawesome-free-solid';
 import classNames from 'classnames/bind';
 
 import styles from './Navigation.module.scss';
-import { publicRoutes } from '../../../routes';
+import configs from '../../../config';
 import data from '../../../hardData';
 
 const cx = classNames.bind(styles);
 
 const MENU = [
-    { title: 'Trang chủ', link: publicRoutes[0].path },
-    { title: 'Tất cả sản phẩm', link: publicRoutes[1].path },
-    { title: 'Cách chọn size', link: publicRoutes[2].path },
-    { title: 'Liên hệ', link: publicRoutes[3].path },
-    { title: 'Về chúng tôi', link: publicRoutes[4].path },
-    { title: 'Giảm giá', link: publicRoutes[5].path },
+    { title: 'Trang chủ', link: configs.routes.home },
+    { title: 'Tất cả sản phẩm', link: configs.routes.products },
+    { title: 'Cách chọn size', link: configs.routes.size },
+    { title: 'Liên hệ', link: configs.routes.contact },
+    { title: 'Về chúng tôi', link: configs.routes.about },
+    { title: 'Giảm giá', link: configs.routes.sale },
 ];
+
+const MENU_ADMIN = [
+    { title: 'Trang chủ', link: configs.routes.home },
+    { title: 'Quản lý sản phẩm', link: configs.routes.manageProducts },
+    { title: 'Quản lý đơn hàng', link: configs.routes.manageOrders },
+    { title: 'Quản lý nhân viên', link: configs.routes.manageEmployees },
+    { title: 'Doanh thu', link: configs.routes.report },
+    { title: 'Điểm danh ngày làm', link: configs.routes.attend },
+];
+
+const account = JSON.parse(localStorage.getItem('user'));
+
+const admin =
+    account && Object.keys(account).length !== 0 && JSON.parse(localStorage.getItem('user')).roleAccess.data[0];
 
 function Navigation() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -25,24 +39,43 @@ function Navigation() {
 
     return (
         <div className={cx('wrapper')}>
-            {MENU.map((item, index) => (
-                <NavLink
-                    className={(state) => {
-                        state.isActive && setActiveIndex(index);
-                        return cx('link-item', { active: index === activeIndex });
-                    }}
-                    key={index}
-                    to={item.link}
-                    onMouseOver={() => item.title === 'Tất cả sản phẩm' && setShowProducts(true)}
-                    onMouseOut={() => item.title === 'Tất cả sản phẩm' && setShowProducts(false)}
-                >
-                    {item.title}
-                    {item.title === 'Tất cả sản phẩm' && (
-                        <FontAwesomeIcon className={cx('account-down-icon')} icon={faChevronDown} />
-                    )}
-                    {index === activeIndex ? <div className={cx('line-bar')}></div> : <></>}
-                </NavLink>
-            ))}
+            {admin
+                ? MENU_ADMIN.map((item, index) => (
+                      <NavLink
+                          className={(state) => {
+                              state.isActive && setActiveIndex(index);
+                              return cx('link-item', { active: index === activeIndex });
+                          }}
+                          key={index}
+                          to={item.link}
+                          onMouseOver={() => item.title === 'Tất cả sản phẩm' && setShowProducts(true)}
+                          onMouseOut={() => item.title === 'Tất cả sản phẩm' && setShowProducts(false)}
+                      >
+                          {item.title}
+                          {item.title === 'Tất cả sản phẩm' && (
+                              <FontAwesomeIcon className={cx('account-down-icon')} icon={faChevronDown} />
+                          )}
+                          {index === activeIndex ? <div className={cx('line-bar')}></div> : <></>}
+                      </NavLink>
+                  ))
+                : MENU.map((item, index) => (
+                      <NavLink
+                          className={(state) => {
+                              state.isActive && setActiveIndex(index);
+                              return cx('link-item', { active: index === activeIndex });
+                          }}
+                          key={index}
+                          to={item.link}
+                          onMouseOver={() => item.title === 'Tất cả sản phẩm' && setShowProducts(true)}
+                          onMouseOut={() => item.title === 'Tất cả sản phẩm' && setShowProducts(false)}
+                      >
+                          {item.title}
+                          {item.title === 'Tất cả sản phẩm' && (
+                              <FontAwesomeIcon className={cx('account-down-icon')} icon={faChevronDown} />
+                          )}
+                          {index === activeIndex ? <div className={cx('line-bar')}></div> : <></>}
+                      </NavLink>
+                  ))}
             {showProducts && (
                 <div
                     className={cx('menu')}
