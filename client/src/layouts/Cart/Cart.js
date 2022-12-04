@@ -21,6 +21,8 @@ function Cart() {
     const [productList, setProductList] = useState();
     const [loading, setLoading] = useState(true);
 
+    const currentCart = [];
+
     useEffect(() => {
         axios
             .get('/products/all')
@@ -52,7 +54,18 @@ function Cart() {
     const [selectAllProducts, setSelectAllProducts] = useState(false);
 
     const handleUpdateCart = () => {
-        console.log(productListInCart);
+        axios
+            .post('/user/cart/update', {
+                cartId: cartId,
+                currentCart: currentCart,
+            })
+            .then((res) => {
+                if (res.data === 'success') {
+                    alert('Cập nhật giỏ hàng thành công!!');
+                    window.location.reload();
+                }
+            })
+            .catch((err) => console.log(err));
     };
 
     return (
@@ -64,69 +77,80 @@ function Cart() {
                 </div>
             ) : (
                 <>
-                    <Container>
-                        <Row className={cx('menu')}>
-                            <Col className={cx('menu-item')} xl={4}>
-                                <input
-                                    type="checkbox"
-                                    className={cx('filter-all')}
-                                    onChange={(e) => setSelectAllProducts(e.target.checked)}
-                                />
-                                <span>Sản phẩm</span>
-                            </Col>
-                            <Col className={cx('menu-item')} xl={2}>
-                                Đơn giá
-                            </Col>
-                            <Col className={cx('menu-item')} xl={2}>
-                                Số lượng
-                            </Col>
-                            <Col className={cx('menu-item')} xl={2}>
-                                Thành tiền
-                            </Col>
-                            <Col className={cx('menu-item')} xl={2}>
-                                Thao tác
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col className={cx('product')}>
-                                {productListInCart &&
-                                    productListInCart.length > 0 &&
-                                    productListInCart.map((product, index) => {
-                                        const productInCart =
-                                            productList &&
-                                            productList.length > 0 &&
-                                            productList.filter(
-                                                (productItem) => productItem.shoesId === product.shoesId,
-                                            )[0];
-                                        totalPrice += productInCart.price * product.shoesQuantity;
-                                        return (
-                                            <CartItem
-                                                product={productInCart}
-                                                quantity={product.shoesQuantity}
-                                                key={index}
-                                                checked={selectAllProducts}
-                                            />
-                                        );
-                                    })}
-                            </Col>
-                        </Row>
-                    </Container>
-                    {productListInCart && productListInCart.length > 0 && (
+                    {productListInCart && productListInCart.length === 0 ? (
+                        <h3>Không có sản phẩm nào trong giỏ hàng</h3>
+                    ) : (
                         <>
-                            <div className={cx('products-total-price')}>
-                                <b>Tổng tiền:</b>
-                                <span> {totalPrice}đ</span>
-                            </div>
-                            <Link className={cx('order-btn')} to={`/user/id/${userId}/order/info`}>
-                                Mua hàng
-                            </Link>
-                        </>
-                    )}
+                            <Container>
+                                <Row className={cx('menu')}>
+                                    <Col className={cx('menu-item')} xl={4}>
+                                        <input
+                                            type="checkbox"
+                                            className={cx('filter-all')}
+                                            onChange={(e) => setSelectAllProducts(e.target.checked)}
+                                        />
+                                        <span>Sản phẩm</span>
+                                    </Col>
+                                    <Col className={cx('menu-item')} xl={2}>
+                                        Đơn giá
+                                    </Col>
+                                    <Col className={cx('menu-item')} xl={2}>
+                                        Số lượng
+                                    </Col>
+                                    <Col className={cx('menu-item')} xl={2}>
+                                        Thành tiền
+                                    </Col>
+                                    <Col className={cx('menu-item')} xl={2}>
+                                        Thao tác
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col className={cx('product')}>
+                                        {productListInCart &&
+                                            productListInCart.length > 0 &&
+                                            productListInCart.map((product, index) => {
+                                                const productInCart =
+                                                    productList &&
+                                                    productList.length > 0 &&
+                                                    productList.filter(
+                                                        (productItem) => productItem.shoesId === product.shoesId,
+                                                    )[0];
+                                                totalPrice += productInCart.price * product.shoesQuantity;
 
-                    {productListInCart && productListInCart.length > 0 && (
-                        <button className={cx('update-cart-btn')} onClick={handleUpdateCart}>
-                            Cập nhật giỏ hàng
-                        </button>
+                                                currentCart.push(product);
+
+                                                return (
+                                                    <CartItem
+                                                        product={productInCart}
+                                                        quantity={product.shoesQuantity}
+                                                        cartDetailId={product.detailId}
+                                                        currentCart={currentCart}
+                                                        key={index}
+                                                        checked={selectAllProducts}
+                                                    />
+                                                );
+                                            })}
+                                    </Col>
+                                </Row>
+                            </Container>
+                            {productListInCart && productListInCart.length > 0 && (
+                                <>
+                                    <div className={cx('products-total-price')}>
+                                        <b>Tổng tiền:</b>
+                                        <span> {totalPrice}đ</span>
+                                    </div>
+                                    <Link className={cx('order-btn')} to={`/user/id/${userId}/order/info`}>
+                                        Mua hàng
+                                    </Link>
+                                </>
+                            )}
+
+                            {productListInCart && productListInCart.length > 0 && (
+                                <button className={cx('update-cart-btn')} onClick={handleUpdateCart}>
+                                    Cập nhật giỏ hàng
+                                </button>
+                            )}
+                        </>
                     )}
                 </>
             )}

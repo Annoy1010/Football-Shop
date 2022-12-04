@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,9 +11,16 @@ import styles from './CartItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function CartItem({ quantity, product, key, checked }) {
+function CartItem({ cartDetailId, currentCart, quantity, product, key, checked }) {
     const [currentQuantity, setCurrentQuantity] = useState(quantity);
     const [selectedProduct, setSelectedProduct] = useState(false);
+
+    currentCart.map((item) => {
+        if (item.detailId === cartDetailId) {
+            item.shoesQuantity = currentQuantity;
+        }
+        return item;
+    });
 
     useEffect(() => {
         if (checked) {
@@ -21,6 +29,20 @@ function CartItem({ quantity, product, key, checked }) {
             setSelectedProduct(false);
         }
     }, [checked]);
+
+    const handleRemoveShoes = () => {
+        axios
+            .post('/user/cart/remove', {
+                detailId: cartDetailId,
+            })
+            .then((res) => {
+                if (res.data.affectedRows > 0) {
+                    alert('Đã xóa thành công 1 sản phẩn khỏi giỏ hàng');
+                    window.location.reload();
+                }
+            })
+            .catch((err) => console.log(err));
+    };
 
     return (
         <div key={key} className={cx('wrapper')}>
@@ -67,7 +89,9 @@ function CartItem({ quantity, product, key, checked }) {
                         <span className={cx('product-price-total')}>{product.price * currentQuantity}đ</span>
                     </Col>
                     <Col className={cx('product-info-item')} xl={2}>
-                        <span className={cx('remove-btn')}>Xóa</span>
+                        <span className={cx('remove-btn')} onClick={handleRemoveShoes}>
+                            Xóa
+                        </span>
                     </Col>
                 </Row>
             </Container>

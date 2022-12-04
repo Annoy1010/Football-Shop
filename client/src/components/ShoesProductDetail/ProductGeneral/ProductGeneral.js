@@ -80,6 +80,7 @@ function ProductGeneral({ product }) {
                                     alert('Thêm vào giỏ hàng thành công');
                                     setCurrentValue(0);
                                     setChosedSize(null);
+                                    window.location.reload();
                                 }
                             })
                             .catch((err) => console.log(err));

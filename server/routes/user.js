@@ -9,6 +9,9 @@ router.post('/password/newpass', userController.postNewPass);
 router.post('/upload/image', userController.postImage);
 router.post('/avatar', userController.getImage);
 router.post('/cart/cartId', userController.getCartDetailByCartId);
+router.post('/cart/remove', userController.removeProductInCart);
+router.post('/cart/update', userController.updateCart);
+
 router.post('/cartId', userController.getCartId);
 router.post('/cartId/quantity', userController.getCartQuantity);
 router.post('/cart/add/product', userController.postNewCartDetail);

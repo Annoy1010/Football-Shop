@@ -40,5 +40,13 @@ class UserRouter {
     getCartDetailByCartId(req, res) {
         UserService.getCartDetailInfoByCartId(req, res);
     }
+
+    removeProductInCart(req, res) {
+        UserService.removeProductInCartDetail(req, res);
+    }
+
+    updateCart(req, res) {
+        UserService.updateCartDetail(req, res);
+    }
 }
 export default new UserRouter();

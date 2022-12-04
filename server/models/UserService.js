@@ -194,6 +194,44 @@ function getCartDetailInfoByCartId(req, res) {
     });
 }
 
+function removeProductInCartDetail(req, res) {
+    const data = req.body;
+    const detailId = data.detailId;
+    db.query(`DELETE FROM CART_DETAIL WHERE detailId=${detailId}`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function updateCartDetail(req, res) {
+    const data = req.body;
+    const cartId = data.cartId;
+    const currentCart = data.currentCart;
+
+    var nSuccessRows = 0;
+
+    currentCart.map((item) => {
+        db.query(
+            `UPDATE CART_DETAIL SET shoesQuantity=${item.shoesQuantity} WHERE detailId=${item.detailId} AND cartId=${cartId}`,
+            (err, result) => {
+                if (err) {
+                    throw err;
+                } else {
+                }
+            },
+        );
+    });
+
+    // if (nSuccessRows === currentCart.length) {
+    //     res.send('success');
+    // }
+    // res.send('fail');
+    res.send('success');
+}
+
 const service = {
     getUserInfo,
     postUserLoginInfo,
@@ -205,6 +243,8 @@ const service = {
     getCartQuantityInfo,
     postNewCartDetailInfo,
     getCartDetailInfoByCartId,
+    removeProductInCartDetail,
+    updateCartDetail,
 };
 
 export default service;
