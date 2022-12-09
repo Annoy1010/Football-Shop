@@ -8,12 +8,7 @@ import styles from './ManageProduct.module.scss';
 import ManageProductDetail from './ManageProductDetail';
 const cx = classNames.bind(styles);
 
-const subCategory = [
-    { name: 'Nhập sản phẩm mới' },
-    { name: 'Số lượng trong kho' },
-    { name: 'Cập nhật sản phẩm' },
-    { name: 'Cập nhật giảm giá' },
-];
+const subCategory = [{ name: 'Nhập sản phẩm mới' }, { name: 'Cập nhật sản phẩm' }];
 
 function ManageProduct() {
     const [activeIndex, setActiveIndex] = useState(0);

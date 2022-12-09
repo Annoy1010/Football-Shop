@@ -41,7 +41,6 @@ function NewProduct() {
         }
     }, [importList]);
 
-    console.log(availableProducts);
     useEffect(() => {
         axios
             .get('/products/all')

@@ -11,9 +11,10 @@ import styles from './CartItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function CartItem({ cartDetailId, currentCart, quantity, product, key, checked }) {
+function CartItem({ cartDetailId, currentCart, quantity, product, sizeId, key, checked }) {
     const [currentQuantity, setCurrentQuantity] = useState(quantity);
     const [selectedProduct, setSelectedProduct] = useState(false);
+    const [sizeName, setSizeName] = useState('');
 
     currentCart.map((item) => {
         if (item.detailId === cartDetailId) {
@@ -21,6 +22,17 @@ function CartItem({ cartDetailId, currentCart, quantity, product, key, checked }
         }
         return item;
     });
+
+    useEffect(() => {
+        axios
+            .get('/products/size')
+            .then((res) => {
+                const sizeName = res.data.filter((item) => item.sizeId === sizeId)[0].sizeName;
+                setSizeName(sizeName);
+            })
+            .catch((err) => console.log(err));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         if (checked) {
@@ -63,7 +75,7 @@ function CartItem({ cartDetailId, currentCart, quantity, product, key, checked }
                             </div>
                             <div className={cx('product-desc')}>
                                 <span className={cx('product-name')}>{product.shoesName}</span>
-                                {/* <span className={cx('product-size')}>{product.size}</span> */}
+                                <span className={cx('product-size')}>{sizeName}</span>
                             </div>
                         </div>
                     </Col>

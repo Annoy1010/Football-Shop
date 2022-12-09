@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -40,21 +40,25 @@ function ShoesProductDetail() {
                     <LoadingSpinner />
                 </div>
             ) : (
-                <Container>
-                    <Row className={cx('product-info')}>
-                        <ProductGeneral product={product}></ProductGeneral>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <ProductDescription product={product} />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <Comment productId={product.shoesId} />
-                        </Col>
-                    </Row>
-                </Container>
+                <React.Fragment>
+                    {Object.keys(product).length > 0 && (
+                        <Container>
+                            <Row className={cx('product-info')}>
+                                <ProductGeneral product={product}></ProductGeneral>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <ProductDescription product={product} />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <Comment productId={id} />
+                                </Col>
+                            </Row>
+                        </Container>
+                    )}
+                </React.Fragment>
             )}
         </div>
     );

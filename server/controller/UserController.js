@@ -1,6 +1,10 @@
 import UserService from '../models/UserService';
 
 class UserRouter {
+    getUserById(req, res) {
+        UserService.getUserInfoById(req, res);
+    }
+
     postUserLogin(req, res) {
         UserService.postUserLoginInfo(req, res);
     }
@@ -47,6 +51,18 @@ class UserRouter {
 
     updateCart(req, res) {
         UserService.updateCartDetail(req, res);
+    }
+
+    getEmployeeList(req, res) {
+        UserService.getEmployeeListDetail(req, res);
+    }
+
+    updateEmployee(req, res) {
+        UserService.updateEmployeeInfo(req, res);
+    }
+
+    postNewEmployee(req, res) {
+        UserService.postNewEmployeeInfo(req, res);
     }
 }
 export default new UserRouter();

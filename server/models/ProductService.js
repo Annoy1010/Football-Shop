@@ -326,6 +326,48 @@ function getProductByIdInfo(req, res) {
     );
 }
 
+function updatePriceInfo(req, res) {
+    const data = req.body;
+    const shoesId = data.shoesId;
+    const price = data.price;
+
+    db.query(`UPDATE SHOES SET price=${price} WHERE shoesId=${shoesId}`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function updateSaleInfo(req, res) {
+    const data = req.body;
+    const shoesId = data.shoesId;
+    const sale = data.sale;
+
+    db.query(`UPDATE SHOES SET sale=${sale} WHERE shoesId=${shoesId}`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function updateDescInfo(req, res) {
+    const data = req.body;
+    const descriptionId = data.descriptionId;
+    const desc = data.desc;
+
+    db.query(`UPDATE DESCRIPTION_PRODUCT SET content='${desc}' WHERE descriptionId=${descriptionId}`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
 function getTrademarkInfo(req, res) {
     db.query(`SELECT * FROM TRADEMARK `, (err, result) => {
         if (err) {
@@ -410,6 +452,76 @@ function getNationalInfo(req, res) {
     });
 }
 
+function getDescInfo(req, res) {
+    db.query(`SELECT * FROM DESCRIPTION_PRODUCT`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function postCommentDetail(req, res) {
+    const data = req.body;
+    const shoesId = data.shoesId;
+    const userId = data.userId;
+    const content = data.commentContent;
+
+    const date = () => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '/' + mm + '/' + dd;
+        return today;
+    };
+
+    db.query(
+        `INSERT INTO COMMENT_PRODUCT (userId, shoesId, content, commentDate) VALUES (${userId}, ${shoesId}, '${content}', '${date()}')`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                if (result.affectedRows > 0) {
+                    db.query(`SELECT * FROM COMMENT_PRODUCT WHERE shoesId=${shoesId}`, (err, result) => {
+                        if (err) {
+                            throw err;
+                        } else {
+                            res.send(result);
+                        }
+                    });
+                }
+            }
+        },
+    );
+}
+
+function getCommentList(req, res) {
+    const data = req.body;
+    const shoesId = data.shoesId;
+    db.query(`SELECT * FROM COMMENT_PRODUCT WHERE shoesId=${shoesId}`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function removeCommentDetail(req, res) {
+    const data = req.body;
+    const commentId = data.commentId;
+    db.query(`DELETE FROM COMMENT_PRODUCT WHERE commentId=${commentId}`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
 const service = {
     getTrademarkInfo,
     getGrassInfo,
@@ -418,6 +530,7 @@ const service = {
     getTypeInfo,
     getTypeInfoByTrademark,
     getNationalInfo,
+    getDescInfo,
     getProductsList,
     getSaleProductsList,
     getImportIDInfo,
@@ -437,6 +550,12 @@ const service = {
     getSizeInfo,
     getAvailableQuantityOfSizeInfo,
     getProductByIdInfo,
+    updatePriceInfo,
+    updateSaleInfo,
+    updateDescInfo,
+    postCommentDetail,
+    getCommentList,
+    removeCommentDetail,
 };
 
 export default service;

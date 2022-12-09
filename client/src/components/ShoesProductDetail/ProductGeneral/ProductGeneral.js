@@ -65,15 +65,15 @@ function ProductGeneral({ product }) {
                 } else if (currentValue === 0) {
                     alert('Vui lòng chọn số lượng giày');
                 } else {
-                    console.log('cart id: ', cartId);
                     cartId &&
                         userIsExisted &&
                         user.roleAccess.data[0] === 0 &&
                         axios
                             .post('/user/cart/add/product', {
                                 cartId: cartId,
-                                shoesId: chosedSize + 1,
+                                shoesId: product.shoesId,
                                 quantity: currentValue,
+                                sizeId: chosedSize + 1,
                             })
                             .then((res) => {
                                 if (res.data.affectedRows > 0) {

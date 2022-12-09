@@ -14,6 +14,12 @@ router.post('/import/frontImage', productController.postFrontImage);
 router.post('/import/mainImage', productController.postMainImage);
 router.post('/import/backImage', productController.postBackImage);
 router.post('/import/image', productController.postImage);
+router.post('/update/price', productController.updatePrice);
+router.post('/update/sale', productController.updateSale);
+router.post('/update/desc', productController.updateDesc);
+router.post('/comment', productController.postComment);
+router.post('/comment/shoes', productController.getComment);
+router.post('/comment/remove', productController.removeComment);
 // router.post('/all/id', productController.getProductsById);
 
 router.get('/all', productController.getProducts);
@@ -30,6 +36,7 @@ router.get('/position', productController.getPosition);
 router.get('/size', productController.getSize);
 router.post('/size/available', productController.getAvailableQuantityOfSize);
 router.get('/originNational', productController.getNational);
+router.get('/desc', productController.getDesc);
 router.use('/', productController.getImportID);
 
 export default router;

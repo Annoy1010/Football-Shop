@@ -33,9 +33,7 @@ function Introduction() {
             </div>
             <div className={cx('account')}>
                 {!(user && Object.keys(user).length === 0) ? (
-                    <span className={cx('account-name', 'title')}>
-                        {user.roleAccess.data[0] === 0 ? 'Người dùng' : 'Nhân viên'}
-                    </span>
+                    <span className={cx('account-name', 'title')}>{`Xin chào, ${user.fullName}`}</span>
                 ) : (
                     <>
                         <span className={cx('account-name', 'title')}>Tài khoản</span>

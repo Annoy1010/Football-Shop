@@ -7,7 +7,6 @@ import styles from './ImportedProduct.module.scss';
 const cx = classNames.bind(styles);
 
 function ImportedProduct({ product }) {
-    console.log(product);
     const [size, setSize] = useState('');
 
     useEffect(() => {

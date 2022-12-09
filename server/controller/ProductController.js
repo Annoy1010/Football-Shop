@@ -29,6 +29,10 @@ class ProductRouter {
         ProductService.getNationalInfo(req, res);
     }
 
+    getDesc(req, res) {
+        ProductService.getDescInfo(req, res);
+    }
+
     getProducts(req, res) {
         ProductService.getProductsList(req, res);
     }
@@ -99,6 +103,30 @@ class ProductRouter {
 
     getProductById(req, res) {
         ProductService.getProductByIdInfo(req, res);
+    }
+
+    updatePrice(req, res) {
+        ProductService.updatePriceInfo(req, res);
+    }
+
+    updateSale(req, res) {
+        ProductService.updateSaleInfo(req, res);
+    }
+
+    updateDesc(req, res) {
+        ProductService.updateDescInfo(req, res);
+    }
+
+    postComment(req, res) {
+        ProductService.postCommentDetail(req, res);
+    }
+
+    getComment(req, res) {
+        ProductService.getCommentList(req, res);
+    }
+
+    removeComment(req, res) {
+        ProductService.removeCommentDetail(req, res);
     }
 }
 export default new ProductRouter();

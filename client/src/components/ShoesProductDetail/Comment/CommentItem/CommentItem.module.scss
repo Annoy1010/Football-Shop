@@ -18,6 +18,10 @@
 }
 
 .comment-info {
+    padding: 10px 20px;
+    border: 1px solid var(--light-color);
+    border-radius: 10px;
+
     span {
         display: block;
     }
@@ -33,4 +37,15 @@
     margin-top: 4px;
     font-size: 1.6rem;
     font-weight: 500;
+}
+
+.btn-remove-comment {
+    float: right;
+    margin-top: 10px;
+    font-size: 1.6rem;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--extra-color);
+    }
 }

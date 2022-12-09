@@ -125,6 +125,7 @@ function Cart() {
                                                         quantity={product.shoesQuantity}
                                                         cartDetailId={product.detailId}
                                                         currentCart={currentCart}
+                                                        sizeId={product.sizeId}
                                                         key={index}
                                                         checked={selectAllProducts}
                                                     />

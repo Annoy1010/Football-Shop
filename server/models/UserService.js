@@ -7,6 +7,19 @@ function hash(pass) {
     return hash.update(pass).digest('hex');
 }
 
+function getUserInfoById(req, res) {
+    const data = req.body;
+    const userId = data.userId;
+
+    db.query(`SELECT * FROM CUSTOMER WHERE userId=${userId}`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
 function postUserLoginInfo(req, res) {
     const data = req.body;
     const username = data.username;
@@ -169,9 +182,10 @@ function postNewCartDetailInfo(req, res) {
     const cartId = data.cartId;
     const shoesId = data.shoesId;
     const quantity = data.quantity;
+    const sizeId = data.sizeId;
 
     db.query(
-        `INSERT INTO CART_DETAIL (shoesId, shoesQuantity, cartId) VALUES (${shoesId}, ${quantity}, ${cartId}) `,
+        `INSERT INTO CART_DETAIL (shoesId, shoesQuantity, cartId, sizeId) VALUES (${shoesId}, ${quantity}, ${cartId}, '${sizeId}') `,
         (err, result) => {
             if (err) {
                 throw err;
@@ -224,15 +238,77 @@ function updateCartDetail(req, res) {
             },
         );
     });
-
-    // if (nSuccessRows === currentCart.length) {
-    //     res.send('success');
-    // }
-    // res.send('fail');
     res.send('success');
 }
 
+function getEmployeeListDetail(req, res) {
+    db.query(`SELECT * FROM EMPLOYEE`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function updateEmployeeInfo(req, res) {
+    const data = req.body;
+    const employeeId = data.employeeId;
+    const position = data.position;
+    const workShift = data.workShift;
+    const workStatus = data.workStatus;
+
+    db.query(
+        `UPDATE EMPLOYEE SET isAdmin=${position}, workShift=${workShift}, workStatus=${workStatus} WHERE employeeId=${employeeId}`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function postNewEmployeeInfo(req, res) {
+    const data = req.body;
+    const storeId = data.storeId;
+    const userName = data.userName;
+    const name = data.name;
+    const phone = data.phone;
+    const email = data.email;
+    const position = data.position;
+    const workShift = data.workShift;
+    const province = data.province;
+
+    const date = () => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '/' + mm + '/' + dd;
+        return today;
+    };
+
+    db.query(
+        `INSERT INTO EMPLOYEE (userName, pass, fullName, email, phone, storeId, startDate, workShift, workStatus, isAdmin, provinceId)
+        VALUES ('${userName}', '${hash(
+            '123456',
+        )}', '${name}', '${email}', '${phone}', '${storeId}', '${date()}', '${workShift}', 1, ${position}, '${province}')`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                if (result.affectedRows > 0) {
+                }
+            }
+        },
+    );
+}
+
 const service = {
+    getUserInfoById,
     getUserInfo,
     postUserLoginInfo,
     postCurrentPassword,
@@ -245,6 +321,9 @@ const service = {
     getCartDetailInfoByCartId,
     removeProductInCartDetail,
     updateCartDetail,
+    getEmployeeListDetail,
+    updateEmployeeInfo,
+    postNewEmployeeInfo,
 };
 
 export default service;
