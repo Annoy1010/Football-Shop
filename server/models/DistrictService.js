@@ -11,8 +11,20 @@ function getDistrictList(req, res) {
     });
 }
 
+function getDistrictName(req, res) {
+    const data = req.body;
+    const districtid = data.districtid;
+    db.query(`SELECT * FROM DISTRICT WHERE districtId = '${districtid}'`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
 const service = {
     getDistrictList,
+    getDistrictName,
 };
 
 export default service;

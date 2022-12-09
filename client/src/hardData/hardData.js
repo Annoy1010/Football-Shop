@@ -1,6 +1,6 @@
 const user = [
     {
-        id: '000001',
+        id: 10029,
         username: 'annoy',
         name: 'Lê Thế Phúc',
         phone: '0368341595',
@@ -13,7 +13,7 @@ const user = [
         },
     },
     {
-        id: '000002',
+        id: 1,
         username: 'sanpot',
         name: 'Lê Thế Phúc',
         phone: '0368341595',
@@ -413,7 +413,7 @@ const comment = [
 
 const cart = [
     {
-        userId: '0000000001',
+        userId: 1,
         products: [
             {
                 productId: '000001',

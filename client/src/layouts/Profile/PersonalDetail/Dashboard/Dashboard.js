@@ -16,6 +16,20 @@ const roleAccess = user && Object.keys(user).length > 0 && user.roleAccess.data[
 
 function Dashboard() {
     const [avatarDisplay, setAvatarDisplay] = useState(false);
+
+    const [fullname, setFullName] = useState(user.fullName);
+    const [email, setEmail] = useState(user.email);
+    const [phone, setPhone] = useState(user.phone);
+
+    const handleOnChangeFullName = (e) => {
+        setFullName(e.target.value);
+    };
+    const handleOnChangeEmail = (e) =>{
+        setEmail(e.target.value);
+    };
+    const handleOnChangePhone = (e) => {
+        setPhone(e.target.value);
+    };
     const [currentAvatar, setCurrentAvatar] = useState(() => {
         let current = null;
         axios
@@ -52,6 +66,27 @@ function Dashboard() {
             .catch((err) => console.log(err));
     }, [avatarDisplay]);
 
+    const handleSave = (e) => {
+        axios.post('/user/dashboard/update', {
+            username,
+            fullname,
+            email,
+            phone,
+        }).then((res) => {
+            if(res.data.affectedRows > 0){
+                axios.post('/user/userinfo', {
+                    username,
+                })
+                    .then((res) => {
+                        localStorage.setItem('user', JSON.stringify(res.data[0]));
+                    })
+                    .catch((err) => console.log(err));
+                alert('Cập nhật thành công');
+            }
+        })
+        .catch((err) => (console.log(err)));
+    }
+
     return (
         <div className={cx('wrapper')}>
             <h3 className={cx('heading')}>Hồ sơ</h3>
@@ -70,17 +105,17 @@ function Dashboard() {
                         </div>
                         <div className={cx('personal-detail-item')}>
                             <label htmlFor="fullname">Họ và tên</label>
-                            <input id="fullname" className={cx('item-value')} value={user.fullName} readOnly />
+                            <input id="fullname" className={cx('item-value')} value={fullname} onChange={(e) => handleOnChangeFullName(e)}/>
                         </div>
                         <div className={cx('personal-detail-item')}>
                             <label htmlFor="email">Email</label>
-                            <input id="email" className={cx('item-value')} value={user.email} readOnly />
+                            <input id="email" className={cx('item-value')} value={email} onChange={(e) => handleOnChangeEmail(e)} />
                         </div>
                         <div className={cx('personal-detail-item')}>
                             <label htmlFor="phone">Số điện thoại</label>
-                            <input id="phone" className={cx('item-value')} value={user.phone} readOnly />
+                            <input id="phone" className={cx('item-value')} value={phone} onChange = {(e) => handleOnChangePhone(e)}/>
                         </div>
-                        <button className={cx('save-btn')}>Lưu</button>
+                        <button className={cx('save-btn')} onClick = {(e) => handleSave(e)}>Lưu</button>
                     </Col>
                 </Row>
             </Container>

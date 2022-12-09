@@ -10,6 +10,34 @@
     z-index: 10000;
 }
 
+.error-message {
+    font-size: 1.4rem;
+    color: var(--red-color);
+    margin-bottom: 20px;
+}
+
+.input-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-item {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+}
+
+.input-area {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgb(159, 159, 159);
+    margin-bottom: 30px;
+    font-size: 1.6rem;
+
+    &:focus {
+        border-bottom: 1px solid var(--primary-color);
+    }
+}
+
 .heading {
     margin-bottom: 20px;
     padding: 4px 0;

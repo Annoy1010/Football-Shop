@@ -6,15 +6,50 @@ import Col from 'react-bootstrap/Col';
 
 import styles from './Products.module.scss';
 import ProductItem from './ProductItem';
-import user from '../../../user';
-import data from '../../../hardData';
 import configs from '../../../config';
+
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
 function Products({ total, setTotal }) {
-    let totalPrice = 0;
-    const productsOfUser = data.cart.filter((item) => item.userId === user)[0];
+
+    const pathArr = window.location.pathname.split('/');
+    const userId = pathArr[pathArr.length - 3];
+
+    const [cartId, setCartId] = useState(null);
+    const [productListInCart, setProductListInCart] = useState([]);
+    const [productList, setProductList] = useState();
+
+    const currentCart = [];
+
+    useEffect(() => {
+        axios
+            .get('/products/all')
+            .then((res) => setProductList(res.data))
+            .catch((err) => console.log(err));
+        axios
+            .post('/user/cartId', {
+                userId: userId,
+            })
+            .then((res) => setCartId(res.data[0].cartId))
+            .catch();
+            
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    useEffect(() => {
+        if (cartId) {
+            axios
+                .post('/user/cart/cartid/order', {
+                    cartId: cartId,
+                })
+                .then((res) => setProductListInCart(res.data))
+                .catch((err) => console.log(err));
+        }
+    }, [cartId]);
+
+    var totalPrice = 0;
 
     return (
         <div className={cx('wrapper')}>
@@ -39,19 +74,25 @@ function Products({ total, setTotal }) {
                 <Container className={cx('product-order-info')}>
                     <Row>
                         <Col className={cx('product-order-list')}>
-                            {productsOfUser.products.map((product, index) => {
-                                const currentProduct = data.products.filter(
-                                    (productItem) => productItem.id === product.productId,
-                                )[0];
-                                totalPrice += currentProduct.price * product.quantity;
-                                return <ProductItem product={product} index={index} />;
-                            })}
-                            {setTotal(totalPrice)}
+                            {productListInCart &&
+                                productListInCart.length > 0 &&
+                                productListInCart.map((product, index) => {
+                                    const productInCart =
+                                        productList &&
+                                        productList.length > 0 &&
+                                        productList.filter(
+                                            (productItem) => productItem.shoesId === product.shoesId,
+                                        )[0];
+                                    totalPrice += productInCart.price * product.shoesQuantity;
+                                    setTotal(totalPrice);
+                                    currentCart.push(product);
+                                    return <ProductItem product={productInCart} index={index} quantity={product.shoesQuantity}/>;
+                                })}
                         </Col>
                     </Row>
                     <Row className={cx('option-btn-list')}>
                         <Col xl={6}>
-                            <Link className={cx('option-btn')} to={`/user/id/${user}/cart`}>
+                            <Link className={cx('option-btn')} to={`/user/id/${userId}/cart`}>
                                 Quay lại giỏ hàng
                             </Link>
                         </Col>

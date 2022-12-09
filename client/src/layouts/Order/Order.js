@@ -7,10 +7,14 @@ import styles from './Order.module.scss';
 import OrderItem from './OrderItem';
 import user from '../../user';
 import data from '../../hardData';
+import User from '../../localStorage';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
 function Order() {
+    const userId = User.userId;
     const ordersOfUser = data.order.filter(
         (orderItem, index) => orderItem.userId === user && !orderItem.receivedStatus && <OrderItem index={index} />,
     );

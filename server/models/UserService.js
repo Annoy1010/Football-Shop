@@ -232,6 +232,223 @@ function updateCartDetail(req, res) {
     res.send('success');
 }
 
+function getDeliveryAddressByUserId(req, res){
+    const data = req.body;
+    const userid = data.userid;
+    db.query(`SELECT * FROM CUSTOMER_ADDRESS WHERE userId = ${userid} and statusAddress = 1`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function updateStatusProductInCart(req, res){
+    const data = req.body;
+    const statusShoesInCart = data.statusShoesInCart;
+    const detailId = data.cartDetailId;
+    db.query(`UPDATE CART_DETAIL SET statusShoesinCart = ${statusShoesInCart} WHERE detailId = ${detailId}`, (err, result) => {
+        if (err) {
+            throw err;
+        }else{
+            res.send(result);
+        }
+    });
+}
+
+function updateDashBoard(req, res){
+    const data = req.body;
+    const username = data.username;
+    const fullname = data.fullname;
+    const email = data.email;
+    const phone = data.phone;
+    db.query(`UPDATE CUSTOMER SET fullName = '${fullname}', email = '${email}', phone = '${phone}' WHERE userName = '${username}'`, (err, result) => {
+        if (err) {
+            throw err;
+        } else{
+            res.send(result);
+        }
+    });
+}
+
+function getUserInfoByUserName(req, res) {
+    const data = req.body;
+    const username = data.username;
+    db.query(`SELECT * FROM CUSTOMER WHERE userName = '${username}'`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function getAddressByUserId(req, res){
+    const data = req.body;
+    const userId = data.userId;
+    db.query(`SELECT * FROM customer_address WHERE userId = '${userId}'`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+};
+
+function chooseDeliveryAddress(req, res){
+    const data = req.body;
+    const userid = data.userid;
+    const provinceid = data.provinceid;
+    db.query(`update customer_address set statusAddress = ${0} where userId = ${userid}`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            db.query(`update customer_address set statusAddress = ${1} where userId = '${userid}'and provinceId = '${provinceid}'`, (err, result) => {
+                if (err) {
+                    throw err;
+                } else {
+                    res.send(result);
+                }
+            });
+        }
+    });
+
+}
+
+function postUserAddressAdd(req, res){
+    const data = req.body;
+    const userId = data.userId; 
+    const provinceid = data.provinceid;
+    const districtid = data.districtid;
+    const wardid = data.wardid;
+    const detailaddress = data.detailaddress;
+    db.query(`INSERT INTO CUSTOMER_ADDRESS (userId, provinceId, districtId, wardId, detail_Address, statusAddress) VALUES ('${userId}', '${provinceid}', '${districtid}', '${wardid}', '${detailaddress}', 0) `, (err, result) => {
+        if (err) {
+            throw err;
+        }else{
+            res.send(result);
+        }
+    });
+}
+
+//
+function postUserSignUpInfo(req, res){
+    function hash(pass) {
+        var hash = crypto.createHash('sha256');
+        return hash.update(pass).digest('hex');
+    }
+    const data = req.body;
+    const username = data.username;
+    const password = data.password;
+    const fullname= data.fullname;
+    const email = data.email;
+    const phone = data.phone;
+    const roleaccress = 0;
+    
+    db.query(`INSERT INTO CUSTOMER (userName, pass, fullName, email, phone, roleAccess) VALUES ('${username}', '${hash(password)}', '${fullname}', '${email}', '${phone}', ${roleaccress}) `, (err, result) => {
+        if (err) {
+            throw err;
+        } else{
+            res.send(result);
+        }
+    });
+}
+
+function postUserNameSignUp(req, res){
+    const data = req.body;
+    const userName = data.username;
+    db.query(`SELECT * FROM CUSTOMER where userName = '${userName}'`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function postUserCartSignUp(req, res){
+    const data = req.body;
+    const userId = data.userId;
+    db.query(`INSERT INTO CART (userId) VALUES ('${userId}') `, (err, result) => {
+        if (err) {
+            throw err;
+        }else{
+            res.send(result);
+        }
+    });
+}
+
+function postUserAddressSignUp(req, res){
+    const data = req.body;
+    const userId = data.userId; 
+    const provinceid = data.provinceid;
+    const districtid = data.districtid;
+    const wardid = data.wardid;
+    const detailaddress = data.detailaddress;
+    const statusAddress = data.statusAddress;
+    db.query(`INSERT INTO CUSTOMER_ADDRESS (userId, provinceId, districtId, wardId, detail_Address, statusAddress) VALUES ('${userId}', '${provinceid}', '${districtid}', '${wardid}', '${detailaddress}', ${statusAddress}) `, (err, result) => {
+        if (err) {
+            throw err;
+        }else{
+            res.send(result);
+        }
+    });
+}
+
+function getCartDetailInfoByCartIdToOrder(req, res) {
+    const data = req.body;
+    const cartId = data.cartId;
+    db.query(`SELECT * FROM CART_DETAIL WHERE cartId=${cartId} and statusShoesInCart = 1`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function createOrder(req, res){
+    const data = req.body;
+    const userId = data.userId;
+    const orderDate = data.orderDate;
+    const totalCost = data.totalCost;
+    const paymentStatus = data.paymentStatus;
+    db.query(`INSERT INTO ORDER_PRODUCT (userId, orderDate, totalCost, paymentStatus) VALUES(${userId}, '${orderDate}', ${totalCost}, ${paymentStatus})`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function orderDetailAdd(req, res){
+    const data = req.body;
+    const orderId = data.orderId;
+    const shoesId = data.shoesId;
+    const shoesQuantity = data.shoesQuantity;
+    //const sizeId = data.sizeId; !!!! thieu sizeId trong query
+    db.query(`INSERT INTO ORDER_DETAIL (orderId, shoesId, shoesQuantity) VALUES(${orderId}, '${shoesId}', ${shoesQuantity})`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function deleteProductInCartByDetailId(req, res){
+    const data = req.body;
+    const detailId = data.detailId;
+    db.query(`DELETE FROM CART_DETAIL WHERE detailId = ${detailId}`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
 const service = {
     getUserInfo,
     postUserLoginInfo,
@@ -245,6 +462,21 @@ const service = {
     getCartDetailInfoByCartId,
     removeProductInCartDetail,
     updateCartDetail,
+    getDeliveryAddressByUserId,
+    updateStatusProductInCart,
+    updateDashBoard,
+    getUserInfoByUserName,
+    getAddressByUserId,
+    chooseDeliveryAddress,
+    postUserAddressAdd,
+    postUserSignUpInfo,
+    postUserNameSignUp,
+    postUserCartSignUp,
+    postUserAddressSignUp,
+    getCartDetailInfoByCartIdToOrder,
+    createOrder,
+    orderDetailAdd,
+    deleteProductInCartByDetailId,
 };
 
 export default service;

@@ -26,7 +26,7 @@ function getSaleProductsList(req, res) {
     );
 }
 
-function getImportIDInfo(req, res) {
+function getImportIDInfo(req, res) { 
     db.query(`SELECT * FROM SHOES_IMPORT`, (err, result) => {
         if (err) {
             throw err;

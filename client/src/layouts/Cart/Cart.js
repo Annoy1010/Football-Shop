@@ -34,9 +34,9 @@ function Cart() {
             })
             .then((res) => setCartId(res.data[0].cartId))
             .catch();
+            
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
     useEffect(() => {
         if (cartId) {
             axios
@@ -48,9 +48,7 @@ function Cart() {
             setLoading(false);
         }
     }, [cartId]);
-
     var totalPrice = 0;
-
     const [selectAllProducts, setSelectAllProducts] = useState(false);
 
     const handleUpdateCart = () => {
@@ -126,8 +124,7 @@ function Cart() {
                                                         cartDetailId={product.detailId}
                                                         currentCart={currentCart}
                                                         key={index}
-                                                        checked={selectAllProducts}
-                                                    />
+                                                        checked={product.statusShoesInCart.data[0]}/>
                                                 );
                                             })}
                                     </Col>

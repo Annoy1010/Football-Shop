@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -11,10 +11,11 @@ import styles from './CartItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function CartItem({ cartDetailId, currentCart, quantity, product, key, checked }) {
+function CartItem({ cartDetailId, currentCart, quantity, product, key, checked}) {
     const [currentQuantity, setCurrentQuantity] = useState(quantity);
-    const [selectedProduct, setSelectedProduct] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState();
 
+    const [statusProduct, setStatusProduct] = useState(0);
     currentCart.map((item) => {
         if (item.detailId === cartDetailId) {
             item.shoesQuantity = currentQuantity;
@@ -44,6 +45,21 @@ function CartItem({ cartDetailId, currentCart, quantity, product, key, checked }
             .catch((err) => console.log(err));
     };
 
+    const handleSelectProduct = (e) => {
+        setSelectedProduct(e.target.checked);
+        console.log(selectedProduct);
+        if(selectedProduct){
+            setStatusProduct(1);
+        }else{
+            setStatusProduct(0);
+        }
+        axios.post('/user/cart/product/updatestatus',{
+            statusShoesInCart: statusProduct,
+            cartDetailId: cartDetailId,
+        })
+        .catch((err) => console.log(err));
+    }
+
     return (
         <div key={key} className={cx('wrapper')}>
             <Container>
@@ -53,7 +69,7 @@ function CartItem({ cartDetailId, currentCart, quantity, product, key, checked }
                             type="checkbox"
                             className={cx('select-product')}
                             checked={selectedProduct}
-                            onChange={(e) => setSelectedProduct(e.target.checked)}
+                            onChange={(e) => handleSelectProduct(e)}//setSelectedProduct(e.target.checked)
                         />
                         <div className={cx('product-info')}>
                             <div className={cx('product-img')}>
