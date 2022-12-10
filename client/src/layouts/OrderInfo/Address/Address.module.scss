@@ -23,3 +23,22 @@
         font-size: 1.6rem;
     }
 }
+
+.btn-change-address {
+    margin-top: 20px;
+    margin-left: 13px;
+    padding: 4px 20px;
+    font-size: 1.6rem;
+    color: var(--white-color);
+    background-color: var(--black-color);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        color: var(--black-color);
+        background-color: var(--white-color);
+        border: 1px solid var(--black-color);
+    }
+}

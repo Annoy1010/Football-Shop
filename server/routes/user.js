@@ -12,6 +12,7 @@ router.post('/avatar', userController.getImage);
 router.post('/cart/cartId', userController.getCartDetailByCartId);
 router.post('/cart/remove', userController.removeProductInCart);
 router.post('/cart/update', userController.updateCart);
+router.post('/address', userController.getAddress);
 
 router.post('/cartId', userController.getCartId);
 router.post('/cartId/quantity', userController.getCartQuantity);

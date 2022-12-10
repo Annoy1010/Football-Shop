@@ -1,5 +1,7 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,9 +14,23 @@ import configs from '../../../config';
 
 const cx = classNames.bind(styles);
 
-function Products({ total, setTotal }) {
+function Products({ productList, setTotal }) {
+    /// productList là danh sách sản phẩm chọn mua
     let totalPrice = 0;
-    const productsOfUser = data.cart.filter((item) => item.userId === user)[0];
+    const [productDataAllList, setProductDataAllList] = useState();
+    /// productDataAllList là danh sách toàn bộ sản phẩm hiện có trong shop
+    const [shoesImageList, setShoesImageList] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get('/products/all')
+            .then((res) => setProductDataAllList(res.data))
+            .catch((err) => console.log(err));
+        axios
+            .get('/products/image/all')
+            .then((res) => setShoesImageList(res.data))
+            .catch((err) => console.log(err));
+    }, []);
 
     return (
         <div className={cx('wrapper')}>
@@ -39,13 +55,22 @@ function Products({ total, setTotal }) {
                 <Container className={cx('product-order-info')}>
                     <Row>
                         <Col className={cx('product-order-list')}>
-                            {productsOfUser.products.map((product, index) => {
-                                const currentProduct = data.products.filter(
-                                    (productItem) => productItem.id === product.productId,
-                                )[0];
-                                totalPrice += currentProduct.price * product.quantity;
-                                return <ProductItem product={product} index={index} />;
-                            })}
+                            {productList &&
+                                productList.length > 0 &&
+                                productList.map((product, index) => {
+                                    totalPrice += product.price * product.shoesQuantity;
+                                    const shoesName =
+                                        productDataAllList &&
+                                        productDataAllList.length > 0 &&
+                                        productDataAllList.filter((item) => item.shoesId === product.shoesId)[0]
+                                            .shoesName;
+                                    const shoesImage =
+                                        shoesImageList &&
+                                        shoesImageList.length > 0 &&
+                                        shoesImageList.filter((item) => item.shoesId === product.shoesId)[0].mainImage;
+                                    product = { ...product, shoesName, shoesImage };
+                                    return <ProductItem product={product} index={index} />;
+                                })}
                             {setTotal(totalPrice)}
                         </Col>
                     </Row>

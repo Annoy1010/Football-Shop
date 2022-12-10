@@ -22,7 +22,7 @@ function Cart() {
     const [loading, setLoading] = useState(true);
 
     const currentCart = [];
-
+    const productBuyList = [];
     useEffect(() => {
         axios
             .get('/products/all')
@@ -108,24 +108,36 @@ function Cart() {
                                     <Col className={cx('product')}>
                                         {productListInCart &&
                                             productListInCart.length > 0 &&
-                                            productListInCart.map((product, index) => {
-                                                const productInCart =
+                                            productListInCart.map((productItemInCart, index) => {
+                                                const product =
                                                     productList &&
                                                     productList.length > 0 &&
                                                     productList.filter(
-                                                        (productItem) => productItem.shoesId === product.shoesId,
+                                                        (productItem) =>
+                                                            productItem.shoesId === productItemInCart.shoesId,
                                                     )[0];
-                                                totalPrice += productInCart.price * product.shoesQuantity;
+                                                if (product) {
+                                                    totalPrice += product.price * productItemInCart.shoesQuantity;
+                                                }
 
-                                                currentCart.push(product);
+                                                currentCart.push(productItemInCart);
+
+                                                const item = {
+                                                    shoesId: productItemInCart.shoesId,
+                                                    chosedSize: parseInt(productItemInCart.sizeId) + 1,
+                                                    shoesQuantity: productItemInCart.shoesQuantity,
+                                                    price: product && product.price,
+                                                };
+
+                                                productBuyList.push(item);
 
                                                 return (
                                                     <CartItem
-                                                        product={productInCart}
-                                                        quantity={product.shoesQuantity}
-                                                        cartDetailId={product.detailId}
+                                                        product={product}
+                                                        quantity={productItemInCart.shoesQuantity}
+                                                        cartDetailId={productItemInCart.detailId}
                                                         currentCart={currentCart}
-                                                        sizeId={product.sizeId}
+                                                        sizeId={productItemInCart.sizeId}
                                                         key={index}
                                                         checked={selectAllProducts}
                                                     />
@@ -140,7 +152,14 @@ function Cart() {
                                         <b>Tổng tiền:</b>
                                         <span> {totalPrice}đ</span>
                                     </div>
-                                    <Link className={cx('order-btn')} to={`/user/id/${userId}/order/info`}>
+                                    <Link
+                                        className={cx('order-btn')}
+                                        to={`/user/id/${userId}/order/info`}
+                                        state={{
+                                            userId: userId,
+                                            productList: productBuyList,
+                                        }}
+                                    >
                                         Mua hàng
                                     </Link>
                                 </>

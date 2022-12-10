@@ -64,5 +64,9 @@ class UserRouter {
     postNewEmployee(req, res) {
         UserService.postNewEmployeeInfo(req, res);
     }
+
+    getAddress(req, res) {
+        UserService.getAddressInfo(req, res);
+    }
 }
 export default new UserRouter();

@@ -307,6 +307,21 @@ function postNewEmployeeInfo(req, res) {
     );
 }
 
+function getAddressInfo(req, res) {
+    const data = req.body;
+    const userId = data.userId;
+    db.query(
+        `SELECT * FROM CUSTOMER_ADDRESS ca, PROVINCE p, DISTRICT d, WARD w WHERE ca.userId=${userId} AND defaultAddress=1 AND ca.provinceId=p.provinceId AND ca.districtId = d.districtId AND ca.wardId = w.wardId`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
 const service = {
     getUserInfoById,
     getUserInfo,
@@ -324,6 +339,7 @@ const service = {
     getEmployeeListDetail,
     updateEmployeeInfo,
     postNewEmployeeInfo,
+    getAddressInfo,
 };
 
 export default service;

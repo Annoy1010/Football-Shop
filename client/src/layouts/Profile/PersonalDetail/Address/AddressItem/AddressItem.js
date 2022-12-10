@@ -6,7 +6,6 @@ import styles from './AddressItem.module.scss';
 const cx = classNames.bind(styles);
 
 function AddressItem({ defaultItem, user }) {
-    console.log(user);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('personal-info')}>

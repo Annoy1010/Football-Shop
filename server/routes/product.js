@@ -24,6 +24,7 @@ router.post('/comment/remove', productController.removeComment);
 
 router.get('/all', productController.getProducts);
 router.get('/all/sale', productController.getProductById);
+router.get('/image/all', productController.getAllImage);
 router.get('/import/importID', productController.getImportID);
 router.get('/import/productId', productController.getShoesId);
 router.get('/import/descriptionId', productController.getDescriptionID);

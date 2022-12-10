@@ -89,6 +89,18 @@ function ProductGeneral({ product }) {
         }
     };
 
+    const handleBuyShoesImmediatetly = () => {
+        if (!userIsExisted) {
+            alert('Vui lòng đăng nhập trước khi mua hàng');
+        } else {
+            if (chosedSize === null) {
+                alert('Vui lòng chọn size giày');
+            } else if (currentValue === 0) {
+                alert('Vui lòng chọn số lượng giày');
+            }
+        }
+    };
+
     return (
         <Container>
             <Row>
@@ -137,7 +149,29 @@ function ProductGeneral({ product }) {
                         <button className={cx('add-cart-btn')} onClick={handleAddProductIntoCart}>
                             Thêm vào giỏ hàng
                         </button>
-                        <button className={cx('buy-btn')}>Mua ngay</button>
+                        <Link
+                            className={cx('buy-btn')}
+                            to={
+                                userIsExisted &&
+                                chosedSize !== null &&
+                                currentValue > 0 &&
+                                `/user/id/${user.userId}/order/info`
+                            }
+                            state={{
+                                userId: user.userId,
+                                productList: [
+                                    {
+                                        shoesId: product.shoesId,
+                                        chosedSize: chosedSize + 1,
+                                        shoesQuantity: currentValue,
+                                        price: product.price,
+                                    },
+                                ],
+                            }}
+                            onClick={handleBuyShoesImmediatetly}
+                        >
+                            Mua ngay
+                        </Link>
                     </div>
                 </Col>
             </Row>

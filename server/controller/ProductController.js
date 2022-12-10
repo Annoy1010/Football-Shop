@@ -128,5 +128,9 @@ class ProductRouter {
     removeComment(req, res) {
         ProductService.removeCommentDetail(req, res);
     }
+
+    getAllImage(req, res) {
+        ProductService.getAllImageList(req, res);
+    }
 }
 export default new ProductRouter();

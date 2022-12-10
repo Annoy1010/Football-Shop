@@ -522,6 +522,16 @@ function removeCommentDetail(req, res) {
     });
 }
 
+function getAllImageList(req, res) {
+    db.query(`SELECT * FROM SHOES_IMAGE`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
 const service = {
     getTrademarkInfo,
     getGrassInfo,
@@ -556,6 +566,7 @@ const service = {
     postCommentDetail,
     getCommentList,
     removeCommentDetail,
+    getAllImageList,
 };
 
 export default service;
