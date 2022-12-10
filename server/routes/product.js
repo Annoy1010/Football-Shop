@@ -20,6 +20,7 @@ router.get('/all', productController.getProducts);
 router.get('/all/sort/az', productController.getProductsListShoesNameAsc);
 router.get('/all/sort/za', productController.getProductsListShoesNameDesc);
 router.get('/all/sort/priceincrease', productController.getProductsListPriceAsc);
+router.get('/all/sort/pricedecrease', productController.getProductsListPriceDesc);
 router.get('/all/sale', productController.getProductById);
 router.get('/import/importID', productController.getImportID);
 router.get('/import/productId', productController.getShoesId);

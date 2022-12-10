@@ -52,6 +52,12 @@ function ProductList() {
                     .then((res) => setProductList(res.data))
                     .catch((err) => console.log(err));
                 break;
+            case `Giá giảm dần`:
+                axios
+                    .get('/products/all/sort/pricedecrease')
+                    .then((res) => setProductList(res.data))
+                    .catch((err) => console.log(err));
+                break;
         }
     }
 
