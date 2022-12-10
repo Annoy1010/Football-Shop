@@ -106,5 +106,8 @@ class ProductRouter {
     getProductsListShoesNameDesc(req, res){
         ProductService.getProductsListShoesNameDesc(req, res);
     }
+    getProductsListPriceAsc(req, res){
+        ProductService.getProductsListPriceAsc(req, res);
+    }
 }
 export default new ProductRouter();
