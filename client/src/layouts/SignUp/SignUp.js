@@ -233,7 +233,7 @@ function SignUp() {
                     <label htmlFor="ward" className={cx('label-item')}>
                         Xã
                     </label>
-                    <select id="ward" className={cx('input-area')} required onChange={(e) => setWardId(e.target.value)}>
+                    <select id="ward" className={cx('input-area')} required onChange={(e) => handleOnChangeWard(e)}>
                         <option className={cx('option-value')} selected>
                             Chọn Phường/Xã
                         </option>

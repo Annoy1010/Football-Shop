@@ -410,6 +410,32 @@ function getNationalInfo(req, res) {
     });
 }
 
+function getProductsListShoesNameAsc(req, res) {
+    db.query(
+        `SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId ORDER BY shoesName ASC`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function getProductsListShoesNameDesc(req, res) {
+    db.query(
+        `SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId ORDER BY shoesName DESC`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
 const service = {
     getTrademarkInfo,
     getGrassInfo,
@@ -437,6 +463,8 @@ const service = {
     getSizeInfo,
     getAvailableQuantityOfSizeInfo,
     getProductByIdInfo,
+    getProductsListShoesNameAsc,
+    getProductsListShoesNameDesc,
 };
 
 export default service;

@@ -15,6 +15,7 @@ const cx = classNames.bind(styles);
 function ProductList() {
     const [loading, setLoading] = useState(true);
     const [productList, setProductList] = useState([]);
+    const [sortProduct, setSortProduct] = useState([{index: `Mặc định`}, {index: `A -> Z`}, {index: `Z -> A`}, {index: `Giá tăng dần`}, {index: `Giá giảm dần`}]);
 
     const distinctAvailableProductList = [];
 
@@ -26,23 +27,40 @@ function ProductList() {
         setLoading(false);
     }, []);
 
+    const handleOnChangeSort = (e) => {
+        switch(e.target.value){
+            case `Mặc định`:
+                axios
+                    .get('/products/all')
+                    .then((res) => setProductList(res.data))
+                    .catch((err) => console.log(err));
+                break;
+            case `A -> Z` :
+                axios
+                    .get('/products/all/sort/az')
+                    .then((res) => setProductList(res.data))
+                    .catch((err) => console.log(err));
+                break;
+            case `Z -> A` :
+                axios
+                    .get('/products/all/sort/za')
+                    .then((res) => setProductList(res.data))
+                    .catch((err) => console.log(err));
+                break;
+        }
+    }
+
     return (
         <div className={cx('wrapper')}>
             <h3 className={cx('heading')}>DANH MỤC SẢN PHẨM</h3>
             <div className={cx('filter-options')}>
                 <span className={cx('filter-heading')}>Sắp xếp theo: </span>
-                <select className={cx('option-list')}>
-                    <option className={cx('option-item')} value="default">
-                        Mặc định
-                    </option>
-                    <option className={cx('option-item')} value="keyIncrease">{`A -> Z`}</option>
-                    <option className={cx('option-item')} value="keyDecrease">{`Z -> A`}</option>
-                    <option className={cx('option-item')} value="priceIncrease">
-                        Giá tăng dần
-                    </option>
-                    <option className={cx('option-item')} value="priceDecrease">
-                        Giá giảm dần
-                    </option>
+                <select className={cx('option-list')} onChange = {(e) => handleOnChangeSort(e)}>
+                    {sortProduct.map((sortName) => (
+                            <option key={sortName.index} className={cx('option-value')}>
+                                {sortName.index}
+                            </option>
+                        ))}
                 </select>
             </div>
             {loading ? (
