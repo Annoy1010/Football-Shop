@@ -461,6 +461,19 @@ function getProductsListPriceDesc(req, res) {
         },
     );
 }
+
+function searchProductByShoesName(req, res){
+    const data = req.body;
+    const shoesName = data.shoesName;
+    db.query(`SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId and shoesName Like '${shoesName}%'  `,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+    })
+}
 const service = {
     getTrademarkInfo,
     getGrassInfo,
@@ -492,6 +505,7 @@ const service = {
     getProductsListShoesNameDesc,
     getProductsListPriceAsc,
     getProductsListPriceDesc,
+    searchProductByShoesName,
 };
 
 export default service;
