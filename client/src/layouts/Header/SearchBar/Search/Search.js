@@ -50,13 +50,7 @@ function Search() {
                     <div ref={searchList} className={cx('search-list')}>
                         <h2 className={cx('menu-heading')}>Danh sách tìm kiếm</h2>
                         {searchResult.map((item, index) => (
-                            <Link
-                                key={index}
-                                className={cx('product-item')}
-                                to={`/products/shoes/id/${item.shoesId}`}
-                            >
-                                <MenuItem index={index} item={item} />
-                            </Link>
+                            <MenuItem index={index} item={item} />
                         ))}
                         <div className={cx('option-btn')}>
                             <button className={cx('more-btn')}>Xem tất cả</button>
