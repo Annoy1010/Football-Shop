@@ -46,6 +46,7 @@ function ProductList() {
                     .get('/products/all/sort/za')
                     .then((res) => setProductList(res.data))
                     .catch((err) => console.log(err));
+                break;
             case `Giá tăng dần`:
                 axios
                     .get('/products/all/sort/priceincrease')
