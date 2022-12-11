@@ -115,5 +115,8 @@ class ProductRouter {
     searchProductByShoesName(req, res){
         ProductService.searchProductByShoesName(req, res);
     }
+    getProductByTradeMark(req ,res){
+        ProductService.getProductByTradeMark(req, res);
+    }
 }
 export default new ProductRouter();

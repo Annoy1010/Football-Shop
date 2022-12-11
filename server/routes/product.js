@@ -26,6 +26,7 @@ router.get('/import/importID', productController.getImportID);
 router.get('/import/productId', productController.getShoesId);
 router.get('/import/descriptionId', productController.getDescriptionID);
 router.post('/search/name', productController.searchProductByShoesName);
+router.post('/trademark', productController.getProductByTradeMark);
 
 router.get('/trademark', productController.getTrademark);
 router.use('/type', productController.getType);

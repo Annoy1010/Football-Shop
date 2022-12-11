@@ -7,18 +7,21 @@ import styles from './Products.module.scss';
 import Navigation from './Navigation';
 import ProductList from './ProductList';
 
+import { useState } from 'react';
+
 const cx = classNames.bind(styles);
 
 function Products() {
+    const [trademark, setTradeMark] = useState();
     return (
         <div className={cx('wrapper')}>
             <Container className={cx('container')}>
                 <Row>
                     <Col xm={0} sm={0} md={4} lg={3} xl={3}>
-                        <Navigation />
+                        <Navigation setTradeMark = {setTradeMark}/>
                     </Col>
                     <Col xm={12} sm={12} md={8} lg={9} xl={9}>
-                        <ProductList />
+                        <ProductList trademark = {trademark}/>
                     </Col>
                 </Row>
             </Container>

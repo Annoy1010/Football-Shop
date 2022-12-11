@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind';
 // import { useState } from 'react';
-
 import styles from './Navigation.module.scss';
 import data from '../../../hardData';
 
@@ -8,9 +7,8 @@ const cx = classNames.bind(styles);
 
 // const initChoice = { size: [], field: [], position: [], trademark: [], price: [] };
 
-function Navigation() {
+function Navigation({setTradeMark}) {
     // const [productChoice, setProductChoice] = useState(initChoice);
-
     const handleOnClick = (e, type) => {
         switch (type) {
             case 'Kích thước':
@@ -26,7 +24,7 @@ function Navigation() {
                 break;
             case 'Nhãn hiệu':
                 console.log('trademark ', e.target.textContent);
-
+                setTradeMark(e.target.textContent);
                 break;
             case 'Giá tiền':
                 console.log('price ', e.target.textContent);

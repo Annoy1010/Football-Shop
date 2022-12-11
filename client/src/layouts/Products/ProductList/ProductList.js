@@ -12,7 +12,7 @@ import LoadingSpinner from '../../../components/LoadingSpinner';
 
 const cx = classNames.bind(styles);
 
-function ProductList() {
+function ProductList({trademark}) {
     const [loading, setLoading] = useState(true);
     const [productList, setProductList] = useState([]);
     const [sortProduct, setSortProduct] = useState([{index: `Mặc định`}, {index: `A -> Z`}, {index: `Z -> A`}, {index: `Giá tăng dần`}, {index: `Giá giảm dần`}]);
@@ -26,6 +26,16 @@ function ProductList() {
             .catch((err) => console.log(err));
         setLoading(false);
     }, []);
+
+    useEffect(() => {
+        axios
+            .post('/products/trademark', {
+                trademark: trademark,
+            })
+            .then((res) => setProductList(res.data))
+            .catch((err) => console.log(err));
+    }, [trademark]);
+
 
     const handleOnChangeSort = (e) => {
         switch(e.target.value){
@@ -60,6 +70,7 @@ function ProductList() {
                     .catch((err) => console.log(err));
                 break;
         }
+        console.log(productList);
     }
 
     return (
