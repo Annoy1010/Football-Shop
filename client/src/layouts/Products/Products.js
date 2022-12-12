@@ -21,7 +21,7 @@ function Products() {
                         <Navigation setTradeMark = {setTradeMark}/>
                     </Col>
                     <Col xm={12} sm={12} md={8} lg={9} xl={9}>
-                        <ProductList trademark = {trademark}/>
+                        <ProductList trademark = {trademark} setTradeMark={setTradeMark}/>
                     </Col>
                 </Row>
             </Container>

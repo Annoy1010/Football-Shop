@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 
 import styles from './Trademark.module.scss';
 import data from '../../../hardData';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -34,7 +35,13 @@ function Trademark() {
                                     <h3 className={cx('product-title')}>{item.name}</h3>
                                     <span className={cx('product-slogan')}>{item.slogan}</span>
                                 </div>
-                                <button className={cx('product-view-btn')}>Xem ngay</button>
+                                <button className={cx('product-view-btn')}>
+                                <Link
+                                    to = '/products' state = {{trademark: item.name}}
+                                    >
+                                        Xem ngay
+                                </Link>
+                                </button>
                             </Col>
                         </React.Fragment>
                     </Row>

@@ -9,33 +9,63 @@ import { Link } from 'react-router-dom';
 import styles from './ProductList.module.scss';
 import ProductItem from './ProductItem';
 import LoadingSpinner from '../../../components/LoadingSpinner';
+import { useLocation } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
-function ProductList({trademark}) {
+function ProductList({trademark, setTradeMark}) { 
     const [loading, setLoading] = useState(true);
     const [productList, setProductList] = useState([]);
     const [sortProduct, setSortProduct] = useState([{index: `Mặc định`}, {index: `A -> Z`}, {index: `Z -> A`}, {index: `Giá tăng dần`}, {index: `Giá giảm dần`}]);
 
     const distinctAvailableProductList = [];
+    
+    const location = useLocation();
+    const trademark_state = location.state;
 
     useEffect(() => {
-        axios
-            .get('/products/all')
-            .then((res) => setProductList(res.data))
-            .catch((err) => console.log(err));
+        if(location.state === null){
+            axios
+                .get('/products/all')
+                .then((res) => setProductList(res.data))
+                .catch((err) => console.log(err));
+        }
         setLoading(false);
     }, []);
 
     useEffect(() => {
-        axios
-            .post('/products/trademark', {
-                trademark: trademark,
-            })
-            .then((res) => setProductList(res.data))
-            .catch((err) => console.log(err));
+        if(trademark !== null){
+            axios
+                .post('/products/trademark', {
+                    trademark: trademark,
+                })
+                .then((res) => setProductList(res.data))
+                .catch((err) => console.log(err));
+        }
     }, [trademark]);
 
+    useEffect(() => {
+        if(trademark !== null){
+            setTradeMark(null);
+        }
+    }, [trademark]);
+
+    useEffect(() => {
+        if(trademark_state!== null){
+            axios
+                .post('/products/trademark', {
+                    trademark: trademark_state.trademark,
+                })
+                .then((res) => setProductList(res.data))
+                .catch((err) => console.log(err));
+        }
+    }, [trademark_state]);
+
+    useEffect(() => {
+        if(location.state !== null){
+            location.state = null;
+        }
+    }, [trademark_state]);
 
     const handleOnChangeSort = (e) => {
         switch(e.target.value){
