@@ -1,0 +1,31 @@
+.wrapper {
+    padding: 0;
+    margin: 10px 0;
+}
+
+.header-data {
+    text-align: center;
+}
+
+.header-item {
+    font-size: 1.6rem;
+}
+
+.active {
+    font-style: italic;
+}
+
+.btn-submit {
+    background-color: var(--primary-color);
+    border: 1px solid transparent;
+    color: var(--white-color);
+    font-size: 1.4rem;
+    padding: 4px 20px;
+    border-radius: 20px;
+}
+
+.btn-submit:hover {
+    color: var(--primary-color);
+    background-color: var(--white-color);
+    border: 1px solid var(--primary-color);
+}

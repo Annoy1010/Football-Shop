@@ -18,7 +18,10 @@ function ProductItem({ product }) {
                             saled: product.sale !== 0 ? true : false,
                         })}
                     >
-                        {product.price}đ
+                        {product.price.toLocaleString('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND',
+                        })}
                     </span>
                     {product.sale !== 0 ? (
                         <span className={cx('product-price-sale')}>

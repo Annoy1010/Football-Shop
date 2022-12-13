@@ -10,6 +10,7 @@ router.post('/import/newDescriptionlId', productController.postDescriptionlId);
 router.post('/size/availableQuantity', productController.getAvailableQuantityWithSize);
 router.post('/import/newImportDetail', productController.postImportDetail);
 router.post('/size/all', productController.getProductsWithSizeAndId);
+router.post('/trademark', productController.getProductByTradeMark);
 router.post('/import/frontImage', productController.postFrontImage);
 router.post('/import/mainImage', productController.postMainImage);
 router.post('/import/backImage', productController.postBackImage);
@@ -23,11 +24,16 @@ router.post('/comment/remove', productController.removeComment);
 // router.post('/all/id', productController.getProductsById);
 
 router.get('/all', productController.getProducts);
+router.get('/all/sort/az', productController.getProductsListShoesNameAsc);
+router.get('/all/sort/za', productController.getProductsListShoesNameDesc);
+router.get('/all/sort/priceincrease', productController.getProductsListPriceAsc);
+router.get('/all/sort/pricedecrease', productController.getProductsListPriceDesc);
 router.get('/all/sale', productController.getProductById);
 router.get('/image/all', productController.getAllImage);
 router.get('/import/importID', productController.getImportID);
 router.get('/import/productId', productController.getShoesId);
 router.get('/import/descriptionId', productController.getDescriptionID);
+router.post('/search/name', productController.searchProductByShoesName);
 
 router.get('/trademark', productController.getTrademark);
 router.use('/type', productController.getType);

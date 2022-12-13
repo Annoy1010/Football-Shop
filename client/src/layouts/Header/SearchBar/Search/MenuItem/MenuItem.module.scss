@@ -8,6 +8,10 @@
     &:hover {
         background-color: var(--main-background);
     }
+
+    &:hover .item-name {
+        color: var(--primary-color);
+    }
 }
 
 .item-img {
@@ -20,6 +24,7 @@
 .item-info {
     flex: 1;
     padding: 10px 0;
+    color: var(--extra-color);
 }
 
 .item-detail {
@@ -32,7 +37,7 @@
 
     & .item-name {
         margin-bottom: 2px;
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-weight: bold;
         text-transform: uppercase;
     }
@@ -43,7 +48,7 @@
 }
 
 .item-price {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: bold;
 
     & .origin-price {

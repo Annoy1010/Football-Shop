@@ -1,38 +1,20 @@
 import classNames from 'classnames/bind';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import styles from './Address.module.scss';
+import ChangeAddress from './ChangeAddress';
 
 const cx = classNames.bind(styles);
+
 const user = JSON.parse(localStorage.getItem('user'));
 const userIsExisted = user && Object.keys(user).length > 0;
 
-function Address({ userId }) {
-    const [userAddress, setUserAddress] = useState({});
-    const [addressId, setAddressId] = useState('');
-
-    useEffect(() => {
-        axios
-            .post('/user/address', {
-                userId,
-            })
-            .then((res) => {
-                setUserAddress(res.data[0]);
-            })
-            .catch((err) => console.error(err));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        if (Object.keys(userAddress).length > 0) {
-            setAddressId(userAddress.addressId);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userAddress]);
+function Address({ userId, setAddressId, userAddress, addressId }) {
+    const [changeButtonClicked, setChangeButtonClicked] = useState(false);
+    const defaultAddress = userAddress.filter((item) => item.addressId === addressId)[0];
 
     return (
         <div className={cx('wrapper')}>
@@ -53,23 +35,34 @@ function Address({ userId }) {
                     </Col>
                     <Col xl={3} className={cx('info-item')}>
                         <label className={cx('label-name')}>Địa chỉ</label>
-                        <span>{Object.keys(userAddress).length > 0 && userAddress.detailAddress}</span>
+                        <span>{defaultAddress.detailAddress}</span>
                     </Col>
                     <Col xl={3} className={cx('info-item')}>
                         <label className={cx('label-name')}>Tỉnh thành</label>
-                        <span>{Object.keys(userAddress).length > 0 && userAddress.provinceName}</span>
+                        <span>{defaultAddress.provinceName}</span>
                     </Col>
                     <Col xl={3} className={cx('info-item')}>
                         <label className={cx('label-name')}>Quận huyện</label>
-                        <span>{Object.keys(userAddress).length > 0 && userAddress.districtName}</span>
+                        <span>{defaultAddress.districtName}</span>
                     </Col>
                     <Col xl={3} className={cx('info-item')}>
                         <label className={cx('label-name')}>Xã phường</label>
-                        <span>{Object.keys(userAddress).length > 0 && userAddress.wardName}</span>
+                        <span>{defaultAddress.wardName}</span>
                     </Col>
                 </Row>
             </Container>
-            <button className={cx('btn-change-address')}>Thay đổi địa chỉ</button>
+            <button className={cx('btn-change-address')} onClick={() => setChangeButtonClicked(true)}>
+                Thay đổi địa chỉ
+            </button>
+            {changeButtonClicked && (
+                <ChangeAddress
+                    setChangeButtonClicked={setChangeButtonClicked}
+                    setAddressId={setAddressId}
+                    userAddress={userAddress}
+                    addressId={addressId}
+                    userId={userId}
+                />
+            )}
         </div>
     );
 }

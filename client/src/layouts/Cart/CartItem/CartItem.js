@@ -80,7 +80,12 @@ function CartItem({ cartDetailId, currentCart, quantity, product, sizeId, key, c
                         </div>
                     </Col>
                     <Col className={cx('product-info-item')} xl={2}>
-                        <span className={cx('product-price')}>{product.price}đ</span>
+                        <span className={cx('product-price')}>
+                            {product.price.toLocaleString('vi-VN', {
+                                style: 'currency',
+                                currency: 'VND',
+                            })}
+                        </span>
                     </Col>
                     <Col className={cx('product-info-item')} xl={2}>
                         <div
@@ -98,7 +103,12 @@ function CartItem({ cartDetailId, currentCart, quantity, product, sizeId, key, c
                         </div>
                     </Col>
                     <Col className={cx('product-info-item')} xl={2}>
-                        <span className={cx('product-price-total')}>{product.price * currentQuantity}đ</span>
+                        <span className={cx('product-price-total')}>
+                            {(product.price * currentQuantity).toLocaleString('vi-VN', {
+                                style: 'currency',
+                                currency: 'VND',
+                            })}
+                        </span>
                     </Col>
                     <Col className={cx('product-info-item')} xl={2}>
                         <span className={cx('remove-btn')} onClick={handleRemoveShoes}>

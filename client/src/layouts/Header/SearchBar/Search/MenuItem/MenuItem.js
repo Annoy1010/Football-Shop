@@ -7,21 +7,32 @@ const cx = classNames.bind(styles);
 function MenuItem({ item, index }) {
     return (
         <div key={index} className={cx('wrapper')}>
-            <img src={item.img} alt="" className={cx('item-img')} />
+            <img src={item.mainImage} alt="" className={cx('item-img')} />
             <div className={cx('item-info')}>
                 <div className={cx('item-detail')}>
-                    <span className={cx('item-name')}>{item.name}</span>
-                    <span className={cx('item-size')}>{item.size}</span>
+                    <span className={cx('item-name')}>{item.shoesName}</span>
+                    <span className={cx('item-size')}>{item.sizeId}</span>
                 </div>
                 <div className={cx('item-price')}>
                     <span
                         className={cx('origin-price', {
-                            sale: item.salePrice !== null,
+                            sale: item.sale > 0,
                         })}
                     >
-                        {item.originPrice}đ
+                        {item.price.toLocaleString('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND',
+                        })}
                     </span>
-                    {item.salePrice && <span className={cx('sale-price')}>{item.salePrice}đ</span>}
+                    {item.sale > 0 && (
+                        <span className={cx('sale-price')}>
+                            {item.price *
+                                (1 - item.sale).toLocaleString('vi-VN', {
+                                    style: 'currency',
+                                    currency: 'VND',
+                                })}
+                        </span>
+                    )}
                 </div>
             </div>
         </div>

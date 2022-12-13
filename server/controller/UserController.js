@@ -21,6 +21,10 @@ class UserRouter {
         UserService.getUserInfo(req, res);
     }
 
+    getFullName(req, res) {
+        UserService.getFullNameInfo(req, res);
+    }
+
     postImage(req, res) {
         UserService.postAvatar(req, res);
     }
@@ -67,6 +71,38 @@ class UserRouter {
 
     getAddress(req, res) {
         UserService.getAddressInfo(req, res);
+    }
+
+    getProvince(req, res) {
+        UserService.getProvinceInfo(req, res);
+    }
+
+    postNewAddress(req, res) {
+        UserService.postNewAddressInfo(req, res);
+    }
+
+    postNewOrder(req, res) {
+        UserService.postNewOrderInfo(req, res);
+    }
+
+    postNewOrderDetail(req, res) {
+        UserService.postNewOrderDetailInfo(req, res);
+    }
+
+    getOrderId(req, res) {
+        UserService.getOrderIdInfo(req, res);
+    }
+
+    getOrderListOfUser(req, res) {
+        UserService.getOrderDetailListOfUser(req, res);
+    }
+
+    getShoesListOfOrder(req, res) {
+        UserService.getShoesDetailListOfOrder(req, res);
+    }
+
+    removeOrder(req, res) {
+        UserService.removeOrderDetail(req, res);
     }
 }
 export default new UserRouter();

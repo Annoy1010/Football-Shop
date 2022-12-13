@@ -25,12 +25,8 @@
     font-size: 1.8rem;
 }
 
-.product-list {
-    border-right: 1px solid var(--light-color);
-}
-
 .order-user {
-    padding-left: 80px;
+    margin-top: 30px;
 }
 
 .user-info {
@@ -55,13 +51,34 @@
 .total-price {
     display: flex;
     & label {
-        width: 26%;
+        width: 15%;
     }
 
     & span {
         display: block;
-        width: 20%;
+        width: 6%;
         text-align: center;
         font-weight: bold;
+    }
+}
+
+.btn-view-order-status {
+    margin-top: -18px;
+    margin-bottom: 50px;
+    float: right;
+    padding: 4px 20px;
+    text-align: center;
+    font-size: 1.6rem;
+    color: var(--white-color);
+    background-color: var(--black-color);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        color: var(--black-color);
+        background-color: var(--white-color);
+        border: 1px solid var(--black-color);
     }
 }

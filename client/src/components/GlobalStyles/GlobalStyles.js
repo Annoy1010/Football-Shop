@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types';
 import classNames from 'classnames/bind';
 
+import 'react-toastify/dist/ReactToastify.css';
 import styles from './GlobalStyles.module.scss';
 
 const cx = classNames.bind(styles);

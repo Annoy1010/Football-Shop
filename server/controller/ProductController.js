@@ -105,6 +105,30 @@ class ProductRouter {
         ProductService.getProductByIdInfo(req, res);
     }
 
+    getProductsListShoesNameAsc(req, res) {
+        ProductService.getProductsListShoesNameAsc(req, res);
+    }
+
+    getProductsListShoesNameDesc(req, res) {
+        ProductService.getProductsListShoesNameDesc(req, res);
+    }
+
+    getProductsListPriceAsc(req, res) {
+        ProductService.getProductsListPriceAsc(req, res);
+    }
+
+    getProductsListPriceDesc(req, res) {
+        ProductService.getProductsListPriceDesc(req, res);
+    }
+
+    getProductByTradeMark(req, res) {
+        ProductService.getProductByTradeMark(req, res);
+    }
+
+    searchProductByShoesName(req, res) {
+        ProductService.searchProductByShoesName(req, res);
+    }
+
     updatePrice(req, res) {
         ProductService.updatePriceInfo(req, res);
     }

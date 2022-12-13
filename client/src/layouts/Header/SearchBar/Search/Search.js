@@ -1,73 +1,103 @@
-import { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/fontawesome-free-solid';
 import classNames from 'classnames/bind';
+import { faSearch, faSpinner } from '@fortawesome/fontawesome-free-solid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import HeadlessTippy from '@tippyjs/react/headless';
 
 import styles from './Search.module.scss';
+import { Wrapper as PoperWrapper } from '../../../../components/Popper';
 import MenuItem from './MenuItem';
-import { useRef } from 'react';
 
 const cx = classNames.bind(styles);
-
-const SHOESES = [
-    {
-        name: 'Nike Mercurial Vapor 15',
-        size: 39,
-        originPrice: 750000,
-        salePrice: null,
-        img: 'https://static.nike.com/a/images/t_default/1c465a01-bbdc-4cfe-a5b2-5073cdd98ec7/zoom-mercurial-vapor-15-academy-tf-football-shoes-L8JgP4.png',
-    },
-    {
-        name: 'Mizuno Morelia II Elite',
-        size: 40,
-        originPrice: 100000,
-        salePrice: null,
-        img: 'https://emea.mizuno.com/dw/image/v2/BDBS_PRD/on/demandware.static/-/Sites-masterCatalog_Mizuno/default/dw17fb0ca4/Football_Images/SH_P1GA221260_00.png?sw=300&sh=300',
-    },
-];
 
 function Search() {
     const [inputValue, setInputValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    const inputRef = useRef();
 
     useEffect(() => {
-        setSearchResult(SHOESES);
+        if (inputValue) {
+            // setLoading(true);
+            axios
+                .post('/products/search/name', {
+                    shoesName: inputValue,
+                })
+                .then((res) => setSearchResult(res.data))
+                .catch((err) => console.log(err));
+            setLoading(false);
+        } else {
+            setSearchResult([]);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inputValue]);
 
-    const searchList = useRef();
+    function handleOnChange(e) {
+        const searchValue = e.target.value;
+        if (!searchValue.startsWith(' ')) {
+            setInputValue(searchValue);
+        }
+    }
 
     return (
-        <div className={cx('wrapper')}>
-            <div className={cx('search-action')}>
+        <HeadlessTippy
+            appendTo={() => document.body}
+            interactive={true}
+            visible={showResult && searchResult.length > 0}
+            render={(attrs) => (
+                <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                    <PoperWrapper>
+                        <h4 className={cx('search-title')}>Danh sách tìm kiếm</h4>
+                        {searchResult.map((result) => (
+                            <Link to={`/products/shoes/id/${result.shoesId}`}>
+                                <MenuItem index={result.shoesId} item={result} />
+                            </Link>
+                        ))}
+                    </PoperWrapper>
+                </div>
+            )}
+            onClickOutside={() => setShowResult(false)}
+        >
+            <div className={cx('search')}>
                 <input
-                    value={inputValue}
-                    type="text"
                     className={cx('search-input')}
-                    placeholder="Tìm kiếm..."
-                    onChange={(e) => setInputValue(e.target.value)}
+                    value={inputValue}
+                    ref={inputRef}
+                    placeholder="Tìm kiếm...."
+                    spellCheck={false}
+                    onChange={(e) => handleOnChange(e)}
                     onFocus={() => setShowResult(true)}
                 />
-                {inputValue && <div className={cx('close-btn')} onClick={() => setInputValue('')}></div>}
-                <FontAwesomeIcon icon={faSearch} className={cx('search-btn')} />
-            </div>
 
-            {inputValue.length > 0 && /// Thực tế thì kiểm tra searchReuslt.length
-                showResult && (
-                    <div ref={searchList} className={cx('search-list')}>
-                        <h2 className={cx('menu-heading')}>Danh sách tìm kiếm</h2>
-                        {searchResult.map((item, index) => (
-                            <MenuItem index={index} item={item} />
-                        ))}
-                        <div className={cx('option-btn')}>
-                            <button className={cx('more-btn')}>Xem tất cả</button>
-                            <button className={cx('more-btn', 'clean-btn')} onClick={() => setInputValue('')}>
-                                Đóng
-                            </button>
-                        </div>
-                    </div>
+                {inputValue && loading && (
+                    <button className={cx('loading-btn')}>
+                        <FontAwesomeIcon icon={faSpinner} className={cx('loading-icon')} />
+                    </button>
                 )}
-        </div>
+
+                {!loading && inputValue && showResult && (
+                    <button
+                        className={cx('clear-btn')}
+                        onClick={() => {
+                            setInputValue('');
+                            setSearchResult([]);
+                            inputRef.current.focus();
+                        }}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" className={cx('clear-icon')}>
+                            <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z" />
+                        </svg>
+                    </button>
+                )}
+                <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
+                    <FontAwesomeIcon icon={faSearch} className={cx('search-icon')} />
+                </button>
+            </div>
+        </HeadlessTippy>
     );
 }
 

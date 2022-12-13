@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Container from 'react-bootstrap/Container';
@@ -17,6 +18,7 @@ function Trademark() {
             duration: 1000,
         });
     }, []);
+
     return (
         <div className={cx('wrapper')}>
             <h3 className={cx('heading')} data-aos="fade-up">
@@ -34,7 +36,13 @@ function Trademark() {
                                     <h3 className={cx('product-title')}>{item.name}</h3>
                                     <span className={cx('product-slogan')}>{item.slogan}</span>
                                 </div>
-                                <button className={cx('product-view-btn')}>Xem ngay</button>
+                                <Link
+                                    className={cx('product-view-btn')}
+                                    to="/products"
+                                    state={{ trademark: item.name }}
+                                >
+                                    Xem ngay
+                                </Link>
                             </Col>
                         </React.Fragment>
                     </Row>

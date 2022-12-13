@@ -7,6 +7,7 @@ import forgetpasswordRouter from './forgetpassword';
 import sendemailRouter from './sendEmail';
 import feedbackRouter from './feedback';
 import productRouter from './product';
+import orderRouter from './order';
 
 function route(app) {
     app.use('/province', provinceRouter);
@@ -18,6 +19,7 @@ function route(app) {
     app.use('/sendemail', sendemailRouter);
     app.use('/feedback', feedbackRouter);
     app.use('/products', productRouter);
+    app.use('/order', orderRouter);
 }
 
 export default route;

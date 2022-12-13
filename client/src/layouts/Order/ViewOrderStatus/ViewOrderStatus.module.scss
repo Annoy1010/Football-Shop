@@ -1,0 +1,164 @@
+.wrapper {
+    position: fixed;
+    top: 10%;
+    left: 22%;
+    width: 60%;
+    padding: 10px;
+    background-color: var(--white-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    z-index: 10000;
+}
+
+.heading {
+    margin-bottom: 20px;
+    padding: 4px 0;
+    font-size: 2.4rem;
+}
+
+.order-id {
+    display: block;
+    margin-bottom: 20px;
+    padding: 4px 0;
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.product-list {
+    height: 120px;
+    overflow-y: auto;
+    border-bottom: 1px solid var(--light-color);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.status-detail {
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.status-item {
+    margin-right: 180px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    & span {
+        margin-bottom: 4px;
+        font-size: 1.6rem;
+        color: var(--primary-color);
+    }
+
+    &::after {
+        position: absolute;
+        left: 101%;
+        content: '';
+        width: 183px;
+        height: 8px;
+        background-color: transparent;
+        border: 2px solid var(--primary-color);
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &:last-child::after {
+        display: none;
+    }
+
+    & .check-icon {
+        width: 30px;
+        font-size: 4rem;
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+}
+
+.submit-active,
+.ship-active,
+.pay-active {
+    &::after {
+        border: 2px solid transparent;
+        background-color: var(--primary-color);
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &:last-child::after {
+        display: none;
+    }
+}
+
+.status-desc {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.status-desc-item {
+    font-size: 1.6rem;
+    width: 90px;
+    margin-right: 180px;
+    text-align: center;
+
+    & span {
+        margin-right: 6px;
+    }
+
+    & .check-icon {
+        color: var(--primary-color);
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+.options-btn {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close-btn,
+.submit-btn {
+    padding: 4px 20px;
+    font-size: 1.6rem;
+    border-radius: 4px;
+}
+
+.submit-btn {
+    margin-right: 10px;
+    color: var(--white-color);
+    background-color: var(--black-color);
+
+    &:hover {
+        opacity: 0.9;
+    }
+
+    &.disabled {
+        opacity: 0.7;
+        cursor: default;
+    }
+}
+
+.close-btn {
+    margin-left: 10px;
+    background-color: var(--white-color);
+
+    &:hover {
+        filter: brightness(0.9);
+    }
+}

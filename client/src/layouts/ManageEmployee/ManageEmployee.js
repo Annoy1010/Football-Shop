@@ -34,7 +34,7 @@ function ManageEmployee() {
         if (userIsExisted && user.roleAccess.data[0] === 1 && user.isAdmin.data[0] === 1) {
             setNewEmployee(true);
         } else {
-            alert('Ban khong co quyen chinh sua');
+            alert('Ban không có quyền chỉnh sửa');
         }
     };
 
@@ -70,7 +70,7 @@ function ManageEmployee() {
                     </Row>
                     {employeeList &&
                         employeeList.length > 0 &&
-                        employeeList.map((emplyee, index) => <EmployeeItem employee={emplyee} index={index} />)}
+                        employeeList.map((employee, index) => <EmployeeItem employee={employee} index={index} />)}
                     <button className={cx('add-btn')} onClick={handleAddEmployee}>
                         <FontAwesomeIcon icon={faPlus} className={cx('btn-icon')} />
                         Thêm nhân viên

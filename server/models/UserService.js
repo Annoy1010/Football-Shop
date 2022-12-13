@@ -311,7 +311,7 @@ function getAddressInfo(req, res) {
     const data = req.body;
     const userId = data.userId;
     db.query(
-        `SELECT * FROM CUSTOMER_ADDRESS ca, PROVINCE p, DISTRICT d, WARD w WHERE ca.userId=${userId} AND defaultAddress=1 AND ca.provinceId=p.provinceId AND ca.districtId = d.districtId AND ca.wardId = w.wardId`,
+        `SELECT * FROM CUSTOMER_ADDRESS ca, PROVINCE p, DISTRICT d, WARD w WHERE ca.userId=${userId} AND ca.provinceId=p.provinceId AND ca.districtId = d.districtId AND ca.wardId = w.wardId`,
         (err, result) => {
             if (err) {
                 throw err;
@@ -320,6 +320,161 @@ function getAddressInfo(req, res) {
             }
         },
     );
+}
+
+function getProvinceInfo(req, res) {
+    const data = req.body;
+    const provinceId = data.provinceId;
+    db.query(`SELECT provinceName FROM PROVINCE WHERE provinceId='${provinceId}'`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function postNewAddressInfo(req, res) {
+    const data = req.body;
+    const provinceId = data.provinceId;
+    const districtId = data.districtId;
+    const wardId = data.wardId;
+    const detailAddress = data.detailAddress;
+    const userId = data.userId;
+
+    db.query(
+        `INSERT INTO CUSTOMER_ADDRESS (provinceId, districtId, wardId, detailAddress, userId, defaultAddress) VALUES ('${provinceId}', '${districtId}', '${wardId}', '${detailAddress}', ${userId} , 0)`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function postNewOrderInfo(req, res) {
+    const data = req.body;
+    const userId = data.userId;
+    const total = data.total;
+    const addressId = data.addressId;
+    const paymentId = data.paymentId;
+
+    const date = () => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '/' + mm + '/' + dd;
+        return today;
+    };
+
+    if (paymentId === '1') {
+        db.query(
+            `INSERT INTO ORDER_PRODUCT (userId, orderDate, totalCost, shipStatus, submitStatus, paymentStatus, addressId, paymentId) VALUES (${userId}, '${date()}', ${total}, 0, 0, 0, ${addressId}, '${paymentId}')`,
+            (err, result) => {
+                if (err) {
+                    throw err;
+                } else {
+                    res.send(result);
+                }
+            },
+        );
+    } else if (paymentId === '2') {
+        db.query(
+            `INSERT INTO ORDER_PRODUCT (userId, orderDate, totalCost, shipStatus, submitStatus, paymentStatus, addressId, paymentId) VALUES (${userId}, '${date()}', ${total}, 0, 0, 1, ${addressId}, '${paymentId}')`,
+            (err, result) => {
+                if (err) {
+                    throw err;
+                } else {
+                    res.send(result);
+                }
+            },
+        );
+    }
+}
+
+function getOrderIdInfo(req, res) {
+    const data = req.body;
+    const userId = data.userId;
+    db.query(`SELECT * FROM ORDER_PRODUCT WHERE userId=${userId}`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function postNewOrderDetailInfo(req, res) {
+    const data = req.body;
+    const orderId = data.orderId;
+    const product = data.product;
+    db.query(
+        `INSERT INTO ORDER_DETAIL (orderId, shoesId, shoesQuantity, sizeId) VALUES (${orderId}, ${product.shoesId}, ${product.shoesQuantity}, '${product.chosedSize}')`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function getOrderDetailListOfUser(req, res) {
+    const data = req.body;
+    const userId = data.userId;
+
+    db.query(
+        `SELECT * FROM ORDER_PRODUCT WHERE userId=${userId} AND NOT EXISTS (SELECT * FROM ORDER_PRODUCT WHERE userId=${userId} AND shipStatus=1 AND submitStatus=1 AND paymentStatus=1)`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function getShoesDetailListOfOrder(req, res) {
+    const data = req.body;
+    const orderId = data.orderId;
+
+    db.query(
+        `SELECT * FROM ORDER_DETAIL od, SHOES s, SHOES_IMAGE si, SIZE sz WHERE orderId=${orderId} AND od.shoesId= s.shoesId AND s.shoesId=si.shoesId AND od.sizeId=sz.sizeId`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function removeOrderDetail(req, res) {
+    const data = req.body;
+    const orderId = data.orderId;
+
+    db.query(`DELETE FROM ORDER_DETAIL WHERE orderId=${orderId}`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            if (result.affectedRows > 0) {
+                db.query(`DELETE FROM ORDER_PRODUCT WHERE orderId=${orderId}`, (err, result) => {
+                    if (err) {
+                        throw err;
+                    } else {
+                        res.send(result);
+                    }
+                });
+            }
+        }
+    });
 }
 
 const service = {
@@ -340,6 +495,14 @@ const service = {
     updateEmployeeInfo,
     postNewEmployeeInfo,
     getAddressInfo,
+    getProvinceInfo,
+    postNewAddressInfo,
+    postNewOrderInfo,
+    postNewOrderDetailInfo,
+    getOrderIdInfo,
+    getOrderDetailListOfUser,
+    getShoesDetailListOfOrder,
+    removeOrderDetail,
 };
 
 export default service;

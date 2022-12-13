@@ -1,0 +1,27 @@
+.wrapper {
+    margin: 20px 0;
+    padding: 4px 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--light-color);
+    }
+}
+
+.address-info {
+    flex: 1;
+}
+
+.address-detail {
+    font-size: 1.6rem;
+}
+
+.check-icon {
+    width: 30px;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}

@@ -8,29 +8,21 @@ const cx = classNames.bind(styles);
 
 // const initChoice = { size: [], field: [], position: [], trademark: [], price: [] };
 
-function Navigation() {
+function Navigation({ setTradeMark }) {
     // const [productChoice, setProductChoice] = useState(initChoice);
 
     const handleOnClick = (e, type) => {
         switch (type) {
             case 'Kích thước':
-                console.log('size ', e.target.textContent);
                 break;
             case 'Mặt sân thi đấu':
-                console.log('field ', e.target.textContent);
-
                 break;
             case 'Vị trí thi đấu':
-                console.log('position ', e.target.textContent);
-
                 break;
             case 'Nhãn hiệu':
-                console.log('trademark ', e.target.textContent);
-
+                setTradeMark(e.target.textContent);
                 break;
             case 'Giá tiền':
-                console.log('price ', e.target.textContent);
-
                 break;
             default:
                 break;

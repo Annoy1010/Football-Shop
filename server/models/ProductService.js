@@ -326,6 +326,88 @@ function getProductByIdInfo(req, res) {
     );
 }
 
+function getProductsListShoesNameAsc(req, res) {
+    db.query(
+        `SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId ORDER BY shoesName ASC`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function getProductsListShoesNameDesc(req, res) {
+    db.query(
+        `SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId ORDER BY shoesName DESC`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function getProductsListPriceAsc(req, res) {
+    db.query(
+        `SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId ORDER BY price ASC`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function getProductsListPriceDesc(req, res) {
+    db.query(
+        `SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId ORDER BY price DESC`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function getProductByTradeMark(req, res) {
+    const data = req.body;
+    const trademark = data.trademark;
+    db.query(
+        `SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss, trademark tm WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId and s.trademarkId = tm.trademarkId and trademarkName = '${trademark}'`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function searchProductByShoesName(req, res) {
+    const data = req.body;
+    const shoesName = data.shoesName;
+    db.query(
+        `SELECT * FROM SHOES s, SHOES_IMAGE si WHERE s.shoesId = si.shoesId AND s.shoesName Like '${shoesName}%'  `,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
 function updatePriceInfo(req, res) {
     const data = req.body;
     const shoesId = data.shoesId;
@@ -560,6 +642,12 @@ const service = {
     getSizeInfo,
     getAvailableQuantityOfSizeInfo,
     getProductByIdInfo,
+    getProductsListShoesNameAsc,
+    getProductsListShoesNameDesc,
+    getProductsListPriceAsc,
+    getProductsListPriceDesc,
+    getProductByTradeMark,
+    searchProductByShoesName,
     updatePriceInfo,
     updateSaleInfo,
     updateDescInfo,

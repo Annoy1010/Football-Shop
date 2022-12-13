@@ -113,7 +113,12 @@ function ProductGeneral({ product }) {
                         <b>Mã sản phẩm: </b>
                         {product.shoesId}
                     </div>
-                    <div className={cx('product-price')}>{product.price}đ</div>
+                    <div className={cx('product-price')}>
+                        {product.price.toLocaleString('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND',
+                        })}
+                    </div>
                     <div className={cx('product-size-title')}>Chọn size:</div>
                     <div className={cx('product-size-list')}>
                         {defaultSize.map((sizeItem, index) => (
@@ -167,6 +172,7 @@ function ProductGeneral({ product }) {
                                         price: product.price,
                                     },
                                 ],
+                                buyDirectly: true,
                             }}
                             onClick={handleBuyShoesImmediatetly}
                         >

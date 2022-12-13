@@ -48,11 +48,17 @@ function TrendProducts() {
                                                 saled: product.sale ? true : false,
                                             })}
                                         >
-                                            {product.price}đ
+                                            {product.price.toLocaleString('vi-VN', {
+                                                style: 'currency',
+                                                currency: 'VND',
+                                            })}
                                         </span>
                                         {product.sale ? (
                                             <span className={cx('product-price-sale')}>
-                                                {(product.price * (1 - product.sale / 100)).toFixed(0)}đ
+                                                {(product.price * (1 - product.sale / 100)).toLocaleString('vi-VN', {
+                                                    style: 'currency',
+                                                    currency: 'VND',
+                                                })}
                                             </span>
                                         ) : (
                                             <></>

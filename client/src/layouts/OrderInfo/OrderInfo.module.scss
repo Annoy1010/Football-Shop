@@ -46,8 +46,11 @@
 
 .order-btn {
     position: absolute;
-    right: 9%;
-    padding: 4px 80px;
+    display: block;
+    left: 75%;
+    width: 200px;
+    padding: 4px 20px;
+    text-align: center;
     font-size: 1.6rem;
     color: var(--white-color);
     background-color: var(--black-color);
