@@ -5,6 +5,7 @@ import { publicRoutes } from './routes';
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';
 import SignIn from './layouts/SignIn';
+
 localStorage.getItem('user') === null && localStorage.setItem('user', JSON.stringify({}));
 function App() {
     const [username, setUsername] = useState('');

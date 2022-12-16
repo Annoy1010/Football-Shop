@@ -14,6 +14,7 @@ function Address() {
     const [addressDetail, setAddressDetail] = useState([]);
     const [provinceName, setProvinceName] = useState('');
     const [addButtonClicked, setAddButtonClicked] = useState(false);
+    const [changeDefaultAddress, setChangeDefaultAddress] = useState(false);
 
     useEffect(() => {
         if (user.roleAccess.data[0] === 0) {
@@ -36,7 +37,6 @@ function Address() {
                 .catch((err) => console.error(err));
         }
     }, []);
-    console.log(addressDetail);
     return (
         <div className={cx('wrapper')}>
             <h3 className={cx('heading')}>Địa chỉ</h3>
@@ -48,11 +48,13 @@ function Address() {
                         <AddressItem
                             index={index}
                             user={user}
+                            addressInfo={item}
                             addressDetail={item.detailAddress}
                             ward={item.wardName}
                             district={item.districtName}
                             province={item.provinceName}
                             defaultAddress={item.defaultAddress.data[0]}
+                            setChangeDefaultAddress={setChangeDefaultAddress}
                         />
                     );
                 })
@@ -60,11 +62,13 @@ function Address() {
                 <AddressItem
                     index={1}
                     user={user}
+                    addressInfo={{}}
                     addressDetail={''}
                     ward={''}
                     district={''}
                     province={provinceName}
                     defaultAddress={''}
+                    setChangeDefaultAddress={() => {}}
                 />
             )}
 

@@ -81,6 +81,10 @@ class UserRouter {
         UserService.postNewAddressInfo(req, res);
     }
 
+    updateDefaultAddress(req, res) {
+        UserService.updateDefaultAddressDetail(req, res);
+    }
+
     postNewOrder(req, res) {
         UserService.postNewOrderInfo(req, res);
     }

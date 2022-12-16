@@ -41,14 +41,22 @@ function ImportedProduct({ product }) {
                 </span>
                 <span className={cx('product-price')}>
                     <span className={cx('product-title')}>Đơn giá: </span>
-                    {product.price}
+                    {product.price.toLocaleString('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND',
+                    })}
                 </span>
                 <span className={cx('product-total-price')}>
                     <span className={cx('product-title')}>Tổng đơn giá: </span>
                     {product.shoesId
-                        ? product.price * (1 - product.sale / 100) * product.quantity
-                        : product.price * (1 - product.sale / 100) * product.importQuantity}{' '}
-                    VNĐ
+                        ? (product.price * (1 - product.sale / 100) * product.quantity).toLocaleString('vi-VN', {
+                              style: 'currency',
+                              currency: 'VND',
+                          })
+                        : (product.price * (1 - product.sale / 100) * product.importQuantity).toLocaleString('vi-VN', {
+                              style: 'currency',
+                              currency: 'VND',
+                          })}
                 </span>
             </div>
         </div>

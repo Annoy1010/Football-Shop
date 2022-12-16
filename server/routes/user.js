@@ -15,6 +15,7 @@ router.post('/cart/update', userController.updateCart);
 router.post('/address', userController.getAddress);
 router.post('/address/province', userController.getProvince);
 router.post('/address/new', userController.postNewAddress);
+router.post('/address/default', userController.updateDefaultAddress);
 router.post('/order/new', userController.postNewOrder);
 router.post('/order/new/detail', userController.postNewOrderDetail);
 router.post('/order/orderId', userController.getOrderId);

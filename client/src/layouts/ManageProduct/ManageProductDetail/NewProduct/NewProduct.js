@@ -235,7 +235,13 @@ function NewProduct() {
                             <div className={cx('import-total-cost')}>
                                 <span>
                                     Tổng tiền nhập hàng:
-                                    <b style={{ marginLeft: '10px', fontSize: '1.5rem' }}>{`${totalPrice} VNĐ`}</b>
+                                    <b style={{ marginLeft: '10px', fontSize: '1.5rem' }}>{`${totalPrice.toLocaleString(
+                                        'vi-VN',
+                                        {
+                                            style: 'currency',
+                                            currency: 'VND',
+                                        },
+                                    )}`}</b>
                                 </span>
                             </div>
                             <button className={cx('btn-submit-import')} onClick={handleSubmitImportNewProduct}>

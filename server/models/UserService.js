@@ -334,6 +334,33 @@ function getProvinceInfo(req, res) {
     });
 }
 
+function updateDefaultAddressDetail(req, res) {
+    const data = req.body;
+    const addressId = data.addressId;
+    const userId = data.userId;
+    db.query(
+        `UPDATE CUSTOMER_ADDRESS SET defaultAddress = 0 WHERE userId=${userId} AND addressId != ${addressId}`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                if (result.affectedRows > 0) {
+                    db.query(
+                        `UPDATE CUSTOMER_ADDRESS SET defaultAddress = 1 WHERE userId=${userId} AND addressId = ${addressId}`,
+                        (err, result) => {
+                            if (err) {
+                                throw err;
+                            } else {
+                                res.send(result);
+                            }
+                        },
+                    );
+                }
+            }
+        },
+    );
+}
+
 function postNewAddressInfo(req, res) {
     const data = req.body;
     const provinceId = data.provinceId;
@@ -496,6 +523,7 @@ const service = {
     postNewEmployeeInfo,
     getAddressInfo,
     getProvinceInfo,
+    updateDefaultAddressDetail,
     postNewAddressInfo,
     postNewOrderInfo,
     postNewOrderDetailInfo,

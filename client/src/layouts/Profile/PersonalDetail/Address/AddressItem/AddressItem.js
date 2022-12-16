@@ -1,11 +1,36 @@
 import classNames from 'classnames/bind';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import styles from './AddressItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function AddressItem({ index, user, addressDetail, ward, district, province, defaultAddress }) {
+function AddressItem({
+    index,
+    user,
+    addressInfo,
+    addressDetail,
+    ward,
+    district,
+    province,
+    defaultAddress,
+    setChangeDefaultAddress,
+}) {
+    const handleChangeDefaultAddres = () => {
+        axios
+            .post('/user/address/default', {
+                userId: user.userId,
+                addressId: addressInfo.addressId,
+            })
+            .then((res) => {
+                if (res.data.affectedRows > 0) {
+                    alert('cập nhật địa chỉ mặc định thành công');
+                    setChangeDefaultAddress(true);
+                    window.location.reload();
+                }
+            });
+    };
     return (
         <div key={index} className={cx('wrapper')}>
             <div className={cx('personal-info')}>
@@ -29,6 +54,12 @@ function AddressItem({ index, user, addressDetail, ward, district, province, def
 
             {user.roleAccess.data[0] === 0 && defaultAddress === 1 && (
                 <span className={cx('address-default')}>Mặc định</span>
+            )}
+
+            {user.roleAccess.data[0] === 0 && defaultAddress === 0 && (
+                <button className={cx('btn-set-address-default')} onClick={handleChangeDefaultAddres}>
+                    Cài mặc định
+                </button>
             )}
         </div>
     );
