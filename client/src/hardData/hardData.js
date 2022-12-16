@@ -249,16 +249,19 @@ const productOptionsList = [
 
 const productsOfField = [
     {
+        grassid: "1",
         name: 'Giày cỏ nhân tạo (TF)',
         desc: 'Giày dành cho mặt sân nhân tạo 5-7 người',
         src: 'https://static.nike.com/a/images/t_default/abb37116-285b-41e2-baf3-4305a3cb8298/mercurial-vapor-15-club-tf-football-shoes-1f5s8B.png',
     },
     {
+        grassid: "2",
         name: 'Giày cỏ tự nhiên (FG)',
         desc: 'Giày dành cho mặt sân tự nhiên 11 người',
         src: 'https://static.nike.com/a/images/t_default/b6836e2d-1979-4496-9401-dd8d6778731a/phantom-gt2-elite-fg-football-boot-wRNH0g.png',
     },
     {
+        grassid: "3",
         name: 'Sân Futsal (IC)',
         desc: 'Giày dành cho mặt sân xi măng và trong nhà',
         src: 'https://www.newmagista.com/7065-thickbox_default/nike-mercurial-superflyx-vi-elite-ic-indoor-shoes-orange-black.jpg',

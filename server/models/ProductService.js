@@ -487,6 +487,19 @@ function getProductByTradeMark(req, res){
             }
     })
 }
+
+function getProductByGrassId(req, res){
+    const data = req.body;
+    const grassid = data.grassid;
+    db.query(`SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss, trademark tm WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId and s.trademarkId = tm.trademarkId and s.grassId = '${grassid}'`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+    })
+}
 const service = {
     getTrademarkInfo,
     getGrassInfo,
@@ -520,6 +533,7 @@ const service = {
     getProductsListPriceDesc,
     searchProductByShoesName,
     getProductByTradeMark,
+    getProductByGrassId,
 };
 
 export default service;

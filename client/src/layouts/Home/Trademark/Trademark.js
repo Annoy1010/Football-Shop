@@ -37,7 +37,7 @@ function Trademark() {
                                 </div>
                                 <button className={cx('product-view-btn')}>
                                 <Link
-                                    to = '/products' state = {{trademark: item.name}}
+                                    to = '/products' state = {{trademark: item.name, field: null}}
                                     >
                                         Xem ngay
                                 </Link>

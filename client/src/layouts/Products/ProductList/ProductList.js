@@ -17,18 +17,22 @@ function ProductList({trademark, setTradeMark}) {
     const [loading, setLoading] = useState(true);
     const [productList, setProductList] = useState([]);
     const [sortProduct, setSortProduct] = useState([{index: `Mặc định`}, {index: `A -> Z`}, {index: `Z -> A`}, {index: `Giá tăng dần`}, {index: `Giá giảm dần`}]);
-
+    let trademark_state = null;
+    let field_state = null;
     const distinctAvailableProductList = [];
     
     const location = useLocation();
-    const trademark_state = location.state;
-
+    
+    console.log(location.state);
     useEffect(() => {
         if(location.state === null){
             axios
                 .get('/products/all')
                 .then((res) => setProductList(res.data))
                 .catch((err) => console.log(err));
+        }else{
+            trademark_state = location.state.trademark;
+            field_state = location.state.field;
         }
         setLoading(false);
     }, []);
@@ -54,7 +58,7 @@ function ProductList({trademark, setTradeMark}) {
         if(trademark_state!== null){
             axios
                 .post('/products/trademark', {
-                    trademark: trademark_state.trademark,
+                    trademark: trademark_state,
                 })
                 .then((res) => setProductList(res.data))
                 .catch((err) => console.log(err));
@@ -62,10 +66,15 @@ function ProductList({trademark, setTradeMark}) {
     }, [trademark_state]);
 
     useEffect(() => {
-        if(location.state !== null){
-            location.state = null;
+        if(field_state!== null){
+            axios
+                .post('/products/grassid', {
+                    grassid: field_state,
+                })
+                .then((res) => setProductList(res.data))
+                .catch((err) => console.log(err));
         }
-    }, [trademark_state]);
+    }, [field_state]);
 
     const handleOnChangeSort = (e) => {
         switch(e.target.value){

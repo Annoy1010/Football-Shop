@@ -14,6 +14,7 @@ router.post('/import/frontImage', productController.postFrontImage);
 router.post('/import/mainImage', productController.postMainImage);
 router.post('/import/backImage', productController.postBackImage);
 router.post('/import/image', productController.postImage);
+router.post('/grassid', productController.getProductByGrassId);
 // router.post('/all/id', productController.getProductsById);
 
 router.get('/all', productController.getProducts);

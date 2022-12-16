@@ -118,5 +118,8 @@ class ProductRouter {
     getProductByTradeMark(req ,res){
         ProductService.getProductByTradeMark(req, res);
     }
+    getProductByGrassId(req, res){
+        ProductService.getProductByGrassId(req, res);
+    }
 }
 export default new ProductRouter();
