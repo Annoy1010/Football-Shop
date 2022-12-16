@@ -30,7 +30,13 @@ function Position() {
                                     <img className={cx('position-img')} src={positionItem.src} alt="" />
                                 </Link>
                                 <div className={cx('position-name')}>{positionItem.name}</div>
-                                <button className={cx('view-btn')}>Xem ngay</button>
+                                <button className={cx('view-btn')}>
+                                    <Link
+                                        to = '/products' state = {{trademark: null, field: null, position: positionItem.name}}
+                                        >
+                                            Xem ngay
+                                    </Link>
+                                </button>
                             </Col>
                         ))}
                     </Row>

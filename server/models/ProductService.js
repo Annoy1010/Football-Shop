@@ -500,6 +500,19 @@ function getProductByGrassId(req, res){
             }
     })
 }
+
+function getProductByPositionName(req, res){
+    const data = req.body;
+    const positionName = data.positionName;
+    db.query(`SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss, PLAY_POSITION pp WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId and s.playPositionId = pp.playpositionId and pp.playPositionName = '${positionName}'`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+    })
+}
 const service = {
     getTrademarkInfo,
     getGrassInfo,
@@ -534,6 +547,7 @@ const service = {
     searchProductByShoesName,
     getProductByTradeMark,
     getProductByGrassId,
+    getProductByPositionName,
 };
 
 export default service;

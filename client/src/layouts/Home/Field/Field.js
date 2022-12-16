@@ -36,7 +36,7 @@ function Field() {
                                 <span className={cx('product-desc')}>{item.desc}</span>
                             </div>
                             <button className={cx('product-view-btn')}>
-                                <Link to = '/products' state = {{field: item.grassid, trademark: null}}>
+                                <Link to = '/products' state = {{field: item.grassid, trademark: null, position: null}}>
                                     Xem ngay
                                 </Link>
                             </button>

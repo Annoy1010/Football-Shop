@@ -19,6 +19,7 @@ function ProductList({trademark, setTradeMark}) {
     const [sortProduct, setSortProduct] = useState([{index: `Mặc định`}, {index: `A -> Z`}, {index: `Z -> A`}, {index: `Giá tăng dần`}, {index: `Giá giảm dần`}]);
     let trademark_state = null;
     let field_state = null;
+    let position_state = null;
     const distinctAvailableProductList = [];
     
     const location = useLocation();
@@ -33,6 +34,7 @@ function ProductList({trademark, setTradeMark}) {
         }else{
             trademark_state = location.state.trademark;
             field_state = location.state.field;
+            position_state = location.state.position;
         }
         setLoading(false);
     }, []);
@@ -75,6 +77,17 @@ function ProductList({trademark, setTradeMark}) {
                 .catch((err) => console.log(err));
         }
     }, [field_state]);
+
+    useEffect(() => {
+        if(position_state!== null){
+            axios
+                .post('/products/position', {
+                    positionName: position_state,
+                })
+                .then((res) => setProductList(res.data))
+                .catch((err) => console.log(err));
+        }
+    }, [position_state]);
 
     const handleOnChangeSort = (e) => {
         switch(e.target.value){

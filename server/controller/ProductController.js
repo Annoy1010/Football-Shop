@@ -121,5 +121,8 @@ class ProductRouter {
     getProductByGrassId(req, res){
         ProductService.getProductByGrassId(req, res);
     }
+    getProductByPositionName(req, res){
+        ProductService.getProductByPositionName(req, res);
+    }
 }
 export default new ProductRouter();
