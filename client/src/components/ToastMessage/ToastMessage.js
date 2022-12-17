@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 
-const notify = (message, type) => {
+const notify = (message, type, closeTime) => {
     const config = {
         position: 'bottom-left',
-        autoClose: 2000,
+        autoClose: closeTime,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

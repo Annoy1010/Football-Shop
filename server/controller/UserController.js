@@ -108,5 +108,13 @@ class UserRouter {
     removeOrder(req, res) {
         UserService.removeOrderDetail(req, res);
     }
+
+    updateCartAfterOrder(req, res) {
+        UserService.updateCartDetailAfterOrder(req, res);
+    }
+
+    updateDefaultBank(req, res) {
+        UserService.updateDefaultBankDetail(req, res);
+    }
 }
 export default new UserRouter();

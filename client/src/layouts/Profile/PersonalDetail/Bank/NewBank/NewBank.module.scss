@@ -1,6 +1,6 @@
 .wrapper {
     position: fixed;
-    top: 16%;
+    top: 10%;
     left: 34%;
     width: 34%;
     padding: 10px;
@@ -51,30 +51,36 @@
 }
 
 .card-input-item,
-.card-input-item-date {
+.card-input-expiration {
     margin: 6px 0;
 }
 
-.card-input-item-date {
+.card-input-expiration {
+    width: 100%;
     display: flex;
+
+    & .card-input-date-item {
+        flex: 1;
+        margin-right: 20px;
+    }
+
+    & .card-input-date-item label {
+        width: 28%;
+    }
+
+    & .card-input-date-item .card-input-item {
+        width: 72%;
+    }
+
+    & input {
+        width: 20%;
+    }
 }
 
-.card-input-item,
-.card-input-date-item {
+.card-input-item {
     padding: 4px;
     border-radius: 4px;
     border: 1px solid var(--black-color);
-}
-
-.card-input-date-item {
-    &:first-child {
-        width: 80%;
-        margin-right: 10px;
-    }
-
-    &:last-child {
-        flex: 1;
-    }
 }
 
 .address-register {

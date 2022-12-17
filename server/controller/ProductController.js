@@ -156,5 +156,9 @@ class ProductRouter {
     getAllImage(req, res) {
         ProductService.getAllImageList(req, res);
     }
+
+    updateAvailableQuantityAfterOrder(req, res) {
+        ProductService.updateAvailableQuantityDetailAfterOrder(req, res);
+    }
 }
 export default new ProductRouter();

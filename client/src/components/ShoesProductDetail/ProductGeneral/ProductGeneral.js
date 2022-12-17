@@ -166,6 +166,7 @@ function ProductGeneral({ product }) {
                                 userId: user.userId,
                                 productList: [
                                     {
+                                        cartDetailId: null,
                                         shoesId: product.shoesId,
                                         chosedSize: chosedSize + 1,
                                         shoesQuantity: currentValue,

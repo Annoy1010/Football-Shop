@@ -21,6 +21,7 @@ router.post('/update/desc', productController.updateDesc);
 router.post('/comment', productController.postComment);
 router.post('/comment/shoes', productController.getComment);
 router.post('/comment/remove', productController.removeComment);
+router.post('/available/update', productController.updateAvailableQuantityAfterOrder);
 // router.post('/all/id', productController.getProductsById);
 
 router.get('/all', productController.getProducts);

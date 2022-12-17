@@ -311,7 +311,7 @@ function getAddressInfo(req, res) {
     const data = req.body;
     const userId = data.userId;
     db.query(
-        `SELECT * FROM CUSTOMER_ADDRESS ca, PROVINCE p, DISTRICT d, WARD w WHERE ca.userId=${userId} AND ca.provinceId=p.provinceId AND ca.districtId = d.districtId AND ca.wardId = w.wardId`,
+        `SELECT * FROM CUSTOMER_ADDRESS ca, PROVINCE p, DISTRICT d, WARD w WHERE ca.userId=${userId} AND ca.provinceId=p.provinceId AND ca.districtId = d.districtId AND ca.wardId = w.wardId ORDER BY ca.defaultAddress DESC`,
         (err, result) => {
             if (err) {
                 throw err;
@@ -504,6 +504,44 @@ function removeOrderDetail(req, res) {
     });
 }
 
+function updateCartDetailAfterOrder(req, res) {
+    const data = req.body;
+    const detailId = data.detailId;
+
+    db.query(`DELETE FROM CART_DETAIL WHERE detailId=${detailId}`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function updateDefaultBankDetail(req, res) {
+    const data = req.body;
+    const userId = data.userId;
+    const cardId = data.cardId;
+
+    db.query(`UPDATE BANK_CARD SET defaultBank = 0 WHERE userId=${userId} AND cardId != ${cardId}`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            if (result.affectedRows > 0) {
+                db.query(
+                    `UPDATE BANK_CARD SET defaultBank = 1 WHERE userId=${userId} AND cardId = ${cardId}`,
+                    (err, result) => {
+                        if (err) {
+                            throw err;
+                        } else {
+                            res.send(result);
+                        }
+                    },
+                );
+            }
+        }
+    });
+}
+
 const service = {
     getUserInfoById,
     getUserInfo,
@@ -531,6 +569,8 @@ const service = {
     getOrderDetailListOfUser,
     getShoesDetailListOfOrder,
     removeOrderDetail,
+    updateCartDetailAfterOrder,
+    updateDefaultBankDetail,
 };
 
 export default service;

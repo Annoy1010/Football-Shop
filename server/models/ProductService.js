@@ -614,6 +614,24 @@ function getAllImageList(req, res) {
     });
 }
 
+function updateAvailableQuantityDetailAfterOrder(req, res) {
+    const data = req.body;
+    const shoesId = data.shoesId;
+    const sizeId = data.chosedSize;
+    const shoesQuantity = data.shoesQuantity;
+
+    db.query(
+        `UPDATE SHOES_SIZE SET quantity = quantity - ${shoesQuantity} WHERE shoesId=${shoesId} AND sizeId='${sizeId}'`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
 const service = {
     getTrademarkInfo,
     getGrassInfo,
@@ -655,6 +673,7 @@ const service = {
     getCommentList,
     removeCommentDetail,
     getAllImageList,
+    updateAvailableQuantityDetailAfterOrder,
 };
 
 export default service;

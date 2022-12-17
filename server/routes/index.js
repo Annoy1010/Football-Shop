@@ -8,8 +8,10 @@ import sendemailRouter from './sendEmail';
 import feedbackRouter from './feedback';
 import productRouter from './product';
 import orderRouter from './order';
+import bankRouter from './bank';
 
 function route(app) {
+    app.use('/bank', bankRouter);
     app.use('/province', provinceRouter);
     app.use('/district', districtRouter);
     app.use('/ward', wardRouter);

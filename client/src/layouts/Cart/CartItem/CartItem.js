@@ -11,9 +11,20 @@ import styles from './CartItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function CartItem({ cartDetailId, currentCart, quantity, product, sizeId, key, checked }) {
+function CartItem({
+    cartDetailId,
+    currentCart,
+    quantity,
+    product,
+    sizeId,
+    key,
+    selectAllProducts,
+    setSelectAllProducts,
+    productBuyList,
+    numberOfProduct,
+}) {
     const [currentQuantity, setCurrentQuantity] = useState(quantity);
-    const [selectedProduct, setSelectedProduct] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(selectAllProducts);
     const [sizeName, setSizeName] = useState('');
 
     currentCart.map((item) => {
@@ -35,12 +46,16 @@ function CartItem({ cartDetailId, currentCart, quantity, product, sizeId, key, c
     }, []);
 
     useEffect(() => {
-        if (checked) {
+        if (selectAllProducts) {
+            productBuyList.splice(0, productBuyList.length);
             setSelectedProduct(true);
         } else {
-            setSelectedProduct(false);
+            if (!selectedProduct || productBuyList.length === numberOfProduct) {
+                setSelectedProduct(false);
+            }
         }
-    }, [checked]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectAllProducts]);
 
     const handleRemoveShoes = () => {
         axios
@@ -56,6 +71,36 @@ function CartItem({ cartDetailId, currentCart, quantity, product, sizeId, key, c
             .catch((err) => console.log(err));
     };
 
+    useEffect(() => {
+        const item = {
+            cartDetailId,
+            shoesId: product.shoesId,
+            chosedSize: parseInt(sizeId) + 1,
+            shoesQuantity: quantity,
+            price: product.price,
+        };
+
+        if (selectedProduct) {
+            productBuyList.push(item);
+        } else {
+            const unCheckedItem = productBuyList.filter((product) => product.cartDetailId === item.cartDetailId)[0];
+            const removeIndex = productBuyList.indexOf(unCheckedItem);
+            productBuyList.splice(removeIndex, 1);
+            // setSelectAllProducts(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedProduct]);
+
+    const handleOnChangeChosedProduct = (e) => {
+        if (!e.target.checked) {
+            setSelectedProduct(false);
+            setSelectAllProducts(false);
+        } else {
+            setSelectedProduct(true);
+        }
+    };
+    // console.log(selectedProduct, '', selectAllProducts);
+
     return (
         <div key={key} className={cx('wrapper')}>
             <Container>
@@ -64,8 +109,8 @@ function CartItem({ cartDetailId, currentCart, quantity, product, sizeId, key, c
                         <input
                             type="checkbox"
                             className={cx('select-product')}
-                            checked={selectedProduct}
-                            onChange={(e) => setSelectedProduct(e.target.checked)}
+                            checked={selectedProduct || selectAllProducts}
+                            onChange={(e) => handleOnChangeChosedProduct(e)}
                         />
                         <div className={cx('product-info')}>
                             <div className={cx('product-img')}>

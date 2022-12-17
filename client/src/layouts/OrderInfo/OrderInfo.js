@@ -2,11 +2,13 @@ import classNames from 'classnames/bind';
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './OrderInfo.module.scss';
 import Products from './Products';
 import Address from './Address';
 import Payment from './Payment';
+import notify from '../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -45,15 +47,20 @@ function OrderInfo() {
 
     useEffect(() => {
         if (productList.length !== 0 && numberOfSuccessAffectedRow === productList.length) {
-            alert('Đặt hàng hàng thành công');
-            window.open(window.location.origin + `/user/id/${userId}/order`, '_self');
+            notify('Đặt hàng thành công', 'success', 2000);
+            const timeOut = setTimeout(() => {
+                window.open(window.location.origin + `/user/id/${userId}/order`, '_self');
+            }, 2100);
+            return () => {
+                clearTimeout(timeOut);
+            };
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [numberOfSuccessAffectedRow]);
 
     const handleOrder = () => {
         if (paymentId === null) {
-            alert('Vui lòng chọn phương thức thanh toán');
+            notify('Vui lòng chọn phương thức thanh toán', 'warn', 1000);
         } else {
             axios
                 .post('/user/order/new', {
@@ -77,9 +84,26 @@ function OrderInfo() {
                                         .then((res) => {
                                             if (res.data.affectedRows > 0) {
                                                 if (!buyDirectly) {
+                                                    axios
+                                                        .post('/user/order/cart/update', {
+                                                            detailId: product.cartDetailId,
+                                                        })
+                                                        .then(() => {})
+                                                        .catch((err) => console.log(err));
                                                     /// Đặt hàng từ giỏ hàng (cập nhật lại số lượng sản phẩm đang có)
                                                 }
-                                                setNumberOfSuccessAffectedRow((state) => state + 1);
+                                                axios
+                                                    .post('/products/available/update', {
+                                                        shoesId: product.shoesId,
+                                                        sizeId: product.chosedSize,
+                                                        shoesQuantity: product.shoesQuantity,
+                                                    })
+                                                    .then((res) => {
+                                                        if (res.data.affectedRows > 0) {
+                                                            setNumberOfSuccessAffectedRow((state) => state + 1);
+                                                        }
+                                                    })
+                                                    .catch((err) => console.log(err));
                                             }
                                         })
                                         .catch((err) => console.log(err));
@@ -132,6 +156,7 @@ function OrderInfo() {
                     Đặt hàng
                 </button>
             </div>
+            <ToastContainer />
         </div>
     );
 }

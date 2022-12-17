@@ -14,17 +14,19 @@ import notify from '../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
+const productBuyList = [];
+
 function Cart() {
     const pathArr = window.location.pathname.split('/');
     const userId = pathArr[pathArr.length - 2];
 
+    const [selectAllProducts, setSelectAllProducts] = useState(false);
     const [cartId, setCartId] = useState(null);
     const [productListInCart, setProductListInCart] = useState([]);
     const [productList, setProductList] = useState();
     const [loading, setLoading] = useState(true);
-
+    const [chosedBuyList, setChosedBuyList] = useState([]);
     const currentCart = [];
-    const productBuyList = [];
     useEffect(() => {
         axios
             .get('/products/all')
@@ -38,7 +40,7 @@ function Cart() {
             .catch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
+    console.log('product chosed buy: ', chosedBuyList);
     useEffect(() => {
         if (cartId) {
             axios
@@ -53,8 +55,6 @@ function Cart() {
 
     var totalPrice = 0;
 
-    const [selectAllProducts, setSelectAllProducts] = useState(false);
-
     const handleUpdateCart = () => {
         axios
             .post('/user/cart/update', {
@@ -63,7 +63,7 @@ function Cart() {
             })
             .then((res) => {
                 if (res.data === 'success') {
-                    notify('Cập nhật giỏ hàng thành công', 'success');
+                    notify('Cập nhật giỏ hàng thành công', 'success', 2000);
                     setTimeout(() => {
                         window.location.reload();
                     }, 2100);
@@ -71,7 +71,6 @@ function Cart() {
             })
             .catch((err) => console.log(err));
     };
-
     return (
         <>
             <div className={cx('wrapper')}>
@@ -92,6 +91,7 @@ function Cart() {
                                             <input
                                                 type="checkbox"
                                                 className={cx('filter-all')}
+                                                checked={selectAllProducts}
                                                 onChange={(e) => setSelectAllProducts(e.target.checked)}
                                             />
                                             <span>Sản phẩm</span>
@@ -128,24 +128,28 @@ function Cart() {
                                                     currentCart.push(productItemInCart);
 
                                                     const item = {
+                                                        cartDetailId: productItemInCart.detailId,
                                                         shoesId: productItemInCart.shoesId,
                                                         chosedSize: parseInt(productItemInCart.sizeId) + 1,
                                                         shoesQuantity: productItemInCart.shoesQuantity,
                                                         price: product && product.price,
                                                     };
 
-                                                    productBuyList.push(item);
+                                                    selectAllProducts && productBuyList.push(item);
 
                                                     return (
                                                         product && (
                                                             <CartItem
+                                                                key={index}
                                                                 product={product}
                                                                 quantity={productItemInCart.shoesQuantity}
                                                                 cartDetailId={productItemInCart.detailId}
                                                                 currentCart={currentCart}
                                                                 sizeId={productItemInCart.sizeId}
-                                                                key={index}
-                                                                checked={selectAllProducts}
+                                                                selectAllProducts={selectAllProducts}
+                                                                setSelectAllProducts={setSelectAllProducts}
+                                                                productBuyList={productBuyList}
+                                                                numberOfProduct={productListInCart.length}
                                                             />
                                                         )
                                                     );
@@ -166,12 +170,17 @@ function Cart() {
                                         </div>
                                         <Link
                                             className={cx('order-btn')}
-                                            to={`/user/id/${userId}/order/info`}
+                                            to={
+                                                productBuyList.length > 0
+                                                    ? `/user/id/${userId}/order/info`
+                                                    : console.log('product buy list', productBuyList)
+                                            }
                                             state={{
                                                 userId: userId,
                                                 productList: productBuyList,
                                                 buyDirectly: false,
                                             }}
+                                            onClick={() => setChosedBuyList(productBuyList)}
                                         >
                                             Mua hàng
                                         </Link>

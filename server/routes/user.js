@@ -22,6 +22,8 @@ router.post('/order/orderId', userController.getOrderId);
 router.post('/order/all', userController.getOrderListOfUser);
 router.post('/order/all/shoes', userController.getShoesListOfOrder);
 router.post('/order/remove', userController.removeOrder);
+router.post('/order/cart/update', userController.updateCartAfterOrder);
+router.post('/bank/default', userController.updateDefaultBank);
 
 router.post('/cartId', userController.getCartId);
 router.post('/cartId/quantity', userController.getCartQuantity);
