@@ -2,9 +2,11 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './Comment.module.scss';
 import CommentItem from './CommentItem';
+import notify from '../../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -31,7 +33,7 @@ function Comment({ productId }) {
 
     const handleComment = () => {
         if (!userIsExisted) {
-            alert('Vui lòng đăng nhập trước khi bình luận');
+            notify('Vui lòng đăng nhập trước khi bình luận', 'warn', 2000);
         } else {
             if (content !== '') {
                 const commentContent = content;
@@ -49,7 +51,7 @@ function Comment({ productId }) {
                     })
                     .catch((err) => console.log(err));
             } else {
-                alert('Vui lòng điền bình luận trước khi gửi');
+                notify('Vui lòng điền bình luận trước khi gửi', 'warn', 2000);
             }
         }
     };
@@ -82,6 +84,7 @@ function Comment({ productId }) {
                         setCommentList={setCommentList}
                     />
                 ))}
+            <ToastContainer />
         </div>
     );
 }

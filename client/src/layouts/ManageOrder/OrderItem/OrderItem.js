@@ -4,8 +4,11 @@ import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './OrderItem.module.scss';
+import notify from '../../../components/ToastMessage';
+
 const cx = classNames.bind(styles);
 
 function OrderItem({ order, index }) {
@@ -30,8 +33,8 @@ function OrderItem({ order, index }) {
                     })
                     .then((res) => {
                         if (res.data.affectedRows > 0) {
-                            alert('Đơn hàng đã được xác nhận thành công');
-                            window.location.reload();
+                            notify('Đơn hàng đã được xác nhận thành công', 'success', 2000);
+                            setTimeout(() => window.location.reload(), 2100);
                         }
                     })
                     .catch((err) => console.log(err));
@@ -43,8 +46,8 @@ function OrderItem({ order, index }) {
                     })
                     .then((res) => {
                         if (res.data.affectedRows > 0) {
-                            alert('Đơn hàng đã được xác nhận vận chuyển');
-                            window.location.reload();
+                            notify('Đơn hàng đã được xác nhận vận chuyển', 'success', 2000);
+                            setTimeout(() => window.location.reload(), 2100);
                         }
                     })
                     .catch((err) => console.log(err));
@@ -56,8 +59,8 @@ function OrderItem({ order, index }) {
                     })
                     .then((res) => {
                         if (res.data.affectedRows > 0) {
-                            alert('Đơn hàng đã được xác nhận thanh toán');
-                            window.location.reload();
+                            notify('Đơn hàng đã được xác nhận thanh toán', 'success', 2000);
+                            setTimeout(() => window.location.reload(), 2100);
                         }
                     })
                     .catch((err) => console.log(err));
@@ -115,6 +118,7 @@ function OrderItem({ order, index }) {
                     )}
                 </Col>
             </Row>
+            <ToastContainer />
         </Container>
     );
 }

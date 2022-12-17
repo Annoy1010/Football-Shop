@@ -5,8 +5,10 @@ import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './ProductGeneral.module.scss';
+import notify from '../../ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -55,15 +57,15 @@ function ProductGeneral({ product }) {
 
     const handleAddProductIntoCart = () => {
         if (!userIsExisted) {
-            alert('Vui lòng đăng nhập trước khi thêm sản phẩm vào giỏ hàng');
+            notify('Vui lòng đăng nhập trước khi thêm sản phẩm vào giỏ hàng', 'warn', 2000);
         } else {
             if (user.roleAccess.data[0] !== 0) {
-                alert('Bạn không có quyền thêm sản phẩm vào giỏ hàng');
+                notify('Bạn không có quyền thêm sản phẩm vào giỏ hàng', 'error', 2000);
             } else {
                 if (chosedSize === null) {
-                    alert('Vui lòng chọn size giày');
+                    notify('Vui lòng chọn size giày', 'warn', 2000);
                 } else if (currentValue === 0) {
-                    alert('Vui lòng chọn số lượng giày');
+                    notify('Vui lòng chọn số lượng giày', 'warn', 2000);
                 } else {
                     cartId &&
                         userIsExisted &&
@@ -77,10 +79,10 @@ function ProductGeneral({ product }) {
                             })
                             .then((res) => {
                                 if (res.data.affectedRows > 0) {
-                                    alert('Thêm vào giỏ hàng thành công');
+                                    notify('Thêm vào giỏ hàng thành công', 'success', 2000);
                                     setCurrentValue(0);
                                     setChosedSize(null);
-                                    window.location.reload();
+                                    setTimeout(() => window.location.reload(), 2100);
                                 }
                             })
                             .catch((err) => console.log(err));
@@ -91,12 +93,12 @@ function ProductGeneral({ product }) {
 
     const handleBuyShoesImmediatetly = () => {
         if (!userIsExisted) {
-            alert('Vui lòng đăng nhập trước khi mua hàng');
+            notify('Vui lòng đăng nhập trước khi mua hàng', 'warn', 2000);
         } else {
             if (chosedSize === null) {
-                alert('Vui lòng chọn size giày');
+                notify('Vui lòng chọn size giày', 'warn', 2000);
             } else if (currentValue === 0) {
-                alert('Vui lòng chọn số lượng giày');
+                notify('Vui lòng chọn số lượng giày', 'warn', 2000);
             }
         }
     };
@@ -182,6 +184,7 @@ function ProductGeneral({ product }) {
                     </div>
                 </Col>
             </Row>
+            <ToastContainer />
         </Container>
     );
 }

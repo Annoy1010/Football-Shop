@@ -1,6 +1,9 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
+
+import notify from '../../../../../components/ToastMessage';
 
 import styles from './Avatar.module.scss';
 
@@ -37,10 +40,10 @@ function Avatar({ setAvatarDisplay }) {
                 })
                 .then((res) => {
                     if (res.data.affectedRows > 0) {
-                        alert('Cập nhật ảnh đại diện thành công');
+                        notify('Cập nhật ảnh đại diện thành công', 'success', 2000);
                     }
                 })
-                .catch(() => alert('Vui lòng chọn ảnh có kích thước file nhỏ hơn'));
+                .catch(() => notify('Vui lòng chọn ảnh có kích thước file nhỏ hơn', 'warn', 2000));
         setAvatarDisplay(false);
     };
 
@@ -61,6 +64,7 @@ function Avatar({ setAvatarDisplay }) {
                     Đóng
                 </button>
             </div>
+            <ToastContainer />
         </div>
     );
 }

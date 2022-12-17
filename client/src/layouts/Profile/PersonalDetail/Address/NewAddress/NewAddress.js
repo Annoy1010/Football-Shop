@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './NewAddress.module.scss';
+import notify from '../../../../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -50,7 +52,7 @@ function NewAddress({ setAddButtonClicked }) {
 
     const handleAddNewAddress = () => {
         if (detailAddress === '') {
-            alert('Vui lòng nhập địa chỉ chi tiết');
+            notify('Vui lòng nhập địa chỉ chi tiết', 'warn', 2000);
         } else {
             console.log(`Tỉnh: ${provinceId}, Huyện: ${districtId}, Xã: ${wardId}, Chi tiết: ${detailAddress}`);
             axios
@@ -63,7 +65,7 @@ function NewAddress({ setAddButtonClicked }) {
                 })
                 .then((res) => {
                     if (res.data.affectedRows > 0) {
-                        alert('Đã thêm thành công địa chỉ mới');
+                        notify('Thêm địa chỉ mới thành công', 'success', 2000);
                         setAddButtonClicked(false);
                     }
                 })
@@ -139,6 +141,7 @@ function NewAddress({ setAddButtonClicked }) {
                     Đóng
                 </button>
             </div>
+            <ToastContainer />
         </div>
     );
 }

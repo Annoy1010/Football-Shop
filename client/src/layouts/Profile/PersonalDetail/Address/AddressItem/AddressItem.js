@@ -1,22 +1,14 @@
 import classNames from 'classnames/bind';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './AddressItem.module.scss';
+import notify from '../../../../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
-function AddressItem({
-    index,
-    user,
-    addressInfo,
-    addressDetail,
-    ward,
-    district,
-    province,
-    defaultAddress,
-    setChangeDefaultAddress,
-}) {
+function AddressItem({ index, user, addressInfo, addressDetail, ward, district, province, defaultAddress }) {
     const handleChangeDefaultAddres = () => {
         axios
             .post('/user/address/default', {
@@ -25,9 +17,10 @@ function AddressItem({
             })
             .then((res) => {
                 if (res.data.affectedRows > 0) {
-                    alert('cập nhật địa chỉ mặc định thành công');
-                    setChangeDefaultAddress(true);
-                    window.location.reload();
+                    notify('Cập nhật địa chỉ mặc định thành công', 'success', 1000);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1100);
                 }
             });
     };
@@ -61,6 +54,8 @@ function AddressItem({
                     Cài mặc định
                 </button>
             )}
+
+            <ToastContainer />
         </div>
     );
 }

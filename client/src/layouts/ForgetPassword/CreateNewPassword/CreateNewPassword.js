@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import Axios from 'axios';
+import { ToastContainer } from 'react-toastify';
+import notify from '../../../components/ToastMessage';
 
 import styles from './CreateNewPassword.module.scss';
 
@@ -13,7 +15,7 @@ function CreateNewPasword({ resetEmail }) {
 
     const handleSubmit = () => {
         if (rePassInput !== passInput) {
-            alert('Mật khẩu xác nhận không đúng');
+            notify('Mật khẩu xác nhận không đúng', 'error', 2000);
         } else {
             Axios.post('/forgetpassword/newpass', {
                 rePassInput,
@@ -21,8 +23,8 @@ function CreateNewPasword({ resetEmail }) {
             })
                 .then((res) => {
                     if (res.data.affectedRows > 0) {
-                        alert('Khôi phục tài khoản thành công');
-                        window.open(window.location.origin, '_self');
+                        notify('Khôi phục tài khoản thành công', 'success', 2000);
+                        setTimeout(() => window.open(window.location.origin, '_self'), 2100);
                     }
                 })
                 .catch((err) => console.log(err));
@@ -62,6 +64,7 @@ function CreateNewPasword({ resetEmail }) {
             <button className={cx('submit-btn')} onClick={handleSubmit}>
                 Xác nhận
             </button>
+            <ToastContainer />
         </div>
     );
 }

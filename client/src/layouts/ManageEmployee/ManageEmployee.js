@@ -6,11 +6,13 @@ import { faPlus } from '@fortawesome/fontawesome-free-solid';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './ManageEmployee.module.scss';
 import EmployeeItem from './EmployeeItem/EmployeeItem';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import NewEmployee from './NewEmployee';
+import notify from '../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -34,7 +36,7 @@ function ManageEmployee() {
         if (userIsExisted && user.roleAccess.data[0] === 1 && user.isAdmin.data[0] === 1) {
             setNewEmployee(true);
         } else {
-            alert('Ban không có quyền chỉnh sửa');
+            notify('Bạn không có quyền chỉnh sửa', 'error', 2000);
         }
     };
 
@@ -78,6 +80,7 @@ function ManageEmployee() {
                     {newEmployee && <NewEmployee setNewEmployee={setNewEmployee} />}
                 </Container>
             )}
+            <ToastContainer />
         </div>
     );
 }

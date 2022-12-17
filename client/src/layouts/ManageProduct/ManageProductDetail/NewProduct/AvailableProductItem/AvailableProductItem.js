@@ -1,9 +1,12 @@
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './AvailableProductItem.module.scss';
 import ImportAvailableProduct from './ImportAvailableProduct';
+import notify from '../../../../../components/ToastMessage';
+
 const cx = classNames.bind(styles);
 
 function AvailableProductItem({ product, index, importNewProductFormClick, setImportList }) {
@@ -11,7 +14,8 @@ function AvailableProductItem({ product, index, importNewProductFormClick, setIm
 
     const handleDisplayImportScreen = () => {
         if (!importNewProductFormClick) {
-            alert('Vui lòng tạo phiếu nhập hàng trước khi nhập sản phẩm');
+            notify('Vui lòng tạo phiếu nhập hàng trước khi nhập sản phẩm', 'warn', 2000)
+           
         } else {
             setDisplayImportScreen(true);
         }
@@ -35,6 +39,7 @@ function AvailableProductItem({ product, index, importNewProductFormClick, setIm
                     setImportList={setImportList}
                 />
             )}
+            <ToastContainer />
         </div>
     );
 }

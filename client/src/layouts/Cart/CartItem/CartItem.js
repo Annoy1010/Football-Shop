@@ -6,6 +6,8 @@ import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { ToastContainer } from 'react-toastify';
+import notify from '../../../components/ToastMessage';
 
 import styles from './CartItem.module.scss';
 
@@ -64,8 +66,8 @@ function CartItem({
             })
             .then((res) => {
                 if (res.data.affectedRows > 0) {
-                    alert('Đã xóa thành công 1 sản phẩn khỏi giỏ hàng');
-                    window.location.reload();
+                    notify('Đã xóa thành công 1 sản phẩn khỏi giỏ hàng', 'success', 2000);
+                    setTimeout(() => window.location.reload(), 2100);
                 }
             })
             .catch((err) => console.log(err));
@@ -162,6 +164,7 @@ function CartItem({
                     </Col>
                 </Row>
             </Container>
+            <ToastContainer />
         </div>
     );
 }

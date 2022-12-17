@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './NewBank.module.scss';
+import notify from '../../../../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -51,7 +53,7 @@ function NewBank({ setAddButtonClicked }) {
             provinceId === '0' ||
             districtId === '0'
         ) {
-            alert('Vui lòng nhập đầy đủ thông tin');
+            notify('Vui lòng nhập đầy đủ thông tin', 'warn', 2000);
         } else {
             axios
                 .post('/bank/card/default/existed', {
@@ -73,9 +75,9 @@ function NewBank({ setAddButtonClicked }) {
                             })
                             .then((res) => {
                                 if (res.data.affectedRows > 0) {
-                                    alert('Thêm tài khoản ngân hàng thành công');
+                                    notify('Thêm tài khoản ngân hàng thành công', 2000);
                                     setAddButtonClicked(false);
-                                    window.location.reload();
+                                    setTimeout(() => window.location.reload(), 2100);
                                 }
                             })
                             .catch((err) => console.log(err));
@@ -94,9 +96,8 @@ function NewBank({ setAddButtonClicked }) {
                             })
                             .then((res) => {
                                 if (res.data.affectedRows > 0) {
-                                    alert('Thêm tài khoản ngân hàng thành công');
+                                    notify('Thêm tài khoản ngân hàng thành công', 2000);
                                     setAddButtonClicked(false);
-                                    window.location.reload();
                                 }
                             })
                             .catch((err) => console.log(err));
@@ -199,6 +200,7 @@ function NewBank({ setAddButtonClicked }) {
                     Đóng
                 </button>
             </div>
+            <ToastContainer />
         </div>
     );
 }

@@ -1,8 +1,11 @@
 import classNames from 'classnames/bind';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './CommentItem.module.scss';
+import notify from '../../../../components/ToastMessage';
+
 const cx = classNames.bind(styles);
 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -30,10 +33,10 @@ function CommentItem({ index, productId, commentItem, setCommentList }) {
 
     const handleRemoveComment = () => {
         if (!userIsExisted) {
-            alert('Vui lòng đăng nhập trước gỡ bình luận');
+            notify('Vui lòng đăng nhập trước gỡ bình luận', 'warn', 2000);
         } else {
             if (user.userId !== commentItem.userId) {
-                alert('Bạn chỉ có thể gỡ bình luận của chính mình');
+                notify('Bạn chỉ có thể gỡ bình luận của chính mình', 'error', 2000);
             } else {
                 axios
                     .post('/products/comment/remove', {
@@ -73,6 +76,7 @@ function CommentItem({ index, productId, commentItem, setCommentList }) {
                     Gỡ bình luận
                 </span>
             </div>
+            <ToastContainer />
         </div>
     );
 }

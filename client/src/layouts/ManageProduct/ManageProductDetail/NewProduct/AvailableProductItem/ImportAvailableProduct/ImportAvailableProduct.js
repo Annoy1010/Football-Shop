@@ -2,8 +2,11 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './ImportAvailableProduct.module.scss';
+import notify from '../../../../../../components/ToastMessage';
+
 const cx = classNames.bind(styles);
 
 function ImportAvailableProduct({ product, setDisplayImportScreen, setImportList }) {
@@ -49,13 +52,13 @@ function ImportAvailableProduct({ product, setDisplayImportScreen, setImportList
 
     const handeSubmitAddAvailableProduct = () => {
         if (sizeId === null) {
-            alert('Vui lòng chọn size giày');
+            notify('Vui lòng chọn size giày', 'warn', 2000);
         } else {
             if (Number.parseInt(inputQuantity) >= 0) {
                 product.sizeId = sizeId;
                 product.quantity = Number.parseInt(inputQuantity);
             } else {
-                alert('Nhập sai định dạng số lượng nhập');
+                notify('Nhập sai định dạng số lượng nhập', 'error', 2000);
             }
         }
         setImportList((state) => [...state, product]);
@@ -120,6 +123,7 @@ function ImportAvailableProduct({ product, setDisplayImportScreen, setImportList
                     Đóng
                 </button>
             </div>
+            <ToastContainer />
         </div>
     );
 }

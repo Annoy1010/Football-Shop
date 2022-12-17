@@ -5,8 +5,11 @@ import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './ImportNewProduct.module.scss';
+import notify from '../../../../../components/ToastMessage';
+
 const cx = classNames.bind(styles);
 
 function ImportNewProduct({ setDisplayNewProductScreen, setImportList }) {
@@ -143,16 +146,16 @@ function ImportNewProduct({ setDisplayNewProductScreen, setImportList }) {
                         setImportList((state) => [...state, product]);
                         setDisplayNewProductScreen(false);
                     } else {
-                        alert('Vui lòng kiểm tra dữ liệu Số lượng nhập');
+                        notify('Vui lòng kiểm tra dữ liệu Số lượng nhập', 'warn', 2000);
                     }
                 } else {
-                    alert('Vui lòng kiểm tra dữ liệu Tỉ lệ giảm giá');
+                    notify('Vui lòng kiểm tra dữ liệu Tỉ lệ giảm giá', 'warn', 2000);
                 }
             } else {
-                alert('Vui lòng kiểm tra dữ liệu Giá tiền');
+                notify('Vui lòng kiểm tra dữ liệu Giá tiền', 'warn', 2000);
             }
         } else {
-            alert('Vui lòng điền đầy đủ thông tin trước khi nhập hàng sản phẩm');
+            notify('Vui lòng điền đầy đủ thông tin trước khi nhập hàng sản phẩm', 'warn', 2000);
         }
     };
 
@@ -340,6 +343,7 @@ function ImportNewProduct({ setDisplayNewProductScreen, setImportList }) {
                     Đóng
                 </button>
             </div>
+            <ToastContainer />
         </div>
     );
 }

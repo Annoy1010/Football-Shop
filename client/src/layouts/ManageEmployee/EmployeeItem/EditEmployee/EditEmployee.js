@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './EditEmployee.module.scss';
+import notify from '../../../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -13,7 +15,7 @@ function EditEmployee({ employee, setEdit }) {
 
     const handleSubmit = () => {
         if (position === '' || workShift === '' || workStatus === '') {
-            alert('Vui lòng điền đầy đủ thông tin');
+            notify('Vui lòng điền đầy đủ thông tin', 'warn', 2000);
         } else {
             axios
                 .post('/user/employee/manage/update', {
@@ -24,7 +26,7 @@ function EditEmployee({ employee, setEdit }) {
                 })
                 .then((res) => {
                     if (res.data.affectedRows > 0) {
-                        alert('Chỉnh sửa thông tin nhân viên thành công');
+                        notify('Chỉnh sửa thông tin nhân viên thành công', 'success', 2000);
                     }
                 })
                 .catch((err) => console.log(err));
@@ -75,6 +77,7 @@ function EditEmployee({ employee, setEdit }) {
                     Đóng
                 </button>
             </div>
+            <ToastContainer />
         </div>
     );
 }

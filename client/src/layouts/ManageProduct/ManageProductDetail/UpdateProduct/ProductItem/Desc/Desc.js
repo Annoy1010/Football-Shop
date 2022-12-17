@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './Desc.module.scss';
+import notify from '../../../../../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -11,7 +13,7 @@ function Desc({ product, setUpdateDesc }) {
 
     const handleSubmit = () => {
         if (desc === '') {
-            alert('Vui lòng điền đầy đủ thông tin');
+            notify('Vui lòng điền đầy đủ thông tin', 'warn', 2000);
         } else {
             axios
                 .post('/products/update/desc', {
@@ -20,9 +22,9 @@ function Desc({ product, setUpdateDesc }) {
                 })
                 .then((res) => {
                     if (res.data.affectedRows > 0) {
-                        alert('Cập nhật mô tả thành công');
+                        notify('Cập nhật mô tả thành công', 'success', 2000);
                         setUpdateDesc(false);
-                        window.location.reload();
+                        setTimeout(() => window.location.reload(), 2100);
                     }
                 });
         }
@@ -58,6 +60,7 @@ function Desc({ product, setUpdateDesc }) {
                     Đóng
                 </button>
             </div>
+            <ToastContainer />
         </div>
     );
 }

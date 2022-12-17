@@ -4,11 +4,14 @@ import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './NewProduct.module.scss';
 import AvailableProductItem from './AvailableProductItem'; /// Sản phẩm hiện đang có trong shop
 import ImportNewProduct from './ImportNewProduct'; /// Nhập thông tin sản phẩm mới
 import ImportedProduct from './ImportedProduct';
+import notify from '../../../../components/ToastMessage';
+
 const cx = classNames.bind(styles);
 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -62,7 +65,8 @@ function NewProduct() {
             })
             .catch(() => {});
         if (importList.length !== 0 && importStatus === importList.length) {
-            alert('Nhập hàng thành công');
+            notify('Nhập hàng thành công', 'success', 2000);
+
             setImportStatus(0);
             setImportList([]);
         }
@@ -71,7 +75,7 @@ function NewProduct() {
 
     const handleDisplayImportNewProduct = () => {
         if (!importNewProductFormClick) {
-            alert('Vui lòng tạo phiếu nhập hàng trước khi nhập sản phẩm');
+            notify('Vui lòng tạo phiếu nhập hàng trước khi nhập sản phẩm', 'warn', 2000);
         } else {
             setDisplayNewProductScreen(true);
         }
@@ -115,7 +119,6 @@ function NewProduct() {
                                             .then((res) => {
                                                 if (res.data.affectedRows > 0) {
                                                     setImportStatus((state) => state + 1);
-                                                    alert('thành công');
                                                 }
                                             })
                                             .catch((err) => console.log(err));
@@ -254,6 +257,7 @@ function NewProduct() {
                     </button>
                 </Container>
             )}
+            <ToastContainer />
         </div>
     );
 }

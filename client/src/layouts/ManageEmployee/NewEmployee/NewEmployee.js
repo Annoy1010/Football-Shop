@@ -2,8 +2,10 @@ import classNames from 'classnames/bind';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import parsePhoneNumber from 'libphonenumber-js';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './NewEmployee.module.scss';
+import notify from '../../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -39,13 +41,13 @@ function NewEmployee({ setNewEmployee }) {
     }, []);
     const handleSubmit = () => {
         if (name === '' || phone === '' || email === '' || position === '' || workShift === '' || province === '') {
-            alert('Vui lòng điền đầy đủ thông tin nhân viên');
+            notify('Vui lòng điền đầy đủ thông tin nhân viên', 'warn', 2000);
         } else {
             if (!isValidEmail(email)) {
-                alert('Email không hợp lệ');
+                notify('Email không hợp lệ', 'error', 2000);
             } else {
                 if (!parsePhoneNumber(`+84${phone.slice(1, phone.length)}`, 'VN').isValid()) {
-                    alert('Số điện thoại không hợp lệ');
+                    notify('Số điện thoại không hợp lệ', 'error', 2000);
                 } else {
                     axios
                         .post('/user/employee/manage/new', {
@@ -60,9 +62,9 @@ function NewEmployee({ setNewEmployee }) {
                         })
                         .then((res) => {
                             if (res.data.affectedRows > 0) {
-                                alert('Thêm nhân viên thành công');
+                                notify('Thêm nhân viên thành công', 'success', 2000);
                                 setNewEmployee(false);
-                                window.location.reload();
+                                setTimeout(() => window.location.reload(), 2100);
                             }
                         })
                         .catch((err) => console.log(err));
@@ -138,6 +140,7 @@ function NewEmployee({ setNewEmployee }) {
                     Đóng
                 </button>
             </div>
+            <ToastContainer />
         </div>
     );
 }

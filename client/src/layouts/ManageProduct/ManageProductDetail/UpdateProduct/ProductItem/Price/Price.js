@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './Price.module.scss';
+import notify from '../../../../../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -11,10 +13,10 @@ function Price({ product, setUpdatePrice }) {
 
     const handleSubmit = () => {
         if (price === '') {
-            alert('Vui lòng điền đầy đủ thông tin');
+            notify('Vui lòng điền đầy đủ thông tin', 'warn', 2000);
         } else {
             if (!Number.isInteger(Number.parseInt(price))) {
-                alert('Vui lòng kiểm tra lại thông tin nhập');
+                notify('Vui lòng kiểm tra lại thông tin nhập', 'warn', 2000);
             } else {
                 axios
                     .post('/products/update/price', {
@@ -23,9 +25,9 @@ function Price({ product, setUpdatePrice }) {
                     })
                     .then((res) => {
                         if (res.data.affectedRows > 0) {
-                            alert('Cập nhật giá tiền thành công');
+                            notify('Cập nhật giá tiền thành công', 'success', 2000);
                             setUpdatePrice(false);
-                            window.location.reload();
+                            setTimeout(() => window.location.reload(), 2100);
                         }
                     });
             }
@@ -62,6 +64,7 @@ function Price({ product, setUpdatePrice }) {
                     Đóng
                 </button>
             </div>
+            <ToastContainer />
         </div>
     );
 }

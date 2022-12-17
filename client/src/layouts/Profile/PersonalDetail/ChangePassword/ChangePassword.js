@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './ChangePassword.module.scss';
+import notify from '../../../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -16,7 +18,7 @@ function ChangePassword() {
 
     const handleOnSubmit = () => {
         if (!currentPass || !newPass || !reNewPass) {
-            alert('Vui lòng điền đầy đủ các trường thông tin');
+            notify('Vui lòng điền đầy đủ các trường thông tin', 'warn', 2000);
         } else {
             axios
                 .post('/user/submit/currentpass', {
@@ -25,10 +27,10 @@ function ChangePassword() {
                 })
                 .then((res) => {
                     if (res.data.length === 0) {
-                        alert('Mật khẩu hiện tại không chính xác');
+                        notify('Mật khẩu hiện tại không chính xác', 'error', 2000);
                     } else {
                         if (newPass !== reNewPass) {
-                            alert('Mật khẩu xác nhận không chính xác');
+                            notify('Mật khẩu xác nhận không chính xác', 'error', 2000);
                         } else {
                             axios
                                 .post('/user/password/newpass', {
@@ -37,7 +39,7 @@ function ChangePassword() {
                                 })
                                 .then((res) => {
                                     if (res.data.affectedRows > 0) {
-                                        alert('Thay đổi mật khẩu thành công');
+                                        notify('Thay đổi mật khẩu thành công', 'success', 2000);
                                         setCurrentPass('');
                                         setNewPass('');
                                         setReNewPass('');
@@ -87,6 +89,7 @@ function ChangePassword() {
             <button className={cx('submit-btn')} onClick={handleOnSubmit}>
                 Xác nhận
             </button>
+            <ToastContainer />
         </div>
     );
 }

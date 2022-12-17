@@ -1,11 +1,13 @@
 import classNames from 'classnames/bind';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faReceipt, faThumbsUp, faTruckMoving } from '@fortawesome/fontawesome-free-solid';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './ViewOrderStatus.module.scss';
 import OrderItem from '../OrderItem';
+import notify from '../../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -30,9 +32,9 @@ function ViewOrderStatus({ setOrder, order }) {
                 })
                 .then((res) => {
                     if (res.data.affectedRows > 0) {
-                        alert('Hủy đơn thành công');
+                        notify('Hủy đơn hàng thành công', 'success', 2000);
                         setOrder({});
-                        window.location.reload();
+                        setTimeout(() => window.location.reload(), 2100);
                     }
                 })
                 .catch((err) => console.log(err));
@@ -131,6 +133,7 @@ function ViewOrderStatus({ setOrder, order }) {
                     Đóng
                 </button>
             </div>
+            <ToastContainer />
         </div>
     );
 }

@@ -5,9 +5,11 @@ import { faPencilAlt } from '@fortawesome/fontawesome-free-solid';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './EmployeeItem.module.scss';
 import EditEmployee from './EditEmployee';
+import notify from '../../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -28,7 +30,7 @@ function EmployeeItem({ employee, index }) {
         if (userIsExisted && user.roleAccess.data[0] === 1 && user.isAdmin.data[0] === 1) {
             setEdit(true);
         } else {
-            alert('Ban khong co quyen chinh sua');
+            notify('Bạn không có quyền chỉnh sửa', 'error', 2000);
         }
     };
 
@@ -56,6 +58,7 @@ function EmployeeItem({ employee, index }) {
                 </Col>
             </Row>
             {edit && <EditEmployee employee={employee} setEdit={setEdit} />}
+            <ToastContainer />
         </Container>
     );
 }

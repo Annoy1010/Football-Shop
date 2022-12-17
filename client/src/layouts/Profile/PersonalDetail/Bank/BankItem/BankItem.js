@@ -2,8 +2,10 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './BankItem.module.scss';
+import notify from '../../../../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -23,8 +25,9 @@ function BankItem({ index, bank }) {
             })
             .then((res) => {
                 if (res.data.affectedRows > 0) {
-                    alert('cập nhật ngân hàng mặc định thành công');
-                    window.location.reload();
+                    notify('Cập nhật ngân hàng mặc định thành công', 'success', 1000)
+                    setTimeout(() => {window.location.reload()}, 1100)
+                    
                 }
             });
     };
@@ -79,6 +82,7 @@ function BankItem({ index, bank }) {
                     Cài mặc định
                 </button>
             )}
+            <ToastContainer />
         </div>
     );
 }
