@@ -55,7 +55,6 @@ function SignIn() {
                                 className={cx('input-area')}
                                 value={username}
                                 onChange={(e) => handleOnChangeUserName(e)}
-                                required
                             />
                         </div>
                         <div className={cx('input-item')}>
@@ -68,7 +67,6 @@ function SignIn() {
                                 className={cx('input-area')}
                                 value={password}
                                 onChange={(e) => handleOnChangePassword(e)}
-                                required
                             />
                         </div>
                     </div>

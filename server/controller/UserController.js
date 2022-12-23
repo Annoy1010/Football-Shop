@@ -1,6 +1,18 @@
 import UserService from '../models/UserService';
 
 class UserRouter {
+    postNewUser(req, res) {
+        UserService.postNewUserDetail(req, res);
+    }
+
+    postNewUserAddress(req, res) {
+        UserService.postNewUserAddressDetail(req, res);
+    }
+
+    postNewUserCart(req, res) {
+        UserService.postNewUserCartDetail(req, res);
+    }
+
     getUserById(req, res) {
         UserService.getUserInfoById(req, res);
     }

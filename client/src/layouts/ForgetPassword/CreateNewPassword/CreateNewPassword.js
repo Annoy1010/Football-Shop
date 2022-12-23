@@ -44,7 +44,6 @@ function CreateNewPasword({ resetEmail }) {
                         value={passInput}
                         className={cx('input-area')}
                         onChange={(e) => setPassInput(e.target.value)}
-                        required
                     />
                 </div>
                 <div className={cx('input-item')}>
@@ -57,7 +56,6 @@ function CreateNewPasword({ resetEmail }) {
                         value={rePassInput}
                         className={cx('input-area')}
                         onChange={(e) => setRePassInput(e.target.value)}
-                        required
                     />
                 </div>
             </form>

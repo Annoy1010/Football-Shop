@@ -57,8 +57,10 @@
     justify-content: space-between;
 
     & label {
+        margin-right: 20px;
         width: 30%;
         font-weight: bold;
+        font-size: 1.6rem;
     }
 
     &:first-child input {

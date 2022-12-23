@@ -78,7 +78,6 @@ function VerifyEmail({ setIsExactResetCode, setResetEmail }) {
                         className={cx('input-area')}
                         placeholder="abc@gmail.com"
                         onChange={(e) => handleOnChangeEmail(e)}
-                        required
                     />
                     {invalidEmail === true ? (
                         <label className={cx('error-message')}>Email không chính xác</label>

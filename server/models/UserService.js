@@ -6,6 +6,61 @@ function hash(pass) {
     return hash.update(pass).digest('hex');
 }
 
+function postNewUserDetail(req, res) {
+    const data = req.body;
+    const username = data.username;
+    const password = data.password;
+    const fullname = data.fullname;
+    const email = data.email;
+    const phone = data.phone;
+
+    db.query(
+        `INSERT INTO CUSTOMER (userName, pass, fullName, email, phone, roleAccess) VALUES ('${username}', '${hash(
+            password,
+        )}', '${fullname}', '${email}', '${phone}', 0)`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function postNewUserAddressDetail(req, res) {
+    const data = req.body;
+    const userId = data.userId;
+    const provinceId = data.provinceId;
+    const districtId = data.districtId;
+    const wardId = data.wardId;
+    const detailAddress = data.detailAddress;
+
+    db.query(
+        `INSERT INTO CUSTOMER_ADDRESS (provinceId, districtId, wardId, detailAddress, userId, defaultAddress) VALUES ('${provinceId}', '${districtId}', '${wardId}', '${detailAddress}', ${userId}, 1)`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function postNewUserCartDetail(req, res) {
+    const data = req.body;
+    const userId = data.userId;
+
+    db.query(`INSERT INTO CART (userId) VALUES (${userId})`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
 function getUserInfoById(req, res) {
     const data = req.body;
     const userId = data.userId;
@@ -552,6 +607,9 @@ function updateDefaultBankDetail(req, res) {
 }
 
 const service = {
+    postNewUserDetail,
+    postNewUserAddressDetail,
+    postNewUserCartDetail,
     getUserInfoById,
     getUserInfo,
     postUserLoginInfo,

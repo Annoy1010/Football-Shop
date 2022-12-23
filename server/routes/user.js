@@ -3,6 +3,9 @@ const router = express.Router();
 
 import userController from '../controller/UserController';
 
+router.post('/signup', userController.postNewUser);
+router.post('/signup/address', userController.postNewUserAddress);
+router.post('/signup/cart', userController.postNewUserCart);
 router.post('/userInfo', userController.getUserById);
 router.post('/login', userController.postUserLogin);
 router.post('/submit/currentpass', userController.postCurrentPass);
