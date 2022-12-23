@@ -1,13 +1,12 @@
 import classNames from 'classnames/bind';
 import { NavLink } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/fontawesome-free-solid';
 
 import styles from './Introduction.module.scss';
 import configs from '../../../config';
-import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 

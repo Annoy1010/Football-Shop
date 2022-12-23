@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 
 import styles from './Footer.module.scss';
 
@@ -8,11 +8,36 @@ const cx = classNames.bind(styles);
 
 function Footer() {
     const [store, setStore] = useState({});
+    const [provinceName, setProvinceName] = useState('');
+    const [districtName, setDistrictName] = useState('');
+    const [wardName, setWardName] = useState('');
+
     useEffect(() => {
-        Axios.get('/store')
+        axios
+            .get('/store')
             .then((res) => setStore(res.data[0]))
             .catch((err) => console.log(err));
+        axios
+            .post('/province/name', {
+                provinceId: store.provinceId,
+            })
+            .then((res) => setProvinceName(res.data[0].provinceName))
+            .catch((err) => console.log(err));
+        axios
+            .post('/district/name', {
+                districtId: store.districtId,
+            })
+            .then((res) => setDistrictName(res.data[0].districtName))
+            .catch((err) => console.log(err));
+        axios
+            .post('/ward/name', {
+                wardId: store.wardId,
+            })
+            .then((res) => setWardName(res.data[0].wardName))
+            .catch((err) => console.log(err));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('detail')}>
@@ -21,8 +46,8 @@ function Footer() {
 
                     <div className={cx('contact-info')}>
                         <span>
-                            <strong>Địa chỉ:</strong> Đại học Công Nghệ Thông Tin. Đại học Quốc Gia Thành phố Hồ Chí
-                            Minh
+                            <strong>Địa chỉ: </strong>
+                            {`${store.detailAddress}, ${wardName}, ${districtName}, ${provinceName}`}
                         </span>
                         <span>
                             <strong>Hotline: </strong>
@@ -70,8 +95,8 @@ function Footer() {
                             className={cx('social-item')}
                             target="_blank"
                             rel="noreferrer"
-                            href={store.gmailLink}
-                            title="Gmail"
+                            href={store.twitterLink}
+                            title="Twitter"
                         >
                             {' '}
                         </a>

@@ -24,8 +24,6 @@ const MENU_ADMIN = [
     { title: 'Quản lý sản phẩm', link: configs.routes.manageProducts },
     { title: 'Quản lý đơn hàng', link: configs.routes.manageOrders },
     { title: 'Quản lý nhân viên', link: configs.routes.manageEmployees },
-    { title: 'Doanh thu', link: configs.routes.report },
-    { title: 'Điểm danh ngày làm', link: configs.routes.attend },
 ];
 
 const account = JSON.parse(localStorage.getItem('user'));

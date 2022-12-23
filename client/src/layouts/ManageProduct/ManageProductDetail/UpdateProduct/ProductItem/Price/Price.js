@@ -18,18 +18,22 @@ function Price({ product, setUpdatePrice }) {
             if (!Number.isInteger(Number.parseInt(price))) {
                 notify('Vui lòng kiểm tra lại thông tin nhập', 'warn', 2000);
             } else {
-                axios
-                    .post('/products/update/price', {
-                        shoesId: product.shoesId,
-                        price,
-                    })
-                    .then((res) => {
-                        if (res.data.affectedRows > 0) {
-                            notify('Cập nhật giá tiền thành công', 'success', 2000);
-                            setUpdatePrice(false);
-                            setTimeout(() => window.location.reload(), 2100);
-                        }
-                    });
+                if (Number.parseInt(price) <= Number.parseInt(product.importPrice)) {
+                    notify('Số tiền bán phải lớn hơn số tiền nhập hàng', 'warn', 2000);
+                } else {
+                    axios
+                        .post('/products/update/price', {
+                            shoesId: product.shoesId,
+                            price,
+                        })
+                        .then((res) => {
+                            if (res.data.affectedRows > 0) {
+                                notify('Cập nhật giá tiền thành công', 'success', 2000);
+                                setUpdatePrice(false);
+                                setTimeout(() => window.location.reload(), 2100);
+                            }
+                        });
+                }
             }
         }
     };
@@ -52,7 +56,10 @@ function Price({ product, setUpdatePrice }) {
                         className={cx('employee-input-item')}
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
-                        placeholder={`Giá tiền: ${product.price}VNĐ`}
+                        placeholder={`Giá tiền: ${product.price.toLocaleString('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND',
+                        })}`}
                     />
                 </div>
             </div>

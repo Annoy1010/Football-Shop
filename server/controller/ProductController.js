@@ -5,6 +5,18 @@ class ProductRouter {
         ProductService.getTrademarkInfo(req, res);
     }
 
+    getAvailableQuantityWithTrademark(req, res) {
+        ProductService.getAvailableQuantityDetailWithTrademark(req, res);
+    }
+
+    getImportQuantityTotalWithTrademark(req, res) {
+        ProductService.getImportQuantityTotalDetailWithTrademark(req, res);
+    }
+
+    getImportHistory(req, res) {
+        ProductService.getImportHistoryDetail(req, res);
+    }
+
     getGrass(req, res) {
         ProductService.getGrassInfo(req, res);
     }
@@ -35,6 +47,10 @@ class ProductRouter {
 
     getProducts(req, res) {
         ProductService.getProductsList(req, res);
+    }
+
+    getProductList(req, res) {
+        ProductService.getProductListDetail(req, res);
     }
 
     getSaleProducts(req, res) {

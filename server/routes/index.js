@@ -9,6 +9,7 @@ import feedbackRouter from './feedback';
 import productRouter from './product';
 import orderRouter from './order';
 import bankRouter from './bank';
+import parameterRouter from './parameter';
 
 function route(app) {
     app.use('/bank', bankRouter);
@@ -22,6 +23,7 @@ function route(app) {
     app.use('/feedback', feedbackRouter);
     app.use('/products', productRouter);
     app.use('/order', orderRouter);
+    app.use('/parameter', parameterRouter);
 }
 
 export default route;

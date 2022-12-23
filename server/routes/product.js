@@ -25,6 +25,8 @@ router.post('/available/update', productController.updateAvailableQuantityAfterO
 // router.post('/all/id', productController.getProductsById);
 
 router.get('/all', productController.getProducts);
+router.get('/all/detail', productController.getProductList);
+
 router.get('/all/sort/az', productController.getProductsListShoesNameAsc);
 router.get('/all/sort/za', productController.getProductsListShoesNameDesc);
 router.get('/all/sort/priceincrease', productController.getProductsListPriceAsc);
@@ -37,6 +39,9 @@ router.get('/import/descriptionId', productController.getDescriptionID);
 router.post('/search/name', productController.searchProductByShoesName);
 
 router.get('/trademark', productController.getTrademark);
+router.get('/trademark/quantity', productController.getAvailableQuantityWithTrademark);
+router.get('/trademark/import/quantity', productController.getImportQuantityTotalWithTrademark);
+router.use('/import/all', productController.getImportHistory);
 router.use('/type', productController.getType);
 router.use('/type/:slug', productController.getTypeByTrademark);
 router.get('/grass', productController.getGrass);

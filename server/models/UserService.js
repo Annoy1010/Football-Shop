@@ -1,5 +1,4 @@
 import crypto from 'crypto';
-import fs from 'fs';
 import db from '../store';
 
 function hash(pass) {
@@ -243,6 +242,16 @@ function updateCartDetail(req, res) {
 
 function getEmployeeListDetail(req, res) {
     db.query(`SELECT * FROM EMPLOYEE`, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
+function getCustomerListDetail(req, res) {
+    db.query(`SELECT * FROM CUSTOMER`, (err, result) => {
         if (err) {
             throw err;
         } else {
@@ -557,6 +566,7 @@ const service = {
     removeProductInCartDetail,
     updateCartDetail,
     getEmployeeListDetail,
+    getCustomerListDetail,
     updateEmployeeInfo,
     postNewEmployeeInfo,
     getAddressInfo,

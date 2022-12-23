@@ -61,6 +61,10 @@ class UserRouter {
         UserService.getEmployeeListDetail(req, res);
     }
 
+    getCustomerList(req, res) {
+        UserService.getCustomerListDetail(req, res);
+    }
+
     updateEmployee(req, res) {
         UserService.updateEmployeeInfo(req, res);
     }

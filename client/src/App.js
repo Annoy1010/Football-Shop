@@ -1,16 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { publicRoutes } from './routes';
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';
-import SignIn from './layouts/SignIn';
 
 localStorage.getItem('user') === null && localStorage.setItem('user', JSON.stringify({}));
 function App() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [user, setUser] = useState({});
     return (
         <Router>
             <Routes>
@@ -24,19 +20,7 @@ function App() {
                             element={
                                 <React.Fragment>
                                     <Header />
-                                    {Layout === SignIn ? (
-                                        <SignIn
-                                            username={username}
-                                            password={password}
-                                            user={user}
-                                            setUsername={setUsername}
-                                            setPassword={setPassword}
-                                            setUser={setUser}
-                                        />
-                                    ) : (
-                                        <Layout />
-                                    )}
-
+                                    <Layout />
                                     <Footer />
                                 </React.Fragment>
                             }

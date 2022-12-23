@@ -34,9 +34,9 @@ function NewProduct() {
                 importList.reduce(
                     (acc, item) => {
                         if (item.shoesId) {
-                            return Number.parseInt(acc) + item.price * (1 - item.sale / 100) * item.quantity;
+                            return Number.parseInt(acc) + item.importPrice * (1 - item.sale / 100) * item.quantity;
                         }
-                        return Number.parseInt(acc) + item.price * (1 - item.sale / 100) * item.importQuantity;
+                        return Number.parseInt(acc) + item.importPrice * (1 - item.sale / 100) * item.importQuantity;
                     },
                     [0],
                 ),
@@ -66,7 +66,6 @@ function NewProduct() {
             .catch(() => {});
         if (importList.length !== 0 && importStatus === importList.length) {
             notify('Nhập hàng thành công', 'success', 2000);
-
             setImportStatus(0);
             setImportList([]);
         }
@@ -131,7 +130,6 @@ function NewProduct() {
                                 .then((res) => {
                                     if (res.data.length !== 0) {
                                         const _descriptionId = res.data[res.data.length - 1].descriptionId;
-                                        // setDescriptionId(res.data[0].descriptionId);
                                         axios
                                             .post('/products/import/newProduct', {
                                                 descriptionId: _descriptionId.toString(),

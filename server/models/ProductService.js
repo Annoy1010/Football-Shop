@@ -13,6 +13,16 @@ function getProductsList(req, res) {
     );
 }
 
+function getProductListDetail(req, res) {
+    db.query(`SELECT * FROM SHOES `, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
 function getSaleProductsList(req, res) {
     db.query(
         `SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss WHERE s.shoesId = si.shoesId AND s.shoesId = ss.shoesId AND s.sale != 0`,
@@ -114,7 +124,11 @@ function postNewProduct(req, res) {
     const product = data.item;
 
     db.query(
-        `INSERT INTO SHOES (shoesName, typeId, grassId, trademarkId, playPositionId, originNationalId, descriptionId, price, sale) VALUES ('${product.productName}', '${product.typeNameId}', '${product.grassTypeId}', '${product.trademarkId}', '${product.positionId}', '${product.originalNationId}', ${descriptionId}, ${product.price}, ${product.sale})`,
+        `INSERT INTO SHOES (shoesName, typeId, grassId, trademarkId, playPositionId, originNationalId, descriptionId, price, sale, importPrice) VALUES ('${
+            product.productName
+        }', '${product.typeNameId}', '${product.grassTypeId}', '${product.trademarkId}', '${product.positionId}', '${
+            product.originalNationId
+        }', ${descriptionId}, ${Number.parseInt(product.price) + 150000}, ${product.sale}, ${product.importPrice})`,
         (err, importShoesResult) => {
             if (err) {
                 throw err;
@@ -460,6 +474,43 @@ function getTrademarkInfo(req, res) {
     });
 }
 
+function getAvailableQuantityDetailWithTrademark(req, res) {
+    db.query(
+        `SELECT DISTINCT s.trademarkId, sum(ss.quantity) AS sumQuantity FROM SHOES s, SHOES_SIZE ss, SIZE sz WHERE s.shoesId=ss.shoesId AND sz.sizeId=ss.sizeId GROUP BY s.trademarkId ORDER BY s.trademarkId ASC
+    `,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function getImportQuantityTotalDetailWithTrademark(req, res) {
+    db.query(
+        `SELECT DISTINCT s.trademarkId, sum(sid.importQuantity) AS importQuantityTotal FROM SHOES_IMPORT_DETAIL sid, SHOES s WHERE sid.shoesId = s.shoesId GROUP BY s.trademarkId ORDER BY s.trademarkId ASC`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function getImportHistoryDetail(req, res) {
+    db.query(`SELECT * FROM SHOES_IMPORT `, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+}
+
 function getGrassInfo(req, res) {
     db.query(`SELECT * FROM GRASS `, (err, result) => {
         if (err) {
@@ -634,6 +685,9 @@ function updateAvailableQuantityDetailAfterOrder(req, res) {
 
 const service = {
     getTrademarkInfo,
+    getAvailableQuantityDetailWithTrademark,
+    getImportQuantityTotalDetailWithTrademark,
+    getImportHistoryDetail,
     getGrassInfo,
     getPositionInfo,
     getSizeInfo,
@@ -642,6 +696,7 @@ const service = {
     getNationalInfo,
     getDescInfo,
     getProductsList,
+    getProductListDetail,
     getSaleProductsList,
     getImportIDInfo,
     postNewImport,

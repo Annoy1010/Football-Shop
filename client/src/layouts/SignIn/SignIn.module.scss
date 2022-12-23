@@ -70,7 +70,6 @@
 }
 
 .input-area {
-    border: none;
     outline: none;
     border-bottom: 1px solid rgb(159, 159, 159);
     margin-bottom: 20px;
@@ -79,12 +78,6 @@
     &:focus {
         border-bottom: 1px solid var(--primary-color);
     }
-}
-
-.error-message {
-    font-size: 1.4rem;
-    color: var(--red-color);
-    margin-bottom: 20px;
 }
 
 .account-option {

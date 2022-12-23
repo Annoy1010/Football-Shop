@@ -1,46 +1,40 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import Axios from 'axios';
+import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
 
 import styles from './SignIn.module.scss';
 import configs from '../../config';
+import notify from '../../components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
-function SignIn({ username, setUsername, password, setPassword, setUser }) {
-    const [successSignIn, setSuccessSignIn] = useState(false);
-    const [submitClicked, setSubmitClicked] = useState(false);
-
-    if (successSignIn) {
-        window.open(window.location.origin, '_self');
-    }
+function SignIn() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleOnChangeUserName = (e) => {
         setUsername(e.target.value);
-        setSubmitClicked(false);
     };
 
     const handleOnChangePassword = (e) => {
         setPassword(e.target.value);
-        setSubmitClicked(false);
     };
 
     const handleOnSignIn = (e) => {
-        Axios.post('/user/login', {
-            username,
-            password,
-        })
+        axios
+            .post('/user/login', {
+                username,
+                password,
+            })
             .then((res) => {
-                if (res.data.length === 0) {
-                    e.preventDefault();
-                    setSubmitClicked(true);
-                } else {
+                if (res.data.length > 0) {
                     localStorage.setItem('user', JSON.stringify(res.data[0]));
-                    setUsername('');
-                    setPassword('');
-                    setUser({ username: res.data[0].userName, password: res.data[0].pass });
-                    setSuccessSignIn(true);
+                    notify('Đăng nhập thành công', 'success', 2000);
+                    setTimeout(() => window.open(window.location.origin, '_self'), 2100);
+                } else {
+                    notify('Thông tin đăng nhập sai. Vui lòng kiểm tra lại thông tin nhập', 'error', 2000);
                 }
             })
             .catch((err) => console.log(err));
@@ -50,7 +44,7 @@ function SignIn({ username, setUsername, password, setPassword, setUser }) {
         <div className={cx('wrapper')}>
             <div className={cx('signin')}>
                 <div className={cx('signin-type')}>
-                    <form className={cx('form')} method="POST">
+                    <div className={cx('form')}>
                         <div className={cx('input-item')}>
                             <label htmlFor="username" className={cx('label-item')}>
                                 Tên đăng nhập
@@ -77,10 +71,7 @@ function SignIn({ username, setUsername, password, setPassword, setUser }) {
                                 required
                             />
                         </div>
-                        {submitClicked && !successSignIn && (
-                            <label className={cx('error-message')}>Tài khoản không chính xác</label>
-                        )}
-                    </form>
+                    </div>
 
                     <div className={cx('account-option')}>
                         <Link to={configs.routes.forgetPassword} className={cx('reset-account-link')}>
@@ -99,6 +90,7 @@ function SignIn({ username, setUsername, password, setPassword, setUser }) {
                     <button className={cx('social-btn', 'facebook')}>Đăng nhập bằng Facebook</button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }

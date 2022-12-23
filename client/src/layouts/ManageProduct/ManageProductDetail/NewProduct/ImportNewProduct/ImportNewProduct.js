@@ -21,6 +21,7 @@ function ImportNewProduct({ setDisplayNewProductScreen, setImportList }) {
     const [sizeId, setSizeId] = useState(null);
     const [originalNationId, setOriginalNationId] = useState('');
     const [price, setPrice] = useState(null);
+    const [importPrice, setImportPrice] = useState(null);
     const [sale, setSale] = useState(null);
     const [importQuantity, setImportQuantity] = useState(null);
     const [frontImage, setFrontImage] = useState('https://daknong.dms.gov.vn/CmsView-QLTT-portlet/res/no-image.jpg');
@@ -114,6 +115,7 @@ function ImportNewProduct({ setDisplayNewProductScreen, setImportList }) {
             sizeId !== null &&
             originalNationId !== '' &&
             price !== null &&
+            importPrice !== null &&
             sale !== null &&
             importQuantity !== null &&
             frontImage !== '' &&
@@ -136,13 +138,13 @@ function ImportNewProduct({ setDisplayNewProductScreen, setImportList }) {
                             sizeId,
                             originalNationId,
                             price,
+                            importPrice,
                             sale,
                             importQuantity,
                             frontImage,
                             mainImage,
                             backImage,
                         };
-
                         setImportList((state) => [...state, product]);
                         setDisplayNewProductScreen(false);
                     } else {
@@ -278,8 +280,11 @@ function ImportNewProduct({ setDisplayNewProductScreen, setImportList }) {
                             <input
                                 value={price}
                                 className={cx('quantity-input-item')}
-                                placeholder="100000 VNĐ"
-                                onChange={(e) => setPrice(e.target.value)}
+                                placeholder="1.000.000 đ"
+                                onChange={(e) => {
+                                    setPrice(e.target.value);
+                                    setImportPrice(e.target.value);
+                                }}
                             />
                         </Col>
                         <Col lg={6} xl={6} className={cx('info-item')}>

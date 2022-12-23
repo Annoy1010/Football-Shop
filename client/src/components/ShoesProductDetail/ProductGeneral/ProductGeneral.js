@@ -25,6 +25,7 @@ function ProductGeneral({ product }) {
     const [chosedSize, setChosedSize] = useState(null);
     const [currentValue, setCurrentValue] = useState(0);
     const [cartId, setCartId] = useState(null);
+    const [imageIsDisplayingIndex, setImageIsDisplayingIndex] = useState(0);
 
     useEffect(() => {
         product &&
@@ -103,11 +104,41 @@ function ProductGeneral({ product }) {
         }
     };
 
+    const handleChangeImagePreview = (type) => {
+        switch (type) {
+            case 'next':
+                if (imageIsDisplayingIndex < 2) {
+                    setImageIsDisplayingIndex((state) => state + 1);
+                } else {
+                    setImageIsDisplayingIndex(0);
+                }
+                break;
+            case 'prev':
+                if (imageIsDisplayingIndex > 0) {
+                    setImageIsDisplayingIndex((state) => state - 1);
+                } else {
+                    setImageIsDisplayingIndex(2);
+                }
+                break;
+            default:
+                break;
+        }
+    };
+
     return (
         <Container>
             <Row>
                 <Col sm={12} lg={4} xl={5} className={cx('product-img')}>
-                    <img src={product.mainImage} alt="" />
+                    <img
+                        src={
+                            imageIsDisplayingIndex === 0
+                                ? product.mainImage
+                                : imageIsDisplayingIndex === 1
+                                ? product.frontImage
+                                : product.backImage
+                        }
+                        alt=""
+                    />
                 </Col>
                 <Col sm={12} lg={8} xl={7} className={cx('product-detail')}>
                     <div className={cx('product-name')}>Giày Bóng Đá {product.shoesName}</div>
@@ -183,6 +214,37 @@ function ProductGeneral({ product }) {
                         </Link>
                     </div>
                 </Col>
+            </Row>
+            <Row>
+                <Col sm={12} lg={4} xl={5} className={cx('product-image-list')}>
+                    <button className={cx('btn-prev')} onClick={() => handleChangeImagePreview('prev')}>{`<`}</button>
+                    <img
+                        src={product.mainImage}
+                        alt=""
+                        className={cx('img-preview', {
+                            active: imageIsDisplayingIndex === 0,
+                        })}
+                        onClick={() => setImageIsDisplayingIndex(0)}
+                    />
+                    <img
+                        src={product.frontImage}
+                        alt=""
+                        className={cx('img-preview', {
+                            active: imageIsDisplayingIndex === 1,
+                        })}
+                        onClick={() => setImageIsDisplayingIndex(1)}
+                    />
+                    <img
+                        src={product.backImage}
+                        alt=""
+                        className={cx('img-preview', {
+                            active: imageIsDisplayingIndex === 2,
+                        })}
+                        onClick={() => setImageIsDisplayingIndex(2)}
+                    />
+                    <button className={cx('btn-next')} onClick={() => handleChangeImagePreview('next')}>{`>`}</button>
+                </Col>
+                <Col sm={12} lg={8} xl={7} />
             </Row>
             <ToastContainer />
         </Container>

@@ -32,6 +32,7 @@ router.post('/employee/manage/update', userController.updateEmployee);
 router.post('/employee/manage/new', userController.postNewEmployee);
 
 router.get('/employee/all', userController.getEmployeeList);
+router.get('/all', userController.getCustomerList);
 router.use('/', userController.getUser);
 
 export default router;
