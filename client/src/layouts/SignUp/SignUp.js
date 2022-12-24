@@ -119,12 +119,12 @@ function SignUp() {
                                                                             notify(
                                                                                 'Đăng ký tài khoản thành công',
                                                                                 'success',
-                                                                                2000,
+                                                                                1500,
                                                                             );
 
                                                                             setTimeout(
                                                                                 () => window.location.reload(),
-                                                                                2100,
+                                                                                2000,
                                                                             );
                                                                         }
                                                                     })

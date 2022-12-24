@@ -62,9 +62,30 @@ function Order() {
                                     <div className={cx('user-info')}>
                                         <span className={cx('user-fullname')}>{userIsExisted && user.fullName}</span>
                                         <span className={cx('user-phone')}>{userIsExisted && user.phone}</span>
-                                        <span
+                                        <span className={cx('user-address')}>
+                                            {userAddress.length > 0 &&
+                                                `${
+                                                    userAddress.filter(
+                                                        (item) => item.addressId === orderItem.addressId,
+                                                    )[0].detailAddress
+                                                }, ${
+                                                    userAddress.filter(
+                                                        (item) => item.addressId === orderItem.addressId,
+                                                    )[0].wardName
+                                                }, ${
+                                                    userAddress.filter(
+                                                        (item) => item.addressId === orderItem.addressId,
+                                                    )[0].districtName
+                                                }, ${
+                                                    userAddress.filter(
+                                                        (item) => item.addressId === orderItem.addressId,
+                                                    )[0].provinceName
+                                                }`}
+                                            {/* Xử lý hiển thị địa chỉ*/}
+                                        </span>
+                                        {/* <span
                                             className={cx('user-address')}
-                                        >{`${userAddress[index].detailAddress}, ${userAddress[index].wardName}, ${userAddress[index].districtName}, ${userAddress[index].provinceName}`}</span>
+                                        >{orderItem.addressId ===  `${userAddress[index].detailAddress},  ${userAddress[index].wardName}, ${userAddress[index].districtName},  ${userAddress[index].provinceName}`}</span> */}
                                     </div>
                                     <div className={cx('price')}>
                                         <div className={cx('order-price')}>

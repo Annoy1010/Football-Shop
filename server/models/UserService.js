@@ -207,6 +207,39 @@ function getAvatar(req, res) {
     }
 }
 
+function updateProfileDetail(req, res) {
+    const data = req.body;
+    const username = data.username;
+    const roleAccess = data.roleAccess;
+    const fullName = data.fullName;
+    const email = data.email;
+    const phone = data.phone;
+
+    if (Number.parseInt(roleAccess) === 1) {
+        db.query(
+            `UPDATE EMPLOYEE SET fullName='${fullName}', email='${email}', phone='${phone}' WHERE userName='${username}'`,
+            (err, result) => {
+                if (err) {
+                    throw err;
+                } else {
+                    res.send(result);
+                }
+            },
+        );
+    } else {
+        db.query(
+            `UPDATE CUSTOMER SET fullName='${fullName}', email='${email}', phone='${phone}' WHERE userName='${username}'`,
+            (err, result) => {
+                if (err) {
+                    throw err;
+                } else {
+                    res.send(result);
+                }
+            },
+        );
+    }
+}
+
 function getCartIdInfo(req, res) {
     const data = req.body;
     const userId = data.userId;
@@ -617,6 +650,7 @@ const service = {
     postNewPassword,
     postAvatar,
     getAvatar,
+    updateProfileDetail,
     getCartIdInfo,
     getCartQuantityInfo,
     postNewCartDetailInfo,

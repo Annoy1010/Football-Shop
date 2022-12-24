@@ -49,6 +49,10 @@ class ProductRouter {
         ProductService.getProductsList(req, res);
     }
 
+    getTrendProducts(req, res) {
+        ProductService.getTrendProductsList(req, res);
+    }
+
     getProductList(req, res) {
         ProductService.getProductListDetail(req, res);
     }
@@ -121,6 +125,10 @@ class ProductRouter {
         ProductService.getProductByIdInfo(req, res);
     }
 
+    getSaleProduct(req, res) {
+        ProductService.getSaleProductDetail(req, res);
+    }
+
     getProductsListShoesNameAsc(req, res) {
         ProductService.getProductsListShoesNameAsc(req, res);
     }
@@ -139,6 +147,14 @@ class ProductRouter {
 
     getProductByTradeMark(req, res) {
         ProductService.getProductByTradeMark(req, res);
+    }
+
+    getProductByPositionName(req, res) {
+        ProductService.getProductByPositionName(req, res);
+    }
+
+    getProductByGrassId(req, res) {
+        ProductService.getProductByGrassId(req, res);
     }
 
     searchProductByShoesName(req, res) {

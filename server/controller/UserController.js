@@ -45,6 +45,10 @@ class UserRouter {
         UserService.getAvatar(req, res);
     }
 
+    updateProfile(req, res) {
+        UserService.updateProfileDetail(req, res);
+    }
+
     getCartId(req, res) {
         UserService.getCartIdInfo(req, res);
     }

@@ -38,16 +38,16 @@ function Address({ userId, setAddressId, userAddress, addressId }) {
                         <span>{defaultAddress.detailAddress}</span>
                     </Col>
                     <Col xl={3} className={cx('info-item')}>
-                        <label className={cx('label-name')}>Tỉnh thành</label>
-                        <span>{defaultAddress.provinceName}</span>
+                        <label className={cx('label-name')}>Xã phường</label>
+                        <span>{defaultAddress.wardName}</span>
                     </Col>
                     <Col xl={3} className={cx('info-item')}>
                         <label className={cx('label-name')}>Quận huyện</label>
                         <span>{defaultAddress.districtName}</span>
                     </Col>
                     <Col xl={3} className={cx('info-item')}>
-                        <label className={cx('label-name')}>Xã phường</label>
-                        <span>{defaultAddress.wardName}</span>
+                        <label className={cx('label-name')}>Tỉnh thành</label>
+                        <span>{defaultAddress.provinceName}</span>
                     </Col>
                 </Row>
             </Container>

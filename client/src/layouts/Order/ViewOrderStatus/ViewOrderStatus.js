@@ -40,7 +40,7 @@ function ViewOrderStatus({ setOrder, order }) {
                 .catch((err) => console.log(err));
         }
     };
-
+    console.log(order);
     return (
         <div className={cx('wrapper')}>
             <h3 className={cx('heading')}>Trạng thái đơn hàng</h3>
@@ -52,7 +52,7 @@ function ViewOrderStatus({ setOrder, order }) {
                     shoesDetailListOfOrder.map((product, index) => <OrderItem product={product} index={index} />)}
             </div>
             <div className={cx('status-detail')}>
-                {order.paymentId === '1' ? (
+                {order.paymentId === '1' && (
                     <>
                         <div
                             className={cx('status-item', {
@@ -76,7 +76,8 @@ function ViewOrderStatus({ setOrder, order }) {
                             <FontAwesomeIcon icon={faReceipt} className={cx('check-icon')} />
                         </div>
                     </>
-                ) : (
+                )}
+                {order.paymentId === '2' && (
                     <>
                         <div
                             className={cx('status-item', {
@@ -103,22 +104,50 @@ function ViewOrderStatus({ setOrder, order }) {
                 )}
             </div>
             <div className={cx('status-desc')}>
-                <div className={cx('status-desc-item')}>
-                    <span>Xác nhận</span>
-                    {order.submitStatus.data[0] === 1 && (
-                        <FontAwesomeIcon icon={faCheck} className={cx('check-icon')} />
-                    )}
-                </div>
-                <div className={cx('status-desc-item')}>
-                    <span>Giao hàng</span>
-                    {order.shipStatus.data[0] === 1 && <FontAwesomeIcon icon={faCheck} className={cx('check-icon')} />}
-                </div>
-                <div className={cx('status-desc-item')}>
-                    <span>Thanh toán</span>
-                    {order.paymentStatus.data[0] === 1 && (
-                        <FontAwesomeIcon icon={faCheck} className={cx('check-icon')} />
-                    )}
-                </div>
+                {order.paymentId === '1' && (
+                    <>
+                        <div className={cx('status-desc-item')}>
+                            <span>Xác nhận</span>
+                            {order.submitStatus.data[0] === 1 && (
+                                <FontAwesomeIcon icon={faCheck} className={cx('check-icon')} />
+                            )}
+                        </div>
+                        <div className={cx('status-desc-item')}>
+                            <span>Giao hàng</span>
+                            {order.shipStatus.data[0] === 1 && (
+                                <FontAwesomeIcon icon={faCheck} className={cx('check-icon')} />
+                            )}
+                        </div>
+                        <div className={cx('status-desc-item')}>
+                            <span>Thanh toán</span>
+                            {order.paymentStatus.data[0] === 1 && (
+                                <FontAwesomeIcon icon={faCheck} className={cx('check-icon')} />
+                            )}
+                        </div>
+                    </>
+                )}
+                {order.paymentId === '2' && (
+                    <>
+                        <div className={cx('status-desc-item')}>
+                            <span>Thanh toán</span>
+                            {order.paymentStatus.data[0] === 1 && (
+                                <FontAwesomeIcon icon={faCheck} className={cx('check-icon')} />
+                            )}
+                        </div>
+                        <div className={cx('status-desc-item')}>
+                            <span>Xác nhận</span>
+                            {order.submitStatus.data[0] === 1 && (
+                                <FontAwesomeIcon icon={faCheck} className={cx('check-icon')} />
+                            )}
+                        </div>
+                        <div className={cx('status-desc-item')}>
+                            <span>Giao hàng</span>
+                            {order.shipStatus.data[0] === 1 && (
+                                <FontAwesomeIcon icon={faCheck} className={cx('check-icon')} />
+                            )}
+                        </div>
+                    </>
+                )}
             </div>
             <div className={cx('options-btn')}>
                 <button

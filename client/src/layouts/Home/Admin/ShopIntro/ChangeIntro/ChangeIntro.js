@@ -187,13 +187,14 @@ function ChangeIntro({ store, setShowChangeShop }) {
                             onChange={(e) => setPhone(e.target.value)}
                         />
                     </Col>
-                    <Col sm={12} xl={6} lg={6}></Col>
-                    <input
-                        className={cx('shop-input-item')}
-                        value={facebook}
-                        placeholder="Facebook"
-                        onChange={(e) => setFacebook(e.target.value)}
-                    />
+                    <Col sm={12} xl={6} lg={6}>
+                        <input
+                            className={cx('shop-input-item')}
+                            value={facebook}
+                            placeholder="Facebook"
+                            onChange={(e) => setFacebook(e.target.value)}
+                        />
+                    </Col>
                     <Col sm={12} xl={6} lg={6}>
                         <input
                             className={cx('shop-input-item')}

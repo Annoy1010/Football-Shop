@@ -31,8 +31,8 @@ function SignIn() {
             .then((res) => {
                 if (res.data.length > 0) {
                     localStorage.setItem('user', JSON.stringify(res.data[0]));
-                    notify('Đăng nhập thành công', 'success', 2000);
-                    setTimeout(() => window.open(window.location.origin, '_self'), 2100);
+                    notify('Đăng nhập thành công', 'success', 1500);
+                    setTimeout(() => window.open(window.location.origin, '_self'), 2000);
                 } else {
                     notify('Thông tin đăng nhập sai. Vui lòng kiểm tra lại thông tin nhập', 'error', 2000);
                 }

@@ -64,7 +64,8 @@ function ShopIntro() {
                         <b>Địa chỉ:</b>
                     </span>
                     <span className={cx('item-content')}>
-                        {wardName &&
+                        {Object.keys(store).length > 0 &&
+                            wardName &&
                             districtName &&
                             provinceName &&
                             `${store.detailAddress}, ${wardName}, ${districtName}, ${provinceName}`}

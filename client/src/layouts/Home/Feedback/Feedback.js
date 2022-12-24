@@ -77,7 +77,6 @@ function Feedback() {
                                         value={title}
                                         className={cx('input-area')}
                                         onChange={(e) => handleOnChangeTitle(e)}
-                                        required
                                     />
                                 </Col>
                                 <Col sm={12} lg={12} xl={12} className={cx('input-item')}>
@@ -90,7 +89,6 @@ function Feedback() {
                                         className={cx('input-area')}
                                         rows="4"
                                         onChange={(e) => handleOnChangeContent(e)}
-                                        required
                                     />
                                     {errorMessage && (
                                         <span className={cx('error-message')}>Vui lòng điền đầy đủ thông tin</span>

@@ -11,6 +11,8 @@ router.post('/size/availableQuantity', productController.getAvailableQuantityWit
 router.post('/import/newImportDetail', productController.postImportDetail);
 router.post('/size/all', productController.getProductsWithSizeAndId);
 router.post('/trademark', productController.getProductByTradeMark);
+router.post('/grassid', productController.getProductByGrassId);
+router.post('/position', productController.getProductByPositionName);
 router.post('/import/frontImage', productController.postFrontImage);
 router.post('/import/mainImage', productController.postMainImage);
 router.post('/import/backImage', productController.postBackImage);
@@ -25,13 +27,15 @@ router.post('/available/update', productController.updateAvailableQuantityAfterO
 // router.post('/all/id', productController.getProductsById);
 
 router.get('/all', productController.getProducts);
+router.get('/trend', productController.getTrendProducts);
 router.get('/all/detail', productController.getProductList);
+router.post('/id', productController.getProductById);
+router.get('/all/sale', productController.getSaleProduct);
 
 router.get('/all/sort/az', productController.getProductsListShoesNameAsc);
 router.get('/all/sort/za', productController.getProductsListShoesNameDesc);
 router.get('/all/sort/priceincrease', productController.getProductsListPriceAsc);
 router.get('/all/sort/pricedecrease', productController.getProductsListPriceDesc);
-router.get('/all/sale', productController.getProductById);
 router.get('/image/all', productController.getAllImage);
 router.get('/import/importID', productController.getImportID);
 router.get('/import/productId', productController.getShoesId);

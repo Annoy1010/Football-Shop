@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -217,7 +218,9 @@ function ProductGeneral({ product }) {
             </Row>
             <Row>
                 <Col sm={12} lg={4} xl={5} className={cx('product-image-list')}>
-                    <button className={cx('btn-prev')} onClick={() => handleChangeImagePreview('prev')}>{`<`}</button>
+                    <button className={cx('btn-prev')} onClick={() => handleChangeImagePreview('prev')}>
+                        <FontAwesomeIcon icon="fa-solid fa-chevron-left" />
+                    </button>
                     <img
                         src={product.mainImage}
                         alt=""
@@ -242,7 +245,9 @@ function ProductGeneral({ product }) {
                         })}
                         onClick={() => setImageIsDisplayingIndex(2)}
                     />
-                    <button className={cx('btn-next')} onClick={() => handleChangeImagePreview('next')}>{`>`}</button>
+                    <button className={cx('btn-next')} onClick={() => handleChangeImagePreview('next')}>
+                        <FontAwesomeIcon icon="fa-solid fa-chevron-right" />
+                    </button>
                 </Col>
                 <Col sm={12} lg={8} xl={7} />
             </Row>

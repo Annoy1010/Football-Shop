@@ -23,11 +23,76 @@ const sortProduct = [
 
 function ProductList({ trademark, setTradeMark }) {
     const location = useLocation();
-    const trademark_state = location.state;
-    console.log(trademark_state);
 
     const [loading, setLoading] = useState(true);
     const [productList, setProductList] = useState([]);
+    let trademark_state = null;
+    let field_state = null;
+    let position_state = null;
+
+    const distinctAvailableProductList = [];
+
+    useEffect(() => {
+        if (location.state === null) {
+            axios
+                .get('/products/all')
+                .then((res) => setProductList(res.data))
+                .catch((err) => console.log(err));
+        } else {
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            trademark_state = location.state.trademark;
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            field_state = location.state.field;
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            position_state = location.state.position;
+        }
+        setLoading(false);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        if (trademark !== null) {
+            axios
+                .post('/products/trademark', {
+                    trademark: trademark_state,
+                })
+                .then((res) => setProductList(res.data))
+                .catch((err) => console.log(err));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [trademark]);
+
+    useEffect(() => {
+        if (trademark_state !== null) {
+            axios
+                .post('/products/trademark', {
+                    trademark: trademark_state.trademark,
+                })
+                .then((res) => setProductList(res.data))
+                .catch((err) => console.log(err));
+        }
+    }, [trademark_state]);
+
+    useEffect(() => {
+        axios
+            .post('/products/grassid', {
+                grassid: field_state,
+            })
+            .then((res) => setProductList(res.data))
+            .catch((err) => console.log(err));
+    }, [field_state]);
+
+    useEffect(() => {
+        if (position_state !== null) {
+            axios
+                .post('/products/position', {
+                    positionName: position_state,
+                })
+                .then((res) => setProductList(res.data))
+                .catch((err) => console.log(err));
+        }
+    }, [position_state]);
 
     const handleOnChangeSort = (e) => {
         switch (e.target.value) {
@@ -65,55 +130,6 @@ function ProductList({ trademark, setTradeMark }) {
                 break;
         }
     };
-
-    const distinctAvailableProductList = [];
-
-    useEffect(() => {
-        if (location.state === null) {
-            axios
-                .get('/products/all')
-                .then((res) => setProductList(res.data))
-                .catch((err) => console.log(err));
-            setLoading(false);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        if (trademark !== null) {
-            axios
-                .post('/products/trademark', {
-                    trademark: trademark,
-                })
-                .then((res) => setProductList(res.data))
-                .catch((err) => console.log(err));
-        }
-    }, [trademark]);
-
-    useEffect(() => {
-        if (trademark === null) {
-            setTradeMark(null);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [trademark]);
-
-    useEffect(() => {
-        if (trademark_state !== null) {
-            axios
-                .post('/products/trademark', {
-                    trademark: trademark_state.trademark,
-                })
-                .then((res) => setProductList(res.data))
-                .catch((err) => console.log(err));
-        }
-    }, [trademark_state]);
-
-    useEffect(() => {
-        if (location.state !== null) {
-            location.state = null;
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [trademark_state]);
 
     return (
         <div className={cx('wrapper')}>

@@ -1,107 +1,3 @@
-const user = [
-    {
-        id: '000001',
-        username: 'annoy',
-        name: 'Lê Thế Phúc',
-        phone: '0368341595',
-        mail: 'lethephuc2002@gmail.com',
-        address: {
-            street: 'Bưu điện Linh Trung, Đường số 4',
-            ward: 'Phường Linh Trung',
-            district: 'Thành phố Thủ Đức',
-            province: 'TP. Hồ Chí Minh',
-        },
-    },
-    {
-        id: '000002',
-        username: 'sanpot',
-        name: 'Lê Thế Phúc',
-        phone: '0368341595',
-        mail: 'lephuc8a1@gmail.com',
-        address: {
-            street: 'Bưu điện Linh Trung, Đường số 4',
-            ward: 'Phường Linh Trung',
-            district: 'Thành phố Thủ Đức',
-            province: 'TP. Hồ Chí Minh',
-        },
-    },
-];
-
-const products = [
-    {
-        id: '000001',
-        name: 'Nike Mercurial Superfly 9 Elite',
-        src: 'https://static.nike.com/a/images/t_default/340736d0-54f8-4164-96c0-7a934b97f65b/zoom-mercurial-superfly-9-elite-fg-firm-ground-soccer-cleats-zvNH5C.png',
-        price: 8929000,
-        size: [38, 39, 40, 41, 42, 43, 44],
-        availableSize: [40, 41, 42],
-        sale: null,
-        field: 'FG',
-        trademark: 'Nike',
-        originNational: 'Trung Quốc',
-    },
-    {
-        id: '000002',
-        name: 'Nike Mercurial Vapor 15 Elite',
-        src: 'https://static.nike.com/a/images/t_default/5a1696b9-8f1d-4f6c-9027-0043ff8e60e3/zoom-mercurial-vapor-15-elite-fg-firm-ground-soccer-cleats-0D1QW8.png',
-        price: 5790000,
-        size: [38, 39, 40, 41, 42, 43, 44],
-        availableSize: [38, 40, 41, 42],
-        sale: 30,
-        field: 'FG',
-        trademark: 'Nike',
-        originNational: 'Trung Quốc',
-    },
-    {
-        id: '000003',
-        name: 'Nike Mercurial Superfly 9 Elite',
-        src: 'https://static.nike.com/a/images/t_default/f12655e6-ee47-4f7e-a6a1-95bfcb115221/zoom-mercurial-superfly-9-elite-km-fg-firm-ground-soccer-cleats-sb8gJK.png',
-        price: 8349000,
-        size: [38, 39, 40, 41, 42, 43, 44],
-        availableSize: [40, 41, 42, 43],
-        sale: 30,
-        field: 'FG',
-        trademark: 'Nike',
-        originNational: 'Trung Quốc',
-    },
-    {
-        id: '000004',
-        name: 'Nike Phantom GT Elite',
-        src: 'https://images.jdmagicbox.com/quickquotes/images_main/nike-kids-footwear-23-07-2021-227-239598261-0anne.png',
-        price: 6500000,
-        size: [38, 39, 40, 41, 42, 43, 44],
-        availableSize: [39, 42],
-        sale: 30,
-        field: 'FG',
-        trademark: 'Nike',
-        originNational: 'Trung Quốc',
-    },
-    {
-        id: '000005',
-        name: 'Nike Mercurial Superfly 8 Academy',
-        src: 'https://cdn.vietnambiz.vn/171464876016439296/2021/6/17/custom-nike-mercurial-superfly-8-academy-by-you-1623902919942359771744.png',
-        price: 2270000,
-        size: [38, 39, 40, 41, 42, 43, 44],
-        availableSize: [40, 42],
-        sale: 30,
-        field: 'FG',
-        trademark: 'Nike',
-        originNational: 'Trung Quốc',
-    },
-    {
-        id: '000006',
-        name: 'Nike Mercurial Zoom Vapor 14 Pro',
-        src: 'https://cdn.shopify.com/s/files/1/2704/4738/products/image_58c97127-945d-4d31-bc6a-53154f4a6825_480x480.png?v=1628715490',
-        price: 2650000,
-        size: [38, 39, 40, 41, 42, 43, 44],
-        availableSize: [38, 41, 42, 44],
-        sale: 30,
-        field: 'IC',
-        trademark: 'Nike',
-        originNational: 'Trung Quốc',
-    },
-];
-
 const storeRules = [
     {
         content:
@@ -249,16 +145,19 @@ const productOptionsList = [
 
 const productsOfField = [
     {
+        id: 1,
         name: 'Giày cỏ nhân tạo (TF)',
         desc: 'Giày dành cho mặt sân nhân tạo 5-7 người',
         src: 'https://static.nike.com/a/images/t_default/abb37116-285b-41e2-baf3-4305a3cb8298/mercurial-vapor-15-club-tf-football-shoes-1f5s8B.png',
     },
     {
+        id: 2,
         name: 'Giày cỏ tự nhiên (FG)',
         desc: 'Giày dành cho mặt sân tự nhiên 11 người',
         src: 'https://static.nike.com/a/images/t_default/b6836e2d-1979-4496-9401-dd8d6778731a/phantom-gt2-elite-fg-football-boot-wRNH0g.png',
     },
     {
+        id: 3,
         name: 'Sân Futsal (IC)',
         desc: 'Giày dành cho mặt sân xi măng và trong nhà',
         src: 'https://www.newmagista.com/7065-thickbox_default/nike-mercurial-superflyx-vi-elite-ic-indoor-shoes-orange-black.jpg',
@@ -378,123 +277,7 @@ const position = [
     { name: 'Tiền đạo', src: 'https://i.pinimg.com/originals/cb/aa/49/cbaa494630e80787291c9d5a5e8dffa7.jpg' },
 ];
 
-const comment = [
-    {
-        userName: 'sanpot',
-        productId: '000001',
-        content: 'Sản phẩm chất lượng',
-        date: '2022-09-10 10:00',
-    },
-    {
-        userName: 'sanpot',
-        productId: '000002',
-        content: 'Sản phẩm chất lượng',
-        date: '2022-09-16 12:00',
-    },
-    {
-        userName: 'ls199',
-        productId: '000001',
-        content: 'Sản phẩm phù hợp giá tiền',
-        date: '2022-10-10 08:15',
-    },
-    {
-        userName: 'hellomn',
-        productId: '000001',
-        content: 'Giao hàng sớm',
-        date: '2022-10-11 15:20',
-    },
-    {
-        userName: 'ls199',
-        productId: '000003',
-        content: 'Sản phẩm phù hợp giá tiền',
-        date: '2022-10-13 17:15',
-    },
-];
-
-const cart = [
-    {
-        userId: '0000000001',
-        products: [
-            {
-                productId: '000001',
-                size: 40,
-                quantity: 1,
-            },
-            {
-                productId: '000002',
-                size: 42,
-                quantity: 3,
-            },
-            {
-                productId: '000003',
-                size: 40,
-                quantity: 3,
-            },
-        ],
-        ship: 0,
-    },
-];
-
-const order = [
-    {
-        userId: '000001',
-        orderId: '111111',
-        products: [
-            {
-                productId: '000001',
-                size: 40,
-                quantity: 1,
-            },
-            {
-                productId: '000003',
-                size: 40,
-                quantity: 3,
-            },
-        ],
-        receivedStatus: false,
-        ship: 0,
-    },
-    {
-        userId: '000001',
-        orderId: '111112',
-        products: [
-            {
-                productId: '000002',
-                size: 40,
-                quantity: 2,
-            },
-            {
-                productId: '000004',
-                size: 40,
-                quantity: 2,
-            },
-        ],
-        receivedStatus: false,
-        ship: 0,
-    },
-    {
-        userId: '000002',
-        orderId: '111113',
-        products: [
-            {
-                productId: '000002',
-                size: 40,
-                quantity: 1,
-            },
-            {
-                productId: '000003',
-                size: 40,
-                quantity: 3,
-            },
-        ],
-        receivedStatus: false,
-        ship: 0,
-    },
-];
-
 const data = {
-    user,
-    products,
     storeRules,
     contacts,
     productOptionsList,
@@ -503,9 +286,6 @@ const data = {
     trademarks,
     position,
     allProductChoicesMenu,
-    comment,
-    cart,
-    order,
 };
 
 export default data;

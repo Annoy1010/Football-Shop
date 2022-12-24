@@ -13,6 +13,19 @@ function getProductsList(req, res) {
     );
 }
 
+function getTrendProductsList(req, res) {
+    db.query(
+        `SELECT DISTINCT shoesId, COUNT(shoesId) from ORDER_DETAIL GROUP BY shoesId ORDER BY COUNT(shoesId) DESC LIMIT 4`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
 function getProductListDetail(req, res) {
     db.query(`SELECT * FROM SHOES `, (err, result) => {
         if (err) {
@@ -340,6 +353,19 @@ function getProductByIdInfo(req, res) {
     );
 }
 
+function getSaleProductDetail(req, res) {
+    db.query(
+        `SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId AND s.sale > 0`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
 function getProductsListShoesNameAsc(req, res) {
     db.query(
         `SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId ORDER BY shoesName ASC`,
@@ -397,6 +423,36 @@ function getProductByTradeMark(req, res) {
     const trademark = data.trademark;
     db.query(
         `SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss, trademark tm WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId and s.trademarkId = tm.trademarkId and trademarkName = '${trademark}'`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function getProductByGrassId(req, res) {
+    const data = req.body;
+    const grassid = data.grassid;
+    db.query(
+        `SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss, trademark tm WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId and s.trademarkId = tm.trademarkId and s.grassId = '${grassid}'`,
+        (err, result) => {
+            if (err) {
+                throw err;
+            } else {
+                res.send(result);
+            }
+        },
+    );
+}
+
+function getProductByPositionName(req, res) {
+    const data = req.body;
+    const positionName = data.positionName;
+    db.query(
+        `SELECT * FROM SHOES s, SHOES_IMAGE si, SHOES_SIZE ss, PLAY_POSITION pp WHERE s.shoesId = si.shoesId and s.shoesId = ss.shoesId and s.playPositionId = pp.playpositionId and pp.playPositionName = '${positionName}'`,
         (err, result) => {
             if (err) {
                 throw err;
@@ -672,7 +728,9 @@ function updateAvailableQuantityDetailAfterOrder(req, res) {
     const shoesQuantity = data.shoesQuantity;
 
     db.query(
-        `UPDATE SHOES_SIZE SET quantity = quantity - ${shoesQuantity} WHERE shoesId=${shoesId} AND sizeId='${sizeId}'`,
+        `UPDATE SHOES_SIZE SET quantity = quantity - ${Number.parseInt(
+            shoesQuantity,
+        )} WHERE shoesId = ${shoesId} AND sizeId = '${sizeId}'`,
         (err, result) => {
             if (err) {
                 throw err;
@@ -696,6 +754,7 @@ const service = {
     getNationalInfo,
     getDescInfo,
     getProductsList,
+    getTrendProductsList,
     getProductListDetail,
     getSaleProductsList,
     getImportIDInfo,
@@ -715,11 +774,14 @@ const service = {
     getSizeInfo,
     getAvailableQuantityOfSizeInfo,
     getProductByIdInfo,
+    getSaleProductDetail,
     getProductsListShoesNameAsc,
     getProductsListShoesNameDesc,
     getProductsListPriceAsc,
     getProductsListPriceDesc,
     getProductByTradeMark,
+    getProductByGrassId,
+    getProductByPositionName,
     searchProductByShoesName,
     updatePriceInfo,
     updateSaleInfo,

@@ -1,6 +1,16 @@
 import classNames from 'classnames/bind';
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement } from 'chart.js';
-import { Bar, Pie } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    Tooltip,
+    Legend,
+    ArcElement,
+    LineElement,
+    PointElement,
+} from 'chart.js';
+import { Bar, Pie, Line } from 'react-chartjs-2';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,13 +21,13 @@ import Col from 'react-bootstrap/esm/Col';
 import styles from './Statistics.module.scss';
 const cx = classNames.bind(styles);
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement);
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement, LineElement, PointElement);
 
 function Statistics() {
     const [trademarkList, setTrademarkList] = useState([]);
     const [availableQuantityByTrademark, setAvailableQuantityByTrademark] = useState([]);
     const [importQuantityTotalByTrademark, setImportQuantityTotalTrademark] = useState([]);
-    const [importProductHistory, setImportHistory] = useState([]);
+    const [importProductHistory, setImportProductHistory] = useState([]);
     const [partTimeSalary, setPartTimeSalary] = useState(0);
     const [numberOfEmployee, setNumberOfEmployee] = useState(0);
     const [monthForReportSale, setMonthForReportSale] = useState(() => {
@@ -46,7 +56,7 @@ function Statistics() {
             .catch((err) => console.log(err));
         axios
             .get('/products/import/all')
-            .then((res) => setImportHistory(res.data))
+            .then((res) => setImportProductHistory(res.data))
             .catch((err) => console.log(err));
         axios
             .get('/parameter')
@@ -54,7 +64,21 @@ function Statistics() {
             .catch((err) => console.log(err));
         axios
             .get('/user/employee/all')
-            .then((res) => setNumberOfEmployee(res.data.length))
+            .then((res) =>
+                setNumberOfEmployee(() => {
+                    const numberOfEmployeeWorkBeforeToday = res.data.filter((employee) => {
+                        var mm = new Date().getUTCMonth();
+                        var yyyy = new Date().getUTCFullYear();
+
+                        var date = new Date(Date.parse(employee.startDate));
+                        var monthOfEntryWork = date.getUTCMonth();
+                        var yearOfEntryWork = date.getUTCFullYear();
+                        console.log(monthOfEntryWork, mm);
+                        return monthOfEntryWork < mm && yearOfEntryWork <= yyyy;
+                    }).length;
+                    return numberOfEmployeeWorkBeforeToday;
+                }),
+            )
             .catch((err) => console.log(err));
         axios
             .get('/order')
@@ -84,6 +108,51 @@ function Statistics() {
         ],
     };
 
+    const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    const saleOfMonth =
+        orderHistory.length > 0 &&
+        months.map((month) => {
+            const sale = orderHistory.reduce((acc, orderItem) => {
+                var date = new Date(Date.parse(orderItem.orderDate));
+                var monthOfOrder = ('00' + (date.getUTCMonth() + 1)).slice(-2);
+                var yearOfOrder = date.getUTCFullYear();
+
+                return (
+                    Number.parseInt(monthOfOrder) === month &&
+                    yearOfOrder === new Date().getUTCFullYear() &&
+                    acc + orderItem.totalCost
+                );
+            }, 0);
+            return sale;
+        });
+
+    const saleData = {
+        labels: [
+            'Tháng 1',
+            'Tháng 2',
+            'Tháng 3',
+            'Tháng 4',
+            'Tháng 5',
+            'Tháng 6',
+            'Tháng 7',
+            'Tháng 8',
+            'Tháng 9',
+            'Tháng 10',
+            'Tháng 11',
+            'Tháng 12',
+        ],
+        datasets: [
+            {
+                label: 'Doanh thu',
+                data: saleOfMonth,
+                backgroundColor: '#0047AB',
+                pointBorderColor: '#191970',
+                fill: true,
+                tension: 0.4,
+            },
+        ],
+    };
+
     const totalEmployeeSalary = partTimeSalary && numberOfEmployee && numberOfEmployee * partTimeSalary;
     const totalImport =
         importProductHistory.length > 0 &&
@@ -98,11 +167,15 @@ function Statistics() {
             return acc;
         }, 0);
 
-    const saleData = {
+    const summaryData = {
         labels: ['Lợi nhuận', 'Lương nhân viên', 'Tiền nhập hàng'],
         datasets: [
             {
-                data: [totalEmployeeSalary * 3 + totalImport, totalEmployeeSalary, totalImport],
+                data: [
+                    saleOfMonth[Number.parseInt(monthForReportSale) - 1] - totalEmployeeSalary - totalImport,
+                    totalEmployeeSalary,
+                    totalImport,
+                ],
                 backgroundColor: ['#E97451', '#EE4B2B', '#E49B0F'],
             },
         ],
@@ -162,7 +235,7 @@ function Statistics() {
                 break;
         }
     };
-    console.log(orderHistory);
+
     return (
         <div className={cx('wrapper')}>
             <Container className={cx('statistics-product')}>
@@ -219,11 +292,16 @@ function Statistics() {
                 </Row>
             </Container>
 
-            <Container className={cx('statistics-sale')}>
+            <div className={cx('statistics-sale')}>
+                <h2 className={cx('heading')}>BIỂU ĐỒ DOANH THU CỦA CỬA HÀNG NĂM {`${new Date().getFullYear()}`}</h2>
+                <Line data={saleData} />
+            </div>
+
+            <Container className={cx('statistics-summary')}>
                 <Row>
                     <Col sm={12} xl={5} lg={5}>
-                        <h2 className={cx('heading')}>BIỂU ĐỒ DOANH THU CỦA CỬA HÀNG</h2>
-                        <Pie data={saleData} />
+                        <h2 className={cx('heading')}>BIỂU ĐỒ TỔNG HỢP CỦA CỬA HÀNG</h2>
+                        <Pie data={summaryData} />
                         <div className={cx('btn-option-time')}>
                             <button className={cx('btn-change-time-report')} onClick={() => handleViewReport('prev')}>
                                 <FontAwesomeIcon icon="fa-solid fa-chevron-left" />
@@ -233,9 +311,9 @@ function Statistics() {
                                 <FontAwesomeIcon icon="fa-solid fa-chevron-right" />
                             </button>
                         </div>
-                        <div className={cx('btn-export')}>
+                        {/* <div className={cx('btn-export')}>
                             <button>Xem chi tiết</button>
-                        </div>
+                        </div> */}
                     </Col>
                     <Col sm={12} xl={7} lg={7}>
                         <h2 className={cx('heading')}>Đơn hàng gần đây</h2>

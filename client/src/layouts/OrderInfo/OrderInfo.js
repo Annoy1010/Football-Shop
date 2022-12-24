@@ -47,17 +47,16 @@ function OrderInfo() {
 
     useEffect(() => {
         if (productList.length !== 0 && numberOfSuccessAffectedRow === productList.length) {
-            notify('Đặt hàng thành công', 'success', 2000);
-            const timeOut = setTimeout(() => {
-                window.open(window.location.origin + `/user/id/${userId}/order`, '_self');
-            }, 2100);
-            return () => {
-                clearTimeout(timeOut);
-            };
+            notify('Đặt hàng thành công', 'success', 1500);
+            window.open(window.location.origin + `/user/id/${userId}/order`, '_self');
+            // const timeOut = setTimeout(() => {
+            // }, 2000);
+            // return () => {
+            //     clearTimeout(timeOut);
+            // };
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [numberOfSuccessAffectedRow]);
-
     const handleOrder = () => {
         if (paymentId === null) {
             notify('Vui lòng chọn phương thức thanh toán', 'warn', 1000);
@@ -92,6 +91,7 @@ function OrderInfo() {
                                                         .catch((err) => console.log(err));
                                                     /// Đặt hàng từ giỏ hàng (cập nhật lại số lượng sản phẩm đang có)
                                                 }
+                                                setNumberOfSuccessAffectedRow((state) => state + 1);
                                                 axios
                                                     .post('/products/available/update', {
                                                         shoesId: product.shoesId,
@@ -100,7 +100,6 @@ function OrderInfo() {
                                                     })
                                                     .then((res) => {
                                                         if (res.data.affectedRows > 0) {
-                                                            setNumberOfSuccessAffectedRow((state) => state + 1);
                                                         }
                                                     })
                                                     .catch((err) => console.log(err));

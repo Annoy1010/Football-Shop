@@ -39,7 +39,7 @@ function Trademark() {
                                 <Link
                                     className={cx('product-view-btn')}
                                     to="/products"
-                                    state={{ trademark: item.name }}
+                                    state={{ trademark: item.name, field: null, position: null }}
                                 >
                                     Xem ngay
                                 </Link>

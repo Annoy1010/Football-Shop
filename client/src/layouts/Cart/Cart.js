@@ -40,7 +40,7 @@ function Cart() {
             .catch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    console.log('product chosed buy: ', chosedBuyList);
+
     useEffect(() => {
         if (cartId) {
             axios
@@ -170,11 +170,7 @@ function Cart() {
                                         </div>
                                         <Link
                                             className={cx('order-btn')}
-                                            to={
-                                                productBuyList.length > 0
-                                                    ? `/user/id/${userId}/order/info`
-                                                    : console.log('product buy list', productBuyList)
-                                            }
+                                            to={productBuyList.length > 0 && `/user/id/${userId}/order/info`}
                                             state={{
                                                 userId: userId,
                                                 productList: productBuyList,
